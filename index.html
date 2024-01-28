@@ -97,6 +97,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h6 class="secondary2" style="text-align:center">Notice Period: 3 Months</h6>
+					
 				</div>
 				<div class="col-md-8">
 					<h2 style="color:black; font-weight:bold;">Kuldeep J. Bhartiya</h2>
@@ -112,9 +113,8 @@
 					<!-- Add your image source in src -->
 					<!-- <img src="image.jpg" alt="Profile Picture" class="img-fluid img-circle"> -->
 					<button id="printButton" onclick="window.print()">
-						<i class="fas fa-print"></i> Print this page
+						<i class="fas fa-print"> Print Resume</i> <span id="lastUpdatedDate" class="secondary2 style=font-size:0.1em;"></span> 
 					</button>
-					<span id="lastUpdatedDate" class="secondary2 style=font-size:0.1em;"></span>
 				</div>
 			</div>
 			<div class="row">
@@ -129,7 +129,7 @@
 						Committed to continuous learning, I am actively enhancing my AI expertise to keep pace with the evolving field. 
 						My creativity and proven track record make me a reliable choice for complex software challenges.</p>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-7">
 					<h3>Skills</h3>
 					<hr>
 					<div class="skills-section">
@@ -153,7 +153,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<h3>Certifications</h3>
 					<hr>
 					<ul>
@@ -164,7 +164,6 @@
 						</li>
 						<li>Microsoft/LinkedIn: Career Essentials in Generative AI </li>
 						<li>Infosys: Generative AI Professional, Prompt Engineering</li>
-						<li class="secondary">Mendix Rapid Developer</li>
 						<li class="secondary">Pursuing: Azure Open AI & Other AI skills </li>
 					</ul>
 					<!-- <br> -->
@@ -190,7 +189,7 @@
 						<li>Lead the development team and ensured adherence to architectural guidelines.</li>
 						<li>Collaborated with stakeholders for software that meets business needs.</li>
 					</ul>
-					<!-- <br> --> <br>
+					<!-- <br> --> <br><br>
 					<h3 style="font-weight:bold;">Technology Lead</h3>
 					<p>LTIMindtree (formerly known as L&T Infotech) <i class="fas fa-calendar-alt"></i> Aug 2018 - Sep 2022 <i class="fas fa-map-marker-alt"></i> Mumbai</p>
 					<p>LTIMindtree Limited is an Indian multinational information technology services and consulting company based in Mumbai.</p>
@@ -251,7 +250,7 @@
 			}
 
 			// default settings
-			document.getElementById('lastUpdatedDate').textContent  = "Last Updated: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+			document.getElementById('lastUpdatedDate').textContent  = " Last Updated: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 			document.getElementById('lastRoleExperience').innerText = calculateDuration('05-09-2022');
 			document.getElementById("lastRole").innerText = document.getElementById("current-role").innerText;;
 
