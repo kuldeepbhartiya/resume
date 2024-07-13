@@ -96,7 +96,7 @@
 		<div class="container content">
 			<div class="row">
 				<div class="col-md-12">
-					<h6 class="secondary2" style="text-align:center">Notice Period: 3 Months (negotiable)</h6>
+					<h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6>
 					
 				</div>
 				<div class="col-md-8">
@@ -110,7 +110,7 @@
 					</div>
 					<h3 style="color:blue;">Technology Architect</h3>
 					<p class="contact-info">
-						<span><i class="fas fa-user"></i> Male, 36 years</span>
+						<span><i class="fas fa-user"></i> Male, <label id="age"> </label> years</span>
 						<span><i class="fas fa-phone"></i> +91 8452811781</span>
 						<span><i class="fas fa-envelope"></i> kjb1788@gmail.com</span>
 						<span><a title="click to visit kuldeep's LinkedIn profile" href="https://in.linkedin.com/in/kuldeep-bhartiya-6913391b" target="_blank"><i class="fab fa-linkedin"></i> Kuldeep Bhartiya</a></span>
@@ -266,10 +266,35 @@
 				elements[i].textContent = calculateDuration('16-02-2012');
 			}
 
+			function calculateNoticePeriod(endOfNoticePeriodString, noticePeriod = true, defaultNoticePeriod = 90) {
+				// Parse the endOfNoticePeriod string into a Date object
+				const endOfNoticePeriod = new Date(endOfNoticePeriodString.split("-").reverse());
+
+				// Get today's date
+				const today = new Date();
+
+				// Calculate the difference in milliseconds
+				const differenceInMs = endOfNoticePeriod - today;
+
+				// Check if notice period flag is true
+				if (noticePeriod) {
+					document.getElementById("noticePeriod").style.color = "red";
+
+					// Calculate difference in days (rounded up)
+					const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
+					return `Serving Notice Period: ${differenceInDays} days remaining`;
+				} else {
+					return `Notice Period: ${defaultNoticePeriod} days`;
+				}
+			}
+
+
 			// default settings
 			document.getElementById('lastUpdatedDate').textContent  = " Last Updated: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 			document.getElementById('lastRoleExperience').innerText = calculateDuration('05-09-2022');
-			document.getElementById("lastRole").innerText = document.getElementById("current-role").innerText;;
+			document.getElementById("lastRole").innerText = document.getElementById("current-role").innerText;
+			document.getElementById("age").innerText = parseInt(calculateDuration('01-07-1988'));
+			document.getElementById("noticePeriod").innerText = calculateNoticePeriod("31-10-2024", false);
 
 		</script>
 	</body>
