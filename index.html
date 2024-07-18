@@ -97,7 +97,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6>
-					<p class="secondary3" style="text-align:center; color="blue"><a href="https://kuldeepbhartiya.github.io/resume/">For latest info visit https://kuldeepbhartiya.github.io/resume/</a></p>
+					<p class="secondary3" style="text-align:center; color:blue"><a href="https://kuldeepbhartiya.github.io/resume/">For latest info visit https://kuldeepbhartiya.github.io/resume/</a></p>
 					
 				</div>
 				<div class="col-md-8">
@@ -133,8 +133,8 @@
 					<p>With over <strong><span class="totalExperience"></span></strong> of experience in software engineering (backend & frontend development),  
 						My diverse expertise in Banking, Financial Services and Insurance (BFSI), Healthcare, Oil & Gas, Stock Exchanges and other industry domains has enabled me to deliver 
 						solutions for all clients, including many top Fortune ranked companies. 
-						<!-- I have spent the last <strong><span id="lastRoleExperience"></span></strong> as a <strong><span id="lastRole"><span></strong>,  -->
-						As a Technology Architect, I had been leading, designing and migrating complex software solutions. 
+						<!-- I have spent the last <strong><span id="lastRoleExperience"></span></strong>  -->
+						As a <strong><span id="lastRole"><span></strong>, I had been leading, designing and migrating complex software solutions. 
 						Worked with other big indian technology MNC companies in collaboration with their top technology partners in world.
 						Committed to continuous learning, I am actively enhancing my AI expertise to keep pace with the evolving field. 
 						My creativity and proven track record make me a reliable choice for complex software challenges.</p>
@@ -292,7 +292,7 @@
 
 			// default settings
 			document.getElementById('lastUpdatedDate').textContent  = " Last Updated: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-			document.getElementById('lastRoleExperience').innerText = calculateDuration('05-09-2022');
+			//document.getElementById('lastRoleExperience').innerText = calculateDuration('05-09-2022');
 			document.getElementById("lastRole").innerText = document.getElementById("current-role").innerText;
 			document.getElementById("age").innerText = parseInt(calculateDuration('01-07-1988'));
 			document.getElementById("noticePeriod").innerText = calculateNoticePeriod("14-10-2024", true);
