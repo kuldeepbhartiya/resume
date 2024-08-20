@@ -284,7 +284,7 @@
 
 					// Calculate difference in days (rounded up)
 					const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-					return `Serving Notice Period: ${differenceInDays} days remaining`;
+					return `Serving Notice Period: ${differenceInDays} days remaining. Available to join from 21-10-2024. `;
 				} else {
 					return `Notice Period: ${defaultNoticePeriod} days`;
 				}
@@ -296,8 +296,7 @@
 			//document.getElementById('lastRoleExperience').innerText = calculateDuration('05-09-2022');
 			document.getElementById("lastRole").innerText = document.getElementById("current-role").innerText;
 			document.getElementById("age").innerText = parseInt(calculateDuration('01-07-1988'));
-			document.getElementById("noticePeriod").innerText = calculateNoticePeriod("21-10-2024", true); // instead of 14-10-2024
-
+			document.getElementById("noticePeriod").innerText = calculateNoticePeriod("14-10-2024", true); 
 		</script>
 	</body>
 </html>
