@@ -286,7 +286,7 @@
 					// Calculate difference in days (rounded up)
 					const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
 					if (differenceInDays <=0)
-						return ``;
+						return `Thank you for resume consideration. Please visit again after every 3 months.`;
 					return `Serving Notice Period: ${differenceInDays} days remaining. Available to join from 21-10-2024. `;
 				} else {
 					return `Notice Period: ${defaultNoticePeriod} days`;
