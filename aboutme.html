@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample HTML</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Disable right-click
+            document.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+                alert('Right-click is disabled on this page.');
+            });
+
+            // Intercept navigation to #home
+            const homeLink = document.querySelector('a[href="#home"]');
+            homeLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                const username = prompt('Enter username:');
+                const password = prompt('Enter password:');
+                if (username === 'kuldeep' && password === 'default') {
+                    window.location.hash = 'home';
+                } else {
+                    alert('Invalid username or password.');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#home">Profile</a></li>
+            <li><a href="#projects">About Me</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="home">
+            <h2>About my self</h2>
+            <hr>
+            <p>I'am Kuldeep Bhartiya and I live in Kalyan, Thane/Mumbai, India. As far as my educational qualification is concerned 
+                that I have done post graducation in Computer Application (i.e. MCA) from University of Mumbai. I have done my graduation in B.Sc. (Computer Science) from University of Mumbai.
+                I have also been a .net trainer for a short period of time between 2014-16. I have worked with a few companies in the past and have gained experience in core competencies of Cloud engineering/Migrations and in various technologies i.e. Api/Microservices in .Net Core, Angular, Sql Server, Mongo Db.
+                I have worked with companies like nVent Thermal, Infosys, L&T Infotech (now known as LTIMindtree), NeoSOFT, and others. 
+                I have worked across different domains mainly BFSI, Healthcare, and OIl & Gas with cross functional teams and vendors/partners such as TCS, Microsoft, and others.
+                Worked with clients like LSEG, Nationwide, Phillips 66, Jonhson Controls, DCP Midstream, etc.
+                In the end, I'll conclude as my self as an energitic, open for new learning and a good communicator with all stakeholders.
+
+             </p>
+             <br>
+             <h2>Why Hire</h2>
+             <hr>
+             <p>
+                I have a strong work ethic, a team player. I am always eager to learn new technologies and improve my skills. 
+                I'm enthusiastic about the opportunity to work with you, become productive and a valuable team member and thus contribute to your projects.
+             </p>
+             <h2>Weakness</h2>
+             <hr>
+             <p>
+                I can't say NO to someone who asks for help, even if I am busy with my own work and sometimes I have to deal with convincing other stakeholders for a delay in my work.
+                I am working on this and trying to set boundaries for myself. I am also working on my time management skills to ensure that I can balance my workload effectively.
+                The reason being I do belive people need push to get their work done and I am one of them and in the long run it helps the team to be productive.
+                On some occasions, I do take time to learn new things but once I'm in I start to enjoy it and I am able to deliver the work on time.
+
+             </p>
+
+             <h2>Strengths</h2>
+             <hr>
+             <p>I'm self motivated, hard working person towards my work, career and life.</p>
+
+             <h2>Reason for Change</h2>
+             <hr>
+             <p>
+                Well, I'm thankful for my previous organizations and even others because I have learn't a lot from them. 
+                Changes are always necessary, it could be for a better opportunity, better work culture, or even a better financial growth.
+                Changes should be taken positively, because it helps to transcend our limits and explore new opportunities.
+                I am looking for a change because I want to grow in my career and I believe that this organization can provide me with the right opportunities to do so.
+
+             </p>
+             <h2>Salary Requirements</h2>
+             <hr>
+             <p>
+                I am open to discussing salary and benefits once I have a better understanding of the role and the company's expectations.
+                I am looking for a salary that is competitive with the market rate for this position and is inline with my experience and skills.
+                I am confident that we can come to an agreement that works for both of us later.
+             </p>
+
+             <h2>Career goals</h2>
+             <hr>
+             <p>
+                My short term goal is to get a job in a reputed company where I can utilize my skills and knowledge. 
+                My long term goal is to be in a position where I can lead a team and contribute to the growth of the organization.
+                I want to be a part of an organization that values its employees and provides them with opportunities for growth and development.
+             </p>
+
+             <h2>Any questions to ask?</h2>
+             <hr>
+             <p>
+                Well, thank you for give this opportunity to ask questions.
+                I have a few questions regarding the role and the company, job location, salary scale/grade for this job in organization.
+                <br>
+                <b>What I can help you to clarify that would make hiring me an easy decision? <i class="fa fa-smile-o"></i></b>
+             </p>
+        </section>
+        <section id="role-responsibilities">
+            <h2>Role and Responsibilities</h2>
+            <hr>
+            <p>
+                Reason for leaving:
+
+For nVent:
+Company had restructuring and limited growth opportunities
+
+For Others:
+Seeking opportunities for growth and advancement. 
+Desire to work in a different industry or with a different technology stack.
+Looking for a company culture that is a better fit.
+
+nVent:
+As a software lead architect my main role has been identifying bottlenecks in existing product portfolios, mentor the team and upskill, drive up the cost cutting and innovation.
+Ensure software industry patterns are followed.
+Re-design the architecture for all the products and align them with the update solutions.
+
+
+Infosys:
+A results-driven Technology Architect with a proven track record of architecting and delivering complex, scalable, and maintainable solutions for major MNC clients, including Nationwide Building Society and the London Stock Exchange (LSE), precisely meeting their requirements. 
+My expertise encompasses formulating effective delivery strategies, engaging stakeholders, leading teams, proactively identifying and mitigating risks to ensure adherence to HADR, RTO/RPO, and project timelines. 
+
+As part of the Infosys STAR group, I actively contribute to organizational-level technical challenges, including RFP wins, in-house tool development, team mentorship, and recruitment support.
+
+
+LTIMindtree:
+As a Technology Lead, I drove the delivery of high-impact solutions for key MNC clients such as Philips 66 (P66), DCP Midstream, and Johnson Controls. 
+I collaborated closely with scrum masters/managers to optimize team organization and task allocation, while also mentoring team members to overcome technical challenges and ensuring seamless client communication. 
+My contributions extended to actively supporting architects in the formulation of strategic and effective software product delivery plans.
+            </p>
+        </section>
+
+        <section id="projects">
+            <h2>
+
+            </h2>
+            <hr>
+            <h2>Project Details</h2>
+            <p>.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025. All rights reserved.</p>
+    </footer>
+</body>
+</html>
