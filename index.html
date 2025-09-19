@@ -1,325 +1,414 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Resume - Kuldeep J. Bhartiya</title>
-		<!-- CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<head>
+	<title>Resume - Kuldeep J. Bhartiya</title>
+	<!-- CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 	<!-- JS Bundle -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-		<!-- Add Font Awesome -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-			}
-			hr {
-				border: 1px solid grey;
-			}
-			
-			a {
-				text-decoration: none !important;
-				white-space: nowrap;
-				color: inherit;
-			}
-			.img-circle {
-				border-radius: 50%;
-			}
-			.skills-section {
-				display: flex;
-				flex-wrap: wrap;
-				padding: 0px;
-			}
-			.skills-left, .skills-right {
-				flex: 0.5 0 10%;
-				padding: 0px;
-			}
-			.rating {
-				font-size: 0.8em; /* Reduce the size of the icons */
-				color: #888; /* Change the color of the icons */
-			}
-			.contact-info span {
-				display: inline-block;
-				margin-right: 10px;
-				justify-content: justify-between;
-			}
-			.contact-info i {
-				margin-right: 5px;
-				width: 8%;
-				word-wrap: break-word;
-			}
-			
-			.primary {
-				font-weight: bold;
-				color: grey;
-			}
-			.secondary {
-				color: grey;
-			}
-			
-			.secondary2{
-				color:#C8C8C8;
-			}
-			
-			.secondary3{
-				color:#7FFFD4;
-			}
-			
-			#printButton {
-				float: right;
-				font-size: 1em;
-				padding: 10px;
-				background-color: #4CAF50; /* Green */
-				border: none;
-				color: white;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
-				margin: 4px 2px;
-				cursor: pointer;
-				border-radius: 12px;
-			}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+	<!-- Add Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
 
-			#printButton:hover {
-				background-color: #45a049; /* Darker green */
+		hr {
+			border: 1px solid grey;
+		}
+
+		a {
+			text-decoration: none !important;
+			white-space: nowrap;
+			color: inherit;
+		}
+
+		.img-circle {
+			border-radius: 50%;
+		}
+
+		.skills-section {
+			display: flex;
+			flex-wrap: wrap;
+			padding: 0px;
+		}
+
+		.skills-left,
+		.skills-right {
+			flex: 0.5 0 10%;
+			padding: 0px;
+		}
+
+		.rating {
+			font-size: 0.8em;
+			/* Reduce the size of the icons */
+			color: #888;
+			/* Change the color of the icons */
+		}
+
+		.contact-info span {
+			display: inline-block;
+			margin-right: 10px;
+			justify-content: justify-between;
+		}
+
+		.contact-info i {
+			margin-right: 5px;
+			width: 8%;
+			word-wrap: break-word;
+		}
+
+		.primary {
+			font-weight: bold;
+			color: grey;
+		}
+
+		.secondary {
+			color: grey;
+		}
+
+		.secondary2 {
+			color: #C8C8C8;
+		}
+
+		.secondary3 {
+			color: #7FFFD4;
+		}
+
+		#printButton {
+			float: right;
+			font-size: 1em;
+			padding: 10px;
+			background-color: #4CAF50;
+			/* Green */
+			border: none;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 12px;
+		}
+
+		#printButton:hover {
+			background-color: #45a049;
+			/* Darker green */
+		}
+
+		@media print {
+			#printButton {
+				display: none;
 			}
-			
-			@media print {
-				#printButton {
-					display: none;
-				}
-			}
-		</style>
-	</head>
-	<body oncontextmenu="return false;">
-		<div class="container content">
-			<div class="row">
-				<div class="col-md-12">
-					<h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6>
-					
-					<p class="secondary3" style="text-align:center; color:blue"><a href="https://kuldeepbhartiya.github.io/resume/">For latest info visit https://kuldeepbhartiya.github.io/resume/</a></p>
-					
-				</div>
-				<div class="col-md-8">
-					<div class="row">
-						<div class="col-md-6">
-							<h2 style="color:black; font-weight:bold;">Kuldeep J. Bhartiya </h2> 
-						</div>
-						<!-- <div class="col-md-6" style="margin-left: -10%;">
+		}
+	</style>
+</head>
+
+<body oncontextmenu="return false;">
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12">
+				<h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6>
+
+				<p class="secondary3" style="text-align:center; color:blue"><a
+						href="https://kuldeepbhartiya.github.io/resume/">For latest info visit
+						https://kuldeepbhartiya.github.io/resume/</a></p>
+
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-6">
+						<h2 style="color:black; font-weight:bold;">Kuldeep J. Bhartiya </h2>
+					</div>
+					<!-- <div class="col-md-6" style="margin-left: -10%;">
 							<label>Male, 36 years</label>
 						</div> -->
-					</div>
-					<h3 style="color:blue;">Solution Architect</h3>
-					<p>From Code to Cloud | Delivering Scalable Enterprise Solutions for Fortune Clients</p>
-					<p class="contact-info">
-						<span><i class="fas fa-user"></i> Male, <label id="age"> </label> years</span>
-						<span><i class="fas fa-phone"></i> +91 8452811781</span>
-						<span><i class="fas fa-envelope"></i> kjb1788@gmail.com</span>
-						<span><a title="click to visit kuldeep's LinkedIn profile" href="https://in.linkedin.com/in/kuldeep-bhartiya-6913391b" target="_blank"><i class="fab fa-linkedin"></i> Kuldeep Bhartiya</a></span>
-						<span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
-					</p>
 				</div>
-				<div class="col-md-4">
-					<!-- Add your image source in src -->
-					<!-- <img src="image.jpg" alt="Profile Picture" class="img-fluid img-circle"> -->
-					<button id="printButton" onclick="window.print()">
-						<i class="fas fa-print"> Print Resume</i> <span id="lastUpdatedDate" class="secondary2 style=font-size:0.1em;"></span> 
-					</button>
-				</div>
+				<h3 style="color:blue;">Solution Architect</h3>
+				<p>From Code to Cloud | Delivering Scalable Enterprise Solutions for Fortune Clients</p>
+				<p class="contact-info">
+					<span><i class="fas fa-user"></i> Male, <label id="age"> </label> years</span>
+					<span><i class="fas fa-phone"></i> +91 8452811781</span>
+					<span><i class="fas fa-envelope"></i> kjb1788@gmail.com</span>
+					<span><a title="click to visit kuldeep's LinkedIn profile"
+							href="https://in.linkedin.com/in/kuldeep-bhartiya-6913391b" target="_blank"><i
+								class="fab fa-linkedin"></i> Kuldeep Bhartiya</a></span>
+					<span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
+				</p>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<h3>Summary</h3>
-					<hr>
-                   <p>
-					   <strong>Enterprise <span id="lastRole"><span></strong> with <strong><span class="totalExperience"></span></strong> of experience delivering scalable, resilient, multi-region cloud solutions on Azure & AWS. Skilled in TOGAF, cloud migrations, microservices, and cost optimization, with proven ability to lead global teams, validate architecture through POCs/metrics, and deliver solutions on time and within budget.
-				   </p>
-				
-				</div>
-				<div class="col-md-7">
-					<h3>Skills</h3>
-					<hr>
-					<div class="skills-section">
-							<div class="skills-left">
-							<ul>
-								<li class="primary">C#,.Net Core, RESTful API, Microservices, xUnit, Moq & Sonarqube</li>
-								<li class="primary">Experience with Azure Cloud Computing (5+ years)</li>
-								<li class="primary">Knowledge of LLM's, Langraph and Agentic AI</li>
-								<li class="secondary">Knowledge of Docker, Jenkins - CI/CD, Kubernetes (k8s)</li>
-								<li class="secondary">Python, Golang (GO), Angular, TypeScript, Bootstrap for Front-end Development</li>
-								<li class="secondary">Familiarity with SQL, MongoDB for Database Management</li>
-								<li class="secondary">Proficiency in Swagger, Jira, Git & DevOps practices</li>
-							</ul>
-						</div>
-						<div class="skills-right">
-							<ul>
-								<li class="primary">Proven experience in Solution Development & Designing</li>
-								<li class="primary">Designing HLD, Network, Sequence, etc. architect diagrams using Lucid Charts/Draw.IO and maintain solution documentation on confluence</li>
-								<li class="primary">Practiced in Scrum & Kanban Agile methodologies</li>
-								<li class="primary">Recognized for Collaboration, Mentoring, Teamwork</li>
-								<li class="secondary">Scheduling Meetings for requirements & conflict resolutions</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-5">
-					<h3>Certifications</h3>
-					<hr>
-					<ul>
-						<li>Microsoft: 
-							<a title="click to view certificate details" target="_blank" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/841E700E80864DFE?sharingId=37173F872693807D">AI-102 (Azure AI Engineer Associate)</a>,  
-							<a title="click to view certificate details" target="_blank" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/299D8ACEC77D0D67?sharingId=37173F872693807D">AI-900 (Azure AI Fundamentals)</a>, 
-							<a title="click to view certificate details" target="_blank" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/EE300064A0E0B7A6?sharingId=37173F872693807D">AZ-900 (Microsoft Azure Fundamentals)</a>
-						</li>
-						<li>Microsoft/LinkedIn: Career Essentials in Generative AI </li>
-						<li>Infosys: Generative AI Professional, Prompt Engineering</li>
-						<li class="secondary">Pursuing: Azure Open AI & Other AI skills </li>
-					</ul>
-					<!-- <br> -->
-					<h3>Education</h3>
-							<hr>
-							<ul>
-								<li>Post Graduation: <strong>Master of Computer Application (MCA)</strong></li>
-								<li>Graduation: <strong>Computer Science</strong></li>
-							</ul>
-							<!-- <br> -->
-						</div>
-					
-				</div>
-				<br>
-					<div>
-						<h3>Project & Work Highlights</h3>
-						<hr>
-						<ul> <li>Collaborated with global onshore/offshore teams to design scalable, multi-region cloud solutions on <b>Azure</b> and <b>AWS</b>, using enterprise frameworks (TOGAF); delivered POCs and metric-backed recommendations that improved delivery confidence and reduced decision time. </li> <li>Architected and implemented Azure infrastructure and internal application solutions for one of the world’s largest health insurers, <b>UnitedHealth Group</b>, ensuring compliance, security, and high availability. </li> <li>Developed an automation tool to accelerate RFP analysis and response, shortening proposal turnaround and materially increasing win rates for competitive bids. </li> <li>Served as Architect (with <b>Microsoft</b> as MSC Partner) for a major European stock exchange migration—moved applications from on-prem/hybrid AWS to <b>Azure</b>, resolved design issues, and delivered a multi-region, multi-zone resilient architecture with end-to-end data security. </li> <li>Worked as Cloud Engineer for <b>Nationwide Building Society</b> (16M+ members), designing and implementing microservices-based solutions to modernize core services and improve scalability. </li> <li>Led full-stack development and technical delivery for US Oil & Gas clients (<b>P66</b> & <b>DCP Midstream</b>): re-designed 3 legacy modules to improve operational efficiency by <b>15%</b>, helped the team deliver critical modules <b>15 days early</b> (previously 45 days behind), and designed Azure solutions (Angular, .NET APIs, Service Bus, Functions, API Gateway, Azure SQL). </li> <li>As Senior Software Developer at <b>MaxBupa</b>, drove product development, POCs for new launches, and RCAs—automated processes to reduce development cost by <b>5%</b> and cut defects from <b>125+</b> to <b>20</b>. </li> <li>Worked as Senior Developer for a multinational online credit-report provider, contributing to core product development and platform stability. </li> <li>Built in-house automation tools (module creation, file generation) that eliminated paid-service costs, saving approximately <b>$2K–$10K+</b> annually. </li> <li>…and additional enterprise projects across BFSI, healthcare, and energy domains demonstrating consistent delivery, optimization, and stakeholder collaboration.</li> </ul>
-						<p><strong>Note: <i>Due to non-disclosure agreements except name, other client and project details are not mentioned</i></strong></p>
-					</div>
-					<div>
-					<br>
-					<h3>Professional Experience - <span class="totalExperience" style="font-size: 0.8em; font-weight: bold; color: #2E8B57;"></Span></h3>
-					<hr>
-					<h3 id="current-role" style="font-weight:bold;">Solution Architect</h3>
-					<p>Wipro Limited  <i class="fas fa-calendar-alt"></i> April 2025 - Present <i class="fas fa-map-marker-alt"></i> Mumbai</p>
-					<p>Wipro Limited is a leading global end to end IT transformation, consulting and business process services provider</p>
-					<ul>
-						<li>Implemented and provided guidance on provisioning Azure infrastructure for one of the top health insurance company (<strong>UnitedHealth Group </strong>) in the world.</li>
-						<li>Designed and Implemented Hybrid Cloud Migration for on-prem applications (i.e. APIs and Microservices)</li>
-						<li>Providing technical leadership and technical guidance to team members</li>
-					</ul>
-					<hr>
-					<h3 id="current-role" style="font-weight:bold;">Lead Software Architect</h3>
-					<p>nVent  <i class="fas fa-calendar-alt"></i> October 2024 - April 2025 <i class="fas fa-map-marker-alt"></i> Mumbai</p>
-					<p>nVent Hoffman, previously known as Eldon Enclosures, is an industrial encloser manufacturing company.</p>
-					<ul>
-						<strong>
-                        <li>Delivered a tooling service that saves 2K+ annually in license.</li>
-                        <li>Provided solutions for their applications deployed in AWS Cloud that were having performance issues and cold start.</li>
-                         </strong>
-						<hr>
-						<li>Architected and built centralized API services (Python & Go) for file-based services, significantly reducing tool redundancy across products while ensuring ease of integration, scalability, and long-term maintainability.</li>
-						<li>Lead the development team and resolve technical challenges.</li>
-						<li>Identification and assesment of software tools, resources, etc and optimize.</li>
-						<li>Mentoring the cross-functional team.</li>
-					</ul>
-					<hr>
-					<h3 id="current-role" style="font-weight:bold;">Technology Architect</h3>
-					<p>Infosys <i class="fas fa-calendar-alt"></i> Sep 2022 - October 2024 <i class="fas fa-map-marker-alt"></i> Mumbai</p>
-					<p>Infosys Limited is an Indian multinational information technology company that provides business consulting, information technology and outsourcing services.</p>
-					<ul>
-                        <strong>
-                        <li>Delivered 2 Api Services and 3 Microservices and got it deployed on AWS cloud for the client.</li>
-                        <li>Designed the architecture and provided solutions for 3 major and 8 smaller application migrating from AWS/On-premises to Azure.</li>
-                        </strong>
-                        <hr>
-						<li>Architected and implemented robust software solutions, incorporating microservices architecture and API development, to enhance system modularity, scalability, and maintainability.</li>
-						<li>Understanding and defining R-treaments and complexity for application migration. Spearheaded the seamless migration of applications from on-premise infrastructure to cloud-based solutions, and adeptly navigated transitions between different cloud environments, optimizing performance, cost-efficiency, and system resilience.</li>
-						<li>Oversaw the successful migration/development of applications, ensuring full compliance with HADR, Data Governance, and Security protocols, while meeting demanding Recovery Time and Point Objectives (RTO/RPO).</li>
-						<li>Lead the development team and ensured adherence to architectural guidelines.</li>
-						<li>Collaborated with all stakeholders (client & product owner, in-house teams - e.g. infra, testing, development & data) for software designing and development that meets business needs.</li>
-					</ul>
-					
-						<br> <!-- To put employment history on next page -->
-						<h3>Employment History</h3>
-						<hr>
+			<div class="col-md-4">
+				<!-- Add your image source in src -->
+				<!-- <img src="image.jpg" alt="Profile Picture" class="img-fluid img-circle"> -->
+				<button id="printButton" onclick="window.print()">
+					<i class="fas fa-print"> Print Resume</i> <span id="lastUpdatedDate"
+						class="secondary2 style=font-size:0.1em;"></span>
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Summary</h3>
+				<hr>
+				<p>
+					<strong>Enterprise <span id="lastRole"><span></strong> with <strong><span
+							class="totalExperience"></span></strong> of experience delivering scalable, resilient,
+					multi-region cloud solutions on Azure & AWS. Skilled in TOGAF, cloud migrations, microservices, and
+					cost optimization, with proven ability to lead global teams, validate architecture through
+					POCs/metrics, and deliver solutions on time and within budget.
+				</p>
+
+			</div>
+			<div class="col-md-7">
+				<h3>Skills</h3>
+				<hr>
+				<div class="skills-section">
+					<div class="skills-left">
 						<ul>
-							<li>Lead Software Architect, nVent Thermal India Pvt Limited, Mumbai, Maharashtra, India (October 2024 - March 2025).</li>
-							<li>Technology Architect, Infosys, Mumbai (Airoli), Maharashtra, India (September 2022 - October 2024).</li>
-							<li>Technology Lead, LTIMindtree (formerly known as Larsen & Toubro Infotech i.e. L&T), Navi Mumbai, Maharashtra, India (Aug 2018 - Aug 2022).</li>
-							<li>Sr. Software Developer, Celusion Technologies, Thane, Maharashtra, India (Mar 2017 - Aug 2018).</li>
-							<li>Software Developer, NeoSOFT Technologies (Terranet India Pvt. Ltd.), Mumbai, Maharashtra, India (Sep 2012 - Dec 2016).</li>
-							<li>Junior .Net Developer, Absolute Information System, Thane, Maharashtra, India (Feb 2012 - Aug 2012).</li>
+							<li class="primary">C#,.Net Core, RESTful API, Microservices, xUnit, Moq & Sonarqube</li>
+							<li class="primary">Experience with Azure Cloud Computing (5+ years)</li>
+							<li class="primary">Knowledge of LLM's, Langraph and Agentic AI</li>
+							<li class="secondary">Knowledge of Docker, Jenkins - CI/CD, Kubernetes (k8s)</li>
+							<li class="secondary">Python, Golang (GO), Angular, TypeScript, Bootstrap for Front-end
+								Development</li>
+							<li class="secondary">Familiarity with SQL, MongoDB for Database Management</li>
+							<li class="secondary">Proficiency in Swagger, Jira, Git & DevOps practices</li>
 						</ul>
 					</div>
-					<br>
-					<!-- <div class="col-md-12">
+					<div class="skills-right">
+						<ul>
+							<li class="primary">Proven experience in Solution Development & Designing</li>
+							<li class="primary">Designing HLD, Network, Sequence, etc. architect diagrams using Lucid
+								Charts/Draw.IO and maintain solution documentation on confluence</li>
+							<li class="primary">Practiced in Scrum & Kanban Agile methodologies</li>
+							<li class="primary">Recognized for Collaboration, Mentoring, Teamwork</li>
+							<li class="secondary">Scheduling Meetings for requirements & conflict resolutions</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<h3>Certifications</h3>
+				<hr>
+				<ul>
+					<li>Microsoft:
+						<a title="click to view certificate details" target="_blank"
+							href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/841E700E80864DFE?sharingId=37173F872693807D">AI-102
+							(Azure AI Engineer Associate)</a>,
+						<a title="click to view certificate details" target="_blank"
+							href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/299D8ACEC77D0D67?sharingId=37173F872693807D">AI-900
+							(Azure AI Fundamentals)</a>,
+						<a title="click to view certificate details" target="_blank"
+							href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/EE300064A0E0B7A6?sharingId=37173F872693807D">AZ-900
+							(Microsoft Azure Fundamentals)</a>
+					</li>
+					<li>Microsoft/LinkedIn: Career Essentials in Generative AI </li>
+					<li>Infosys: Generative AI Professional, Prompt Engineering</li>
+					<li class="secondary">Pursuing: Azure Open AI & Other AI skills </li>
+				</ul>
+				<!-- <br> -->
+				<h3>Education</h3>
+				<hr>
+				<ul>
+					<li>Post Graduation: <strong>Master of Computer Application (MCA)</strong></li>
+					<li>Graduation: <strong>Computer Science</strong></li>
+				</ul>
+				<!-- <br> -->
+			</div>
+
+		</div>
+		<br>
+		<div>
+			<h3>Project & Work Highlights</h3>
+			<hr>
+			<ul>
+				<li>Collaborated with global onshore/offshore teams to design scalable, multi-region cloud solutions on
+					<b>Azure</b> and <b>AWS</b>, using enterprise frameworks (TOGAF); delivered POCs and metric-backed
+					recommendations that improved delivery confidence and reduced decision time. </li>
+				<li>Architected and implemented Azure infrastructure and internal application solutions for one of the
+					world’s largest health insurers, <b>UnitedHealth Group</b>, ensuring compliance, security, and high
+					availability. </li>
+				<li>Developed an automation tool to accelerate RFP analysis and response, shortening proposal turnaround
+					and materially increasing win rates for competitive bids. </li>
+				<li>Served as Architect (with <b>Microsoft</b> as MSC Partner) for a major <b>European stock exchange</b>
+					migration—moved applications from on-prem/hybrid AWS to <b>Azure</b>, resolved design issues, and
+					delivered a multi-region, multi-zone resilient architecture with end-to-end data security. </li>
+				<li>Worked as Cloud Engineer for <b>Nationwide Building Society</b> (16M+ members), designing and
+					implementing microservices-based solutions to modernize core services and improve scalability. </li>
+				<li>Led full-stack development and technical delivery for US Oil & Gas clients (<b>P66</b> & <b>DCP
+						Midstream</b>): re-designed 3 legacy modules to improve operational efficiency by <b>15%</b>,
+					helped the team deliver critical modules <b>15 days early</b> (previously 45 days behind), and
+					designed Azure solutions (Angular, .NET APIs, Service Bus, Functions, API Gateway, Azure SQL). </li>
+				<li>As Senior Software Developer at <b>MaxBupa</b>, drove product development, POCs for new launches,
+					and RCAs—automated processes to reduce development cost by <b>5%</b> and cut defects from
+					<b>125+</b> to <b>20</b>. </li>
+				<li>Worked as Senior Developer for a multinational online credit-report provider, contributing to core
+					product development and platform stability. </li>
+				<li>Built in-house automation tools (module creation, file generation) that eliminated paid-service
+					costs, saving approximately <b>$2K–$10K+</b> annually. </li>
+				<li>…and additional enterprise projects across BFSI, healthcare, and energy domains demonstrating
+					consistent delivery, optimization, and stakeholder collaboration.</li>
+			</ul>
+			<p><strong>Note: <i>Due to non-disclosure agreements except name, other client and project details are not
+						mentioned</i></strong></p>
+		</div>
+		<div>
+			<br>
+			<h3>Professional Experience - <span class="totalExperience"
+					style="font-size: 0.8em; font-weight: bold; color: #2E8B57;"></Span></h3>
+			<hr>
+			<h3 id="current-role" style="font-weight:bold;">Solution Architect</h3>
+			<p>Wipro Limited <i class="fas fa-calendar-alt"></i> April 2025 - Present <i
+					class="fas fa-map-marker-alt"></i> Mumbai</p>
+			<p>Wipro Limited is a leading global end to end IT transformation, consulting and business process services
+				provider</p>
+			<ul>
+				<li>Implemented and provided guidance on provisioning Azure infrastructure for one of the top health
+					insurance company (<strong>UnitedHealth Group </strong>) in the world.</li>
+				<li>Designed and Implemented Hybrid Cloud Migration for on-prem applications (i.e. APIs and
+					Microservices)</li>
+				<li>Providing technical leadership and technical guidance to team members</li>
+			</ul>
+			<hr>
+			<h3 id="current-role" style="font-weight:bold;">Lead Software Architect</h3>
+			<p>nVent <i class="fas fa-calendar-alt"></i> October 2024 - April 2025 <i class="fas fa-map-marker-alt"></i>
+				Mumbai</p>
+			<p>nVent Hoffman, previously known as Eldon Enclosures, is an industrial encloser manufacturing company.</p>
+			<ul>
+				<strong>
+					<li>Delivered a tooling service that saves 2K+ annually in license.</li>
+					<li>Provided solutions for their applications deployed in AWS Cloud that were having performance
+						issues and cold start.</li>
+				</strong>
+				<hr>
+				<li>Architected and built centralized API services (Python & Go) for file-based services, significantly
+					reducing tool redundancy across products while ensuring ease of integration, scalability, and
+					long-term maintainability.</li>
+				<li>Lead the development team and resolve technical challenges.</li>
+				<li>Identification and assesment of software tools, resources, etc and optimize.</li>
+				<li>Mentoring the cross-functional team.</li>
+			</ul>
+			<hr>
+			<h3 id="current-role" style="font-weight:bold;">Technology Architect</h3>
+			<p>Infosys <i class="fas fa-calendar-alt"></i> Sep 2022 - October 2024 <i class="fas fa-map-marker-alt"></i>
+				Mumbai</p>
+			<p>Infosys Limited is an Indian multinational information technology company that provides business
+				consulting, information technology and outsourcing services.</p>
+			<ul>
+				<strong>
+					<li>Delivered 2 Api Services and 3 Microservices and got it deployed on AWS cloud for the client.
+					</li>
+					<li>Designed the architecture and provided solutions for 3 major and 8 smaller application migrating
+						from AWS/On-premises to Azure.</li>
+				</strong>
+				<hr>
+				<li>Architected and implemented robust software solutions, incorporating microservices architecture and
+					API development, to enhance system modularity, scalability, and maintainability.</li>
+				<li>Understanding and defining R-treaments and complexity for application migration. Spearheaded the
+					seamless migration of applications from on-premise infrastructure to cloud-based solutions, and
+					adeptly navigated transitions between different cloud environments, optimizing performance,
+					cost-efficiency, and system resilience.</li>
+				<li>Oversaw the successful migration/development of applications, ensuring full compliance with HADR,
+					Data Governance, and Security protocols, while meeting demanding Recovery Time and Point Objectives
+					(RTO/RPO).</li>
+				<li>Lead the development team and ensured adherence to architectural guidelines.</li>
+				<li>Collaborated with all stakeholders (client & product owner, in-house teams - e.g. infra, testing,
+					development & data) for software designing and development that meets business needs.</li>
+			</ul>
+
+			<br> <!-- To put employment history on next page -->
+			<h3>Employment History</h3>
+			<hr>
+			<ul>
+				<li>Lead Software Architect, nVent Thermal India Pvt Limited, Mumbai, Maharashtra, India (October 2024 -
+					March 2025).</li>
+				<li>Technology Architect, Infosys, Mumbai (Airoli), Maharashtra, India (September 2022 - October 2024).
+				</li>
+				<li>Technology Lead, LTIMindtree (formerly known as Larsen & Toubro Infotech i.e. L&T), Navi Mumbai,
+					Maharashtra, India (Aug 2018 - Aug 2022).</li>
+				<li>Sr. Software Developer, Celusion Technologies, Thane, Maharashtra, India (Mar 2017 - Aug 2018).</li>
+				<li>Software Developer, NeoSOFT Technologies (Terranet India Pvt. Ltd.), Mumbai, Maharashtra, India (Sep
+					2012 - Dec 2016).</li>
+				<li>Junior .Net Developer, Absolute Information System, Thane, Maharashtra, India (Feb 2012 - Aug 2012).
+				</li>
+			</ul>
+		</div>
+		<br>
+		<!-- <div class="col-md-12">
 						<h3>Languages</h3>
 						<hr>
 						<p>English <i class="fas fa-star rating"></i><i class="fas fa-star rating"></i><i class="fas fa-star rating"></i> Hindi <i class="fas fa-star rating"></i><i class="fas fa-star rating"></i><i class="fas fa-star rating"></i> Marathi <i class="fas fa-star rating"></i><i class="fas fa-star rating"></i><i class="far fa-star rating"></i>
 						</p>	
 					</div> -->
-				</div>
-			</div>
-		</div>
+	</div>
+	</div>
+	</div>
 
-		<script type="text/javascript">
-			function calculateDuration(dateString) {
-				// Parse the date string
-				let [day, month, year] = dateString.split('-').map(Number);
-				let inputDate = new Date(year, month - 1, day);
+	<script type="text/javascript">
+		function calculateDuration(dateString) {
+			// Parse the date string
+			let [day, month, year] = dateString.split('-').map(Number);
+			let inputDate = new Date(year, month - 1, day);
 
-				// Get the current date
-				let currentDate = new Date();
+			// Get the current date
+			let currentDate = new Date();
 
-				// Calculate the difference in years and months
-				let years = currentDate.getFullYear() - inputDate.getFullYear();
-				let months = currentDate.getMonth() - inputDate.getMonth();
+			// Calculate the difference in years and months
+			let years = currentDate.getFullYear() - inputDate.getFullYear();
+			let months = currentDate.getMonth() - inputDate.getMonth();
 
-				// Adjust the years and months if necessary
-				if (months < 0) {
-					years--;
-					months += 12;
-				}
-
-				return `${years}.${months}+ years`;
-			}
-			
-			//document.getElementById('totalExperience').textContent = calculateDuration('16-02-2012');
-			let elements = document.getElementsByClassName('totalExperience');
-			for(let i = 0; i < elements.length; i++) {
-				elements[i].textContent = calculateDuration('16-02-2012');
+			// Adjust the years and months if necessary
+			if (months < 0) {
+				years--;
+				months += 12;
 			}
 
-			function calculateNoticePeriod(endOfNoticePeriodString, noticePeriod = true, defaultNoticePeriod = 90) {
-				// Parse the endOfNoticePeriod string into a Date object
-				const endOfNoticePeriod = new Date(endOfNoticePeriodString.split("-").reverse());
+			return `${years}.${months}+ years`;
+		}
 
-				// Get today's date
-				const today = new Date();
+		//document.getElementById('totalExperience').textContent = calculateDuration('16-02-2012');
+		let elements = document.getElementsByClassName('totalExperience');
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].textContent = calculateDuration('16-02-2012');
+		}
 
-				// Calculate the difference in milliseconds
-				const differenceInMs = endOfNoticePeriod - today;
+		function calculateNoticePeriod(endOfNoticePeriodString, noticePeriod = true, defaultNoticePeriod = 90) {
+			// Parse the endOfNoticePeriod string into a Date object
+			const endOfNoticePeriod = new Date(endOfNoticePeriodString.split("-").reverse());
 
-				// Check if notice period flag is true
-				if (noticePeriod) {
-					document.getElementById("noticePeriod").style.color = "red";
+			// Get today's date
+			const today = new Date();
 
-					// Calculate difference in days (rounded up)
-					const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-					//if (differenceInDays <=0)
-						 return `Thank you for resume consideration. Kindly, send an email for related opportunities. Notice Period 3 Months`;
-					// return `Available to join on immediate basis to 2 days max.` //`Serving Notice Period: ${differenceInDays} days remaining. Available to join from 21-10-2024. `;
-				} else {
-					return `Notice Period: ${defaultNoticePeriod} days`;
-				}
+			// Calculate the difference in milliseconds
+			const differenceInMs = endOfNoticePeriod - today;
+
+			// Check if notice period flag is true
+			if (noticePeriod) {
+				document.getElementById("noticePeriod").style.color = "red";
+
+				// Calculate difference in days (rounded up)
+				const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
+				//if (differenceInDays <=0)
+				return `Thank you for resume consideration. Kindly, send an email for related opportunities. Notice Period 3 Months`;
+				// return `Available to join on immediate basis to 2 days max.` //`Serving Notice Period: ${differenceInDays} days remaining. Available to join from 21-10-2024. `;
+			} else {
+				return `Notice Period: ${defaultNoticePeriod} days`;
 			}
+		}
 
 
-			// default settings
-			document.getElementById('lastUpdatedDate').textContent  = " Last Updated: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-			//document.getElementById('lastRoleExperience').innerText = calculateDuration('05-09-2022');
-			document.getElementById("lastRole").innerText = document.getElementById("current-role").innerText;
-			document.getElementById("age").innerText = parseInt(calculateDuration('01-07-1988'));
-			document.getElementById("noticePeriod").innerText = calculateNoticePeriod("14-10-2024", true); 
-		</script>
-	</body>
+		// default settings
+		document.getElementById('lastUpdatedDate').textContent = " Last Updated: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+		//document.getElementById('lastRoleExperience').innerText = calculateDuration('05-09-2022');
+		document.getElementById("lastRole").innerText = document.getElementById("current-role").innerText;
+		document.getElementById("age").innerText = parseInt(calculateDuration('01-07-1988'));
+		document.getElementById("noticePeriod").innerText = calculateNoticePeriod("14-10-2024", true); 
+	</script>
+</body>
+
 </html>
