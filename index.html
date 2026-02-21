@@ -44,13 +44,23 @@
       .skills-section {
         display: flex;
         flex-wrap: wrap;
-        padding: 0px;
+        gap: 20px; /* space between columns */
       }
 
       .skills-left,
       .skills-right {
-        flex: 0.5 0 10%;
-        padding: 0px;
+        flex: 1 1 45%; /* two columns with responsive fallback */
+        min-width: 280px; /* ensures readability on small screens */
+      }
+
+      .skills-left ul li,
+      .skills-right ul li {
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+
+      .primary {
+        font-weight: 600;
       }
 
       .rating {
@@ -68,11 +78,6 @@
         margin-right: 5px;
         width: 8%;
         word-wrap: break-word;
-      }
-
-      .primary {
-        font-weight: bold;
-        color: grey;
       }
 
       .secondary {
@@ -174,8 +179,8 @@
             </div>
           </div>
           <h4 style="color: blue">
-            Senior Enterprise & Technology Architect — Cloud, IoT & Real‑Time
-            Platforms
+            Senior Architect (<span class="totalExperience"></span>) — Cloud,
+            IoT & Real‑Time Platforms
           </h4>
 
           <p class="contact-info">
@@ -222,9 +227,10 @@
               Solutions on Azure, Multi-Cloud & Industrial IoT</strong
             >
             — Senior Cloud & IoT Solution Architect with
-            <strong>14+ years of experience</strong> designing and leading the
-            delivery of secure, compliant, and highly available enterprise-grade
-            cloud and industrial IoT architectures. Proven expertise in
+            <strong><span class="totalExperience"></span> of experience</strong>
+            designing and leading the delivery of secure, compliant, and highly
+            available enterprise-grade cloud and industrial IoT architectures.
+            Proven expertise in
             <strong
               >Azure hub–spoke networking, ExpressRoute hybrid connectivity,
               RBAC, private endpoint security, AKS, and Terraform IaC</strong
@@ -265,60 +271,69 @@
         </div>
 
         <!-- Skills -->
-        <div class="col-md-7">
+        <div class="col-md-8">
           <h4>Core Skills</h4>
           <hr />
           <div class="skills-section">
             <div class="skills-left">
               <ul>
-                <li class="primary">
-                  Cloud & Infrastructure: Azure (Virtual Network, Subnets,
-                  ExpressRoute, Site-to-Site VPN, Private Endpoints, AKS, App
-                  Services, Service Bus, Key Vault, Storage), AWS (EC2, VPC,
-                  EKS, S3), Hybrid & Multi-Cloud Architecture
+                <li>
+                  <strong>Cloud & Infrastructure:</strong> Azure (Virtual
+                  Networks, Subnets, ExpressRoute, Site-to-Site VPN, Private
+                  Endpoints, AKS, App Services, Service Bus, Key Vault,
+                  Storage), AWS (EC2, VPC, EKS, S3), Hybrid & Multi-Cloud
+                  Architecture, High Availability & Disaster Recovery
                 </li>
-                <li class="primary">
-                  Networking & Security: Hub–Spoke Architecture, RBAC, Firewall,
-                  IP Whitelisting, DNS Zones, Route Tables
+                <li>
+                  <strong>Networking & Security:</strong> Hub–Spoke
+                  Architecture, RBAC, Firewalls, IP Whitelisting, DNS, Route
+                  Tables, Secure Connectivity Patterns
                 </li>
-                <li class="primary">
-                  Application & Development: C#, .NET Core, REST APIs,
-                  Microservices, Python, Golang, Angular, TypeScript, Bootstrap
+                <li>
+                  <strong>Application & Development:</strong> Microservices
+                  (Golang, Python, C#/.NET Core), REST APIs, Angular,
+                  TypeScript, Bootstrap, Event-Driven & Real-Time Systems, Saga
+                  & Orchestrator Patterns
                 </li>
-                <li class="primary">
-                  DevOps & Automation: Terraform, Docker, Kubernetes (AKS &
-                  K8s), Jenkins CI/CD, Git, SonarQube, IaC, Automated
-                  Deployments
+                <li>
+                  <strong>DevOps & Automation:</strong> Terraform, Docker,
+                  Kubernetes (AKS/K8s), Jenkins CI/CD, Git, SonarQube,
+                  Infrastructure as Code, Automated Deployments, Resilient &
+                  Observability-Enabled Pipelines
                 </li>
                 <li class="secondary">
-                  Database & Data Services: SQL Server, MongoDB, Azure Data
-                  Factory, Cloud Data Integration, Data Pipelines with Private
-                  Endpoints
+                  <strong>Data & IoT:</strong> SQL Server, MongoDB, Azure Data
+                  Factory, Cloud Data Pipelines, Telemetry & Industrial IoT
+                  (Modbus TCP/RTU), Real-Time Event Processing
                 </li>
                 <li class="secondary">
-                  AI & Emerging Tech: LLMs, Azure AI Services, Generative AI,
-                  Prompt Engineering
+                  <strong>AI & Emerging Tech:</strong> LLMs, Azure AI Services,
+                  Generative AI, Prompt Engineering, AI-Ready &
+                  Analytics-Capable Platforms
                 </li>
               </ul>
             </div>
             <div class="skills-right">
               <ul>
-                <li class="primary">
-                  Architecture & Design: Solution Design, HLD/LLD,
-                  Network/Sequence Diagrams, Lucidchart, Draw.io, Confluence
+                <li>
+                  <strong>Architecture & Design:</strong> Solution Design,
+                  HLD/LLD, Network/Sequence Diagrams, Lucidchart, Draw.io,
+                  Confluence, Enterprise-Scale Resilient Systems
                 </li>
-                <li class="primary">
-                  Methodologies: TOGAF, Scrum, Kanban Agile, Enterprise Cloud
-                  Adoption Framework
+                <li>
+                  <strong>Methodologies & Frameworks:</strong> TOGAF, Scrum,
+                  Kanban Agile, Enterprise Cloud Adoption Framework,
+                  Multi-Cloud/Hybrid Execution
                 </li>
-                <li class="primary">
-                  Leadership & Collaboration: Architecture Reviews, Stakeholder
-                  Management, Mentoring, Team Leadership, Client Engagement
-                  (Microsoft, LSEG)
+                <li>
+                  <strong>Leadership & Collaboration:</strong> Architecture
+                  Reviews, Stakeholder Management, Mentorship, Team Leadership,
+                  Client Engagement (Microsoft, LSEG, P66, UnitedHealth Group)
                 </li>
                 <li class="secondary">
-                  Project & Delivery Skills: Scheduling, Conflict Resolution,
-                  Migration Planning, Multi-Cloud/Hybrid Execution
+                  <strong>Project & Delivery Skills:</strong> Scheduling,
+                  Conflict Resolution, Migration Planning, Scalable Platform
+                  Delivery, High-Throughput & Real-Time Systems
                 </li>
               </ul>
             </div>
@@ -326,20 +341,16 @@
         </div>
 
         <!-- Certifications & Education -->
-        <div class="col-md-5">
+        <div class="col-md-4">
           <h4>Certifications</h4>
           <hr />
           <ul>
-            <li class="primary">
+            <li>
               Microsoft Certified:
               <a href="#" target="_blank">AI-102, AI-900, AZ-900</a>
             </li>
-            <li class="primary">
-              Microsoft / LinkedIn: Career Essentials in Generative AI
-            </li>
-            <li class="primary">
-              Infosys: Generative AI Professional, Prompt Engineering
-            </li>
+            <li>Microsoft / LinkedIn: Career Essentials in Generative AI</li>
+            <li>Infosys: Generative AI Professional, Prompt Engineering</li>
             <li class="secondary">
               Currently Pursuing: Azure OpenAI & Advanced AI Skills
             </li>
@@ -348,8 +359,8 @@
           <h4>Education</h4>
           <hr />
           <ul>
-            <li class="primary">MCA, Master of Computer Applications, 2012</li>
-            <li class="primary">BSc, Computer Science, 2009</li>
+            <li>MCA, Master of Computer Applications, 2012</li>
+            <li>BSc, Computer Science, 2009</li>
           </ul>
         </div>
       </div>
@@ -491,7 +502,7 @@
             </li>
             <li>
               <strong
-                >Lead / Cloud & IoT Architect – nVent Thermal Management
+                >Lead / Cloud & IoT Architect – Thermal Management
                 Platform</strong
               >: Designed, developed, and implemented a scalable, resilient
               industrial IoT platform for monitoring and controlling thermal
@@ -514,15 +525,16 @@
                   cross-functional teams with reusable components and utilities.
                 </li>
                 <li>
-                  Backend ervices were deployed on **AWS Fargate**, architected for
-                  high availability with containerized workloads and resilient
-                  service orchestration.
+                  Backend ervices were deployed on **AWS Fargate**, architected
+                  for high availability with containerized workloads and
+                  resilient service orchestration.
                 </li>
                 <li>
                   Provided **technical guidance, mentorship, and
                   problem-solving** for cross-functional development teams
                   throughout the platform lifecycle, ensuring scalable, robust,
-                  and enterprise-grade solutions. E.g fix cold start issues for application, pdf generation tools alignment, etc.
+                  and enterprise-grade solutions. E.g fix cold start issues for
+                  application, pdf generation tools alignment, etc.
                 </li>
               </ul>
             </li>
