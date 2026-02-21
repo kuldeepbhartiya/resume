@@ -1,0 +1,409 @@
+AI-Driven M&A Prediction Platform
+Enterprise Architecture & Multi-Cloud Migration Documentation
+1. Executive Overview
+
+This platform was designed to predict the probability of corporate events such as:
+
+Mergers
+
+Acquisitions
+
+Strategic stake purchases
+
+Corporate restructuring signals
+
+The system continuously ingests financial news data, applies NLP processing using a fine-tuned BERT model, and generates probabilistic outputs for downstream analytics and strategic decision-making.
+
+The solution evolved through two major architecture phases:
+
+Initial implementation on AWS
+
+Re-architecture and migration to Azure-native services
+
+A later modernization effort consolidated the Azure stack using Microsoft Fabric (described at the end).
+
+2. Architectural Strategy
+
+The platform follows the Medallion Architecture pattern, a layered lakehouse data refinement strategy.
+
+Layer	Purpose	Description
+Bronze	Raw data	Immutable ingestion layer
+Silver	Cleaned & structured	ML-ready curated datasets
+Gold	Business-ready outputs	Prediction results & analytics datasets
+
+This structure ensures:
+
+Reproducibility
+
+Traceability
+
+Clear data lineage
+
+Controlled transformation stages
+
+Audit readiness
+
+PART I — AWS IMPLEMENTATION
+3. Data Ingestion Layer (Bronze)
+Objective
+
+Build a resilient hourly ingestion pipeline from third-party financial news providers.
+
+Services Used
+
+AWS Lambda
+
+Amazon EventBridge (scheduled trigger)
+
+Amazon S3 (Raw bucket)
+
+Amazon SQS (Dead Letter Queue)
+
+Amazon CloudWatch (monitoring)
+
+Workflow
+
+EventBridge triggers Lambda every hour.
+
+Lambda securely calls external API.
+
+Response validated (schema + deduplication).
+
+Raw JSON stored in S3 without transformation.
+
+Design Characteristics
+
+Immutable raw storage
+
+S3 versioning enabled
+
+SSE-KMS encryption
+
+Partitioning by ingestion timestamp
+
+Idempotent ingestion logic
+
+DLQ for failure isolation
+
+Rationale
+
+Raw data remains untouched to allow:
+
+Reprocessing
+
+Backfills
+
+Audit and regulatory traceability
+
+Model retraining reproducibility
+
+4. Data Processing Layer (Silver)
+Services Used
+
+AWS Glue (Spark-based ETL)
+
+Glue Data Catalog
+
+S3 Processed bucket (Parquet format)
+
+Processing Activities
+
+Null filtering
+
+Text normalization
+
+Stop word removal
+
+Entity extraction
+
+Schema enforcement
+
+Token preparation for NLP
+
+Storage Strategy
+
+Columnar Parquet format
+
+Partitioned by date and company
+
+Schema evolution support
+
+Rationale
+
+Distributed Spark processing was selected to:
+
+Handle large volumes of unstructured text
+
+Optimize cost compared to persistent clusters
+
+Enable scalable transformations
+
+5. Machine Learning Layer (Gold Output Generation)
+Platform
+
+Amazon SageMaker
+
+Model Strategy
+
+Pre-trained BERT model
+
+Fine-tuned on financial-domain corpus
+
+Supervised training using historical M&A event labels
+
+Training Design
+
+Rolling historical windows:
+
+6 months
+
+12 months
+
+24 months
+
+This approach mitigated model staleness and concept drift.
+
+Outputs
+
+For each company or company pair:
+
+Probability score (0–1)
+
+Event classification label
+
+Confidence score
+
+Timestamp
+
+Stored in:
+
+Amazon RDS (MySQL)
+
+Or S3 Gold layer for analytics
+
+Governance
+
+Model artifact versioning
+
+Performance metric tracking (Precision/Recall/F1)
+
+Controlled promotion
+
+Scheduled retraining
+
+PART II — AZURE RE-ARCHITECTURE
+6. Migration Rationale
+
+The migration to Azure was driven by:
+
+Enterprise cloud alignment
+
+Governance standardization
+
+Cost optimization
+
+Improved ML lifecycle controls
+
+Integration with broader analytics ecosystem
+
+This was not a lift-and-shift. The system was redesigned using Azure-native services.
+
+7. Data Ingestion (Azure Bronze Layer)
+Services Used
+
+Azure Functions (timer trigger)
+
+Azure Blob Storage / ADLS Gen2
+
+Event Grid
+
+Azure Monitor
+
+Enhancements Over AWS
+
+Managed Identity for secure API access
+
+Private endpoints
+
+RBAC-based storage access
+
+Integrated monitoring
+
+Raw ingestion principles remained the same:
+
+Immutable storage
+
+Partitioned by ingestion timestamp
+
+Secure and auditable
+
+8. Processing & Lakehouse Strategy (Silver Layer)
+Services Used
+
+Azure Data Factory (orchestration)
+
+Azure Databricks (Spark processing)
+
+Azure Data Lake Storage Gen2
+
+Delta Lake format
+
+Improvements
+
+Adoption of Delta Lake provided:
+
+ACID-compliant transactions
+
+Time-travel capability
+
+Strong schema enforcement
+
+Built-in data lineage
+
+More reliable writes
+
+Databricks enabled:
+
+Distributed NLP preprocessing
+
+Efficient feature engineering
+
+Auto-scaling compute clusters
+
+9. Machine Learning Layer (Azure)
+Services Used
+
+Azure Machine Learning
+
+Databricks ML
+
+Enhancements Compared to AWS Phase
+
+Centralized Model Registry
+
+Experiment tracking
+
+Automated retraining pipelines
+
+Drift monitoring
+
+CI/CD integration
+
+Deployment supported:
+
+Batch inference
+
+Optional real-time endpoints
+
+Prediction outputs were written to:
+
+Azure MySQL Flexible Server
+
+Gold layer in ADLS
+
+10. Enterprise Architecture Considerations
+
+Across both AWS and Azure phases:
+
+Security
+
+Encryption at rest and in transit
+
+Role-based access control
+
+Secrets management (KMS / Key Vault)
+
+Network isolation (VPC / VNet)
+
+Audit logging
+
+Scalability
+
+Auto-scaling Spark clusters
+
+Elastic ML compute
+
+Partitioned lake storage
+
+Stateless ingestion
+
+Reliability
+
+Retry mechanisms
+
+Dead-letter queues
+
+Monitoring and alerting
+
+Idempotent pipeline design
+
+MLOps
+
+Model versioning
+
+Metric-based promotion
+
+Artifact traceability
+
+Drift detection
+
+Rolling retraining windows
+
+11. Final Modernization — Microsoft Fabric Consolidation
+
+After stabilizing the Azure-native architecture, the platform was consolidated into Microsoft Fabric.
+
+The previous stack consisted of:
+
+Azure Data Factory
+
+Azure Databricks
+
+ADLS Gen2 storage
+
+Azure ML
+
+Separate orchestration and governance layers
+
+This was modernized into a Fabric Lakehouse architecture using:
+
+OneLake storage
+
+Fabric Data Pipelines
+
+Integrated Lakehouse tables
+
+Native ML integration
+
+Built-in governance and monitoring
+
+Direct Power BI connectivity
+
+Why Move to Microsoft Fabric?
+
+Reduce service sprawl – Multiple independent services increased operational complexity and cross-service configuration overhead.
+
+Unify governance & security – Fabric centralizes data access, lineage, and role management under a single control plane.
+
+Lower operational overhead & cost predictability – Consolidated compute and storage reduce redundant cluster management and simplify scaling.
+
+The move to Fabric was an architectural optimization step, not a functional correction.
+The core AI logic remained intact; the platform footprint became more streamlined and easier to govern at enterprise scale.
+
+12. Architectural Positioning
+
+This initiative demonstrates:
+
+End-to-end AI platform architecture
+
+Production-grade NLP deployment
+
+Multi-cloud migration execution
+
+Lakehouse data modeling using Medallion pattern
+
+MLOps lifecycle engineering
+
+Enterprise-scale modernization strategy
+
+The final state is a governed, scalable, lakehouse-based AI prediction platform aligned with enterprise architecture standards.

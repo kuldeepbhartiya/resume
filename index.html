@@ -1,384 +1,625 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <title>Resume - Kuldeep J. Bhartiya</title>
+    <!-- CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
 
-<head>
-	<title>Resume - Kuldeep J. Bhartiya</title>
-	<!-- CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- JS Bundle -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
 
-	<!-- JS Bundle -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-		crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: Arial, sans-serif;
-		}
+      hr {
+        border: 1px solid grey;
+      }
 
-		hr {
-			border: 1px solid grey;
-		}
+      a {
+        text-decoration: none !important;
+        white-space: nowrap;
+        color: inherit;
+      }
 
-		a {
-			text-decoration: none !important;
-			white-space: nowrap;
-			color: inherit;
-		}
+      .img-circle {
+        border-radius: 50%;
+      }
 
-		.img-circle {
-			border-radius: 50%;
-		}
+      .skills-section {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0px;
+      }
 
-		.skills-section {
-			display: flex;
-			flex-wrap: wrap;
-			padding: 0px;
-		}
+      .skills-left,
+      .skills-right {
+        flex: 0.5 0 10%;
+        padding: 0px;
+      }
 
-		.skills-left,
-		.skills-right {
-			flex: 0.5 0 10%;
-			padding: 0px;
-		}
+      .rating {
+        font-size: 0.8em;
+        color: #888;
+      }
 
-		.rating {
-			font-size: 0.8em;
-			color: #888;
-		}
+      .contact-info span {
+        display: inline-block;
+        margin-right: 10px;
+        justify-content: justify-between;
+      }
 
-		.contact-info span {
-			display: inline-block;
-			margin-right: 10px;
-			justify-content: justify-between;
-		}
+      .contact-info i {
+        margin-right: 5px;
+        width: 8%;
+        word-wrap: break-word;
+      }
 
-		.contact-info i {
-			margin-right: 5px;
-			width: 8%;
-			word-wrap: break-word;
-		}
+      .primary {
+        font-weight: bold;
+        color: grey;
+      }
 
-		.primary {
-			font-weight: bold;
-			color: grey;
-		}
+      .secondary {
+        color: grey;
+      }
 
-		.secondary {
-			color: grey;
-		}
+      .secondary2 {
+        color: #c8c8c8;
+      }
 
-		.secondary2 {
-			color: #C8C8C8;
-		}
+      .secondary3 {
+        color: #7fffd4;
+      }
 
-		.secondary3 {
-			color: #7FFFD4;
-		}
+      #printButton {
+        float: right;
+        font-size: 1em;
+        padding: 10px;
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
 
-		#printButton {
-			float: right;
-			font-size: 1em;
-			padding: 10px;
-			background-color: #4CAF50;
-			border: none;
-			color: white;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			margin: 4px 2px;
-			cursor: pointer;
-			border-radius: 12px;
-		}
+      #printButton:hover {
+        background-color: #45a049;
+      }
 
-		#printButton:hover {
-			background-color: #45a049;
-		}
+      @media print {
+        #printButton {
+          display: none;
+        }
 
-		@media print {
-			#printButton {
-				display: none;
-			}
+        body {
+          font-size: 12pt;
+          color: #000;
+        }
 
-			body {
-				font-size: 12pt;
-				color: #000;
-			}
+        h1,
+        h2,
+        h3,
+        h4 {
+          color: #000 !important;
+        }
 
-			h1,
-			h2,
-			h3,
-			h4 {
-				color: #000 !important;
-			}
+        .secondary2,
+        .secondary3,
+        .primary,
+        .secondary {
+          color: #000 !important;
+          /* ensures all text prints black */
+        }
 
-			.secondary2,
-			.secondary3,
-			.primary,
-			.secondary {
-				color: #000 !important;
-				/* ensures all text prints black */
-			}
+        .skills-section {
+          display: block;
+          /* avoid flex wrapping issues in PDF */
+        }
 
-			.skills-section {
-				display: block;
-				/* avoid flex wrapping issues in PDF */
-			}
+        a {
+          color: #000 !important;
+          text-decoration: underline !important;
+        }
 
-			a {
-				color: #000 !important;
-				text-decoration: underline !important;
-			}
+        hr {
+          border: 1px solid #000;
+        }
+      }
+    </style>
+  </head>
 
-			hr {
-				border: 1px solid #000;
-			}
-		}
-	</style>
-</head>
+  <body oncontextmenu="return false;">
+    <div class="container content">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- <h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6> -->
+          <p style="text-align: center; font-size: 0.85em">
+            For latest info visit
+            <a
+              href="https://kuldeepbhartiya.github.io/resume/"
+              target="_blank"
+              style="color: #0066cc; text-decoration: none"
+            >
+              https://kuldeepbhartiya.github.io/resume/
+            </a>
+          </p>
+        </div>
 
-<body oncontextmenu="return false;">
-	<div class="container content">
-		<div class="row">
-			<div class="col-md-12">
-				<!-- <h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6> -->
-				<p style="text-align:center; font-size:0.85em;">
-					For latest info visit
-					<a href="https://kuldeepbhartiya.github.io/resume/" target="_blank"
-						style="color:#0066cc; text-decoration:none;">
-						https://kuldeepbhartiya.github.io/resume/
-					</a>
-				</p>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-6">
+              <h2 style="color: black; font-weight: bold">
+                Kuldeep J. Bhartiya
+              </h2>
+            </div>
+          </div>
+          <h4 style="color: blue">
+            Senior Solution Architect | Cloud & Multi-Cloud Expert
+          </h4>
 
-			</div>
+          <p class="contact-info">
+            <span
+              ><i class="fas fa-user"></i> Male,
+              <label id="age"> </label> years</span
+            >
+            <span><i class="fas fa-phone"></i> +91 8452811781</span>
+            <span
+              ><a href="mailto:kjb1788@gmail.com" title="Click to send an email"
+                ><i class="fas fa-envelope"></i> kjb1788@gmail.com</a
+              ></span
+            >
+            <span
+              ><a
+                title="click to visit kuldeep's LinkedIn profile"
+                href="https://in.linkedin.com/in/kuldeep-bhartiya-0b80953b1"
+                target="_blank"
+                ><i class="fab fa-linkedin"></i> Kuldeep Bhartiya</a
+              ></span
+            >
+            <span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
+          </p>
 
-			<div class="col-md-8">
-				<div class="row">
-					<div class="col-md-6">
-						<h2 style="color:black; font-weight:bold;">Kuldeep J. Bhartiya</h2>
-					</div>
-				</div>
-				<h4 style="color:blue;">Senior Solution Architect | Cloud & Multi-Cloud Expert</h4>
+          <!-- Notice Period placeholder below contact info -->
+          <p id="noticePeriod" style="font-weight: bold; color: darkred"></p>
+        </div>
+        <div class="col-md-4">
+          <button id="printButton" onclick="window.print()">
+            <i class="fas fa-print"> Print Resume</i>
+            <span id="lastUpdatedDate" class="secondary2"></span>
+          </button>
+        </div>
+      </div>
 
-				<p class="contact-info">
-					<span><i class="fas fa-user"></i> Male, <label id="age"> </label> years</span>
-					<span><i class="fas fa-phone"></i> +91 8452811781</span>
-					<span><a href="mailto:kjb1788@gmail.com" title="Click to send an email"><i
-								class="fas fa-envelope"></i> kjb1788@gmail.com</a></span>
-					<span><a title="click to visit kuldeep's LinkedIn profile"
-							href="https://in.linkedin.com/in/kuldeep-bhartiya-0b80953b1" target="_blank"><i
-								class="fab fa-linkedin"></i> Kuldeep Bhartiya</a></span>
-					<span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
-				</p>
+      <!-- Summary -->
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Professional Summary</h4>
+          <hr />
+          <p>
+            <strong
+              >From Code to Cloud | Architecting Scalable, Resilient Enterprise
+              Solutions on Azure & Multi-Cloud</strong
+            >
+            — Senior Cloud Solution Architect with
+            <strong>14+ years of experience</strong> designing and delivering
+            secure, compliant, and highly available enterprise-grade cloud
+            architectures. Proven expertise in
+            <strong
+              >Azure hub–spoke networking, ExpressRoute hybrid connectivity,
+              RBAC, private endpoint security, AKS, and Terraform IaC</strong
+            >.
+          </p>
 
-				<!-- Notice Period placeholder below contact info -->
-				<p id="noticePeriod" style="font-weight:bold; color:darkred;"></p>
+          <p>
+            Experienced in
+            <strong
+              >greenfield cloud-native platforms and brownfield
+              modernization</strong
+            >, including <strong>On-Prem → Azure</strong> and
+            <strong>AWS → Azure migrations</strong>. Delivered
+            <strong>secure multi-cloud connectivity</strong> using Site-to-Site
+            VPN, Virtual Network Gateways, ExpressRoute, and Direct Connect.
+          </p>
 
-			</div>
-			<div class="col-md-4">
-				<button id="printButton" onclick="window.print()">
-					<i class="fas fa-print"> Print Resume</i>
-					<span id="lastUpdatedDate" class="secondary2"></span>
-				</button>
-			</div>
-		</div>
+          <p>
+            Led architecture reviews for top clients including
+            <strong
+              >Microsoft as partner for LSEG, P66 and UnitedHealth Group</strong
+            >, ensuring scalable, compliant, and cost-optimized solutions.
+            Skilled at aligning architecture strategy with business objectives,
+            mentoring teams, and driving enterprise cloud adoption.
+          </p>
+        </div>
 
-		<!-- Summary -->
-		<div class="row">
-			<div class="col-md-12">
-				<h4>Professional Summary</h4>
-				<hr>
-				<p>
-					<strong>From Code to Cloud | Architecting Scalable, Resilient Enterprise Solutions on Azure &
-						Multi-Cloud</strong> —
-					Senior Cloud Solution Architect with <strong>14+ years of experience</strong> designing and
-					delivering secure, compliant, and highly available enterprise-grade cloud architectures. Proven
-					expertise in <strong>Azure hub–spoke networking, ExpressRoute hybrid connectivity, RBAC, private
-						endpoint security, AKS, and Terraform IaC</strong>.
-				</p>
+        <!-- Skills -->
+        <div class="col-md-7">
+          <h4>Core Skills</h4>
+          <hr />
+          <div class="skills-section">
+            <div class="skills-left">
+              <ul>
+                <li class="primary">
+                  Cloud & Infrastructure: Azure (Virtual Network, Subnets,
+                  ExpressRoute, Site-to-Site VPN, Private Endpoints, AKS, App
+                  Services, Service Bus, Key Vault, Storage), AWS (EC2, VPC,
+                  EKS, S3), Hybrid & Multi-Cloud Architecture
+                </li>
+                <li class="primary">
+                  Networking & Security: Hub–Spoke Architecture, RBAC, Firewall,
+                  IP Whitelisting, DNS Zones, Route Tables
+                </li>
+                <li class="primary">
+                  Application & Development: C#, .NET Core, REST APIs,
+                  Microservices, Python, Golang, Angular, TypeScript, Bootstrap
+                </li>
+                <li class="primary">
+                  DevOps & Automation: Terraform, Docker, Kubernetes (AKS &
+                  K8s), Jenkins CI/CD, Git, SonarQube, IaC, Automated
+                  Deployments
+                </li>
+                <li class="secondary">
+                  Database & Data Services: SQL Server, MongoDB, Azure Data
+                  Factory, Cloud Data Integration, Data Pipelines with Private
+                  Endpoints
+                </li>
+                <li class="secondary">
+                  AI & Emerging Tech: LLMs, Langraph, Agentic AI, Azure AI
+                  Services (AI-102 / AI-900)
+                </li>
+              </ul>
+            </div>
+            <div class="skills-right">
+              <ul>
+                <li class="primary">
+                  Architecture & Design: Solution Design, HLD/LLD,
+                  Network/Sequence Diagrams, Lucidchart, Draw.io, Confluence
+                </li>
+                <li class="primary">
+                  Methodologies: TOGAF, Scrum, Kanban Agile, Enterprise Cloud
+                  Adoption Framework
+                </li>
+                <li class="primary">
+                  Leadership & Collaboration: Architecture Reviews, Stakeholder
+                  Management, Mentoring, Team Leadership, Client Engagement
+                  (Microsoft, LSEG)
+                </li>
+                <li class="secondary">
+                  Project & Delivery Skills: Scheduling, Conflict Resolution,
+                  Migration Planning, Multi-Cloud/Hybrid Execution
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-				<p>
-					Experienced in <strong>greenfield cloud-native platforms and brownfield modernization</strong>,
-					including <strong>On-Prem → Azure</strong> and <strong>AWS → Azure migrations</strong>. Delivered
-					<strong>secure multi-cloud connectivity</strong> using Site-to-Site VPN, Virtual Network Gateways,
-					ExpressRoute, and Direct Connect.
-				</p>
+        <!-- Certifications & Education -->
+        <div class="col-md-5">
+          <h4>Certifications</h4>
+          <hr />
+          <ul>
+            <li class="primary">
+              Microsoft Certified:
+              <a href="#" target="_blank">AI-102, AI-900, AZ-900</a>
+            </li>
+            <li class="primary">
+              Microsoft / LinkedIn: Career Essentials in Generative AI
+            </li>
+            <li class="primary">
+              Infosys: Generative AI Professional, Prompt Engineering
+            </li>
+            <li class="secondary">
+              Currently Pursuing: Azure OpenAI & Advanced AI Skills
+            </li>
+          </ul>
 
-				<p>
-					Led architecture reviews for top clients including <strong>Microsoft as partner for LSEG, P66 and UnitedHealth Group</strong>, ensuring
-					scalable, compliant, and cost-optimized solutions. Skilled at aligning architecture strategy with
-					business objectives, mentoring teams, and driving enterprise cloud adoption.
-				</p>
-			</div>
+          <h4>Education</h4>
+          <hr />
+          <ul>
+            <li class="primary">MCA, Master of Computer Applications, 2012</li>
+            <li class="primary">BSc, Computer Science, 2009</li>
+          </ul>
+        </div>
+      </div>
 
-			<!-- Skills -->
-			<div class="col-md-7">
-				<h4>Core Skills</h4>
-				<hr>
-				<div class="skills-section">
-					<div class="skills-left">
-						<ul>
-							<li class="primary">Cloud & Infrastructure: Azure (Virtual Network, Subnets, ExpressRoute,
-								Site-to-Site VPN, Private Endpoints, AKS, App Services, Service Bus, Key Vault,
-								Storage), AWS (EC2, VPC, EKS, S3), Hybrid & Multi-Cloud Architecture</li>
-							<li class="primary">Networking & Security: Hub–Spoke Architecture, RBAC, Firewall, IP
-								Whitelisting, DNS Zones, Route Tables</li>
-							<li class="primary">Application & Development: C#, .NET Core, REST APIs, Microservices,
-								Python, Golang, Angular, TypeScript, Bootstrap</li>
-							<li class="primary">DevOps & Automation: Terraform, Docker, Kubernetes (AKS & K8s), Jenkins
-								CI/CD, Git, SonarQube, IaC, Automated Deployments</li>
-							<li class="secondary">Database & Data Services: SQL Server, MongoDB, Azure Data Factory,
-								Cloud Data Integration, Data Pipelines with Private Endpoints</li>
-							<li class="secondary">AI & Emerging Tech: LLMs, Langraph, Agentic AI, Azure AI Services
-								(AI-102 / AI-900)</li>
-						</ul>
-					</div>
-					<div class="skills-right">
-						<ul>
-							<li class="primary">Architecture & Design: Solution Design, HLD/LLD, Network/Sequence
-								Diagrams, Lucidchart, Draw.io, Confluence</li>
-							<li class="primary">Methodologies: TOGAF, Scrum, Kanban Agile, Enterprise Cloud Adoption
-								Framework</li>
-							<li class="primary">Leadership & Collaboration: Architecture Reviews, Stakeholder
-								Management, Mentoring, Team Leadership, Client Engagement (Microsoft, LSEG)</li>
-							<li class="secondary">Project & Delivery Skills: Scheduling, Conflict Resolution, Migration
-								Planning, Multi-Cloud/Hybrid Execution</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+      <!-- Projects & Achievements -->
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Project & Work Highlights</h4>
+          <hr />
+          <ul>
+            <li>
+              Designed scalable, multi-region cloud solutions on Azure & AWS for
+              Fortune clients, improving delivery confidence and accelerating
+              decisions.
+            </li>
+            <li>
+              Architected & provisioned azure infrastructure using IaC
+              (Terraform) for <b>UnitedHealth Group</b> with HIPAA compliance,
+              HA and Security. .
+            </li>
+            <li>
+              Developed automation tools for RFP analysis, improving proposal
+              turnaround and win rates.
+            </li>
+            <li>
+              Spearheaded enterprise-scale cloud transformation for the London
+              Stock Exchange Group (LSEG), leading migration from a hybrid AWS
+              environment to Microsoft Azure. Architected and delivered a
+              multi-region, highly resilient, regulatory-compliant platform
+              aligned with financial services standards. Defined and executed 4R
+              migration strategies (Re-Host, Re-Platform, Refactor, and
+              Re-Architect) for real-time trading platforms, low-latency
+              services, and stateful distributed applications, incorporating
+              structured discovery, dependency mapping, and workload complexity
+              assessment. Led risk-driven cutover planning to address
+              cross-system dependencies and business-critical constraints.
+              Produced executive-level STAR architecture artifacts, including
+              solution, network, and deployment blueprints, enabling secure,
+              scalable, and compliant cloud adoption.
+            </li>
+            <li>
+              Modernized microservices for
+              <b>Nationwide Building Society</b> (16M+ members) for scalability
+              and hybrid integration.
+            </li>
+            <li>
+              Full-stack re-architecture for US Oil & Gas clients
+              <b>(P66, DCP Midstream)</b> improving efficiency 15% and
+              delivering critical modules early.
+            </li>
+            <li>
+              Senior Software Developer at <b>MaxBupa</b>: drove automation and
+              defect reduction from 125+ to 20.
+            </li>
+            <li>Built in-house automation tools saving $2K–$10K+ annually.</li>
+            <li>
+              Worked as Senior Software Developer with privately owned
+              multinational provider of an on-line company credit scores and
+              credit report information.
+            </li>
+            <li>
+              Delivered multiple enterprise projects across BFSI, healthcare,
+              and energy domains with high availability, cloud governance, and
+              timely delivery.
+            </li>
+          </ul>
+          <p>
+            <strong
+              >Note: <i>Due to NDA, only client names are mentioned.</i></strong
+            >
+          </p>
 
-			<!-- Certifications & Education -->
-			<div class="col-md-5">
-				<h4>Certifications</h4>
-				<hr>
-				<ul>
-					<li class="primary">Microsoft Certified: <a href="#" target="_blank">AI-102, AI-900, AZ-900</a></li>
-					<li class="primary">Microsoft / LinkedIn: Career Essentials in Generative AI</li>
-					<li class="primary">Infosys: Generative AI Professional, Prompt Engineering</li>
-					<li class="secondary">Currently Pursuing: Azure OpenAI & Advanced AI Skills</li>
-				</ul>
+          <h4>Key Projects</h4>
+          <ul>
+            <li>
+              <strong
+                >AI Platform Architect – AI-Driven M&A Prediction
+                Platform</strong
+              >
+              (2024 – 2025): Led the end-to-end re-architecture and migration of
+              a strategic M&A prediction platform from AWS to Azure-native
+              services.
+              <ul>
+                <li>
+                  Re-engineered
+                  <strong>Medallion Architecture</strong> pipelines, migrating
+                  from AWS Lambda/Glue to
+                  <strong>Azure Data Factory and Databricks</strong>,
+                  implementing Delta Lake for ACID compliance and time-travel
+                  capabilities.
+                </li>
+                <li>
+                  Migrated NLP workloads (fine-tuned BERT models) from SageMaker
+                  to <strong>Azure Machine Learning</strong>, establishing
+                  centralized model registries and automated retraining
+                  pipelines.
+                </li>
+                <li>
+                  Engineered for <strong>HADR</strong> with multi-region
+                  availability, auto-scaling Spark clusters, and robust error
+                  handling (DLQs).
+                </li>
+                <li>
+                  Modernized the stack into
+                  <strong>Microsoft Fabric Lakehouse</strong>, consolidating
+                  storage into OneLake to reduce service sprawl and enable
+                  direct Power BI strategic dashboards.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong
+                >Cloud Platform Architect – Real-Time Stock Market Event
+                Processing Platform</strong
+              >
+              (2024 – 2025): Designed and implemented a high-throughput,
+              multi-region streaming platform for live stock market and
+              financial news feeds.
+              <ul>
+                <li>
+                  Built **stateful AKS pipelines with StatefulSets**, ensuring
+                  deterministic per-producer-to-pod affinity and reliable
+                  real-time processing of trades, quotes, and news events.
+                </li>
+                <li>
+                  Integrated **TCP/gRPC streams** from 10–20 producers (~1–3
+                  GB/day, 5k–20k events/sec) with **multi-AZ, multi-region HA**,
+                  achieving zero data loss and <50ms processing latency.
+                </li>
+                <li>
+                  Implemented **Nginx Ingress, Azure Application Gateway, and
+                  Traffic Manager** for load balancing, routing, and instant
+                  active-passive failover across regions.
+                </li>
+                <li>
+                  Persisted processed events to **geo-replicated databases** and
+                  downstream consumers, enabling real-time dashboards, analytics
+                  pipelines, and market monitoring systems.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-				<h4>Education</h4>
-				<hr>
-				<ul>
-					<li class="primary">MCA, Master of Computer Applications, 2012</li>
-					<li class="primary">BSc, Computer Science, 2009</li>
-				</ul>
-			</div>
-		</div>
+      <!-- Professional Experience -->
+      <div class="row">
+        <div class="col-md-12">
+          <h4>
+            Professional Experience - <span class="totalExperience"></span>
+          </h4>
+          <hr />
+          <h5>
+            Solution Architect, Wipro Limited | April 2025 - Present | Mumbai
+          </h5>
+          <ul>
+            <li>
+              Provisioned Azure infrastructure using Terraform for
+              <b>UnitedHealth Group</b>.
+            </li>
+            <li>
+              Designed and executed hybrid cloud migrations for on-prem APIs and
+              microservices.
+            </li>
+            <li>
+              Provided technical leadership, guidance, and resolved architecture
+              and security challenges.
+            </li>
+          </ul>
 
-		<!-- Projects & Achievements -->
-		<div class="row">
-			<div class="col-md-12">
-				<h4>Project & Work Highlights</h4>
-				<hr>
-				<ul>
-					<li>Designed scalable, multi-region cloud solutions on Azure & AWS for Fortune clients, improving
-						delivery confidence and accelerating decisions.</li>
-					<li>Architected & provisioned azure infrastructure using IaC (Terraform) for <b>UnitedHealth Group</b> with HIPAA compliance, HA and Security. .</li>
-					<li>Developed automation tools for RFP analysis, improving proposal turnaround and win rates.</li>
-					<li>Spearheaded enterprise-scale cloud transformation for the London Stock Exchange Group (LSEG), leading migration from a hybrid AWS environment to Microsoft Azure. Architected and delivered a multi-region, highly resilient, regulatory-compliant platform aligned with financial services standards. Defined and executed 4R migration strategies (Re-Host, Re-Platform, Refactor, and Re-Architect) for real-time trading platforms, low-latency services, and stateful distributed applications, incorporating structured discovery, dependency mapping, and workload complexity assessment. Led risk-driven cutover planning to address cross-system dependencies and business-critical constraints. Produced executive-level STAR architecture artifacts, including solution, network, and deployment blueprints, enabling secure, scalable, and compliant cloud adoption.</li>
-					<li>Modernized microservices for <b>Nationwide Building Society</b> (16M+ members) for scalability
-						and hybrid integration.</li>
-					<li>Full-stack re-architecture for US Oil & Gas clients <b>(P66, DCP Midstream)</b> improving efficiency
-						15% and delivering critical modules early.</li>
-					<li>Senior Software Developer at <b>MaxBupa</b>: drove automation and defect reduction from 125+ to
-						20.</li>
-					<li>Built in-house automation tools saving $2K–$10K+ annually.</li>
-					<li>Worked as Senior Software Developer with privately owned multinational provider of an on-line company credit scores and credit report information.</li>
-					<li>Delivered multiple enterprise projects across BFSI, healthcare, and energy domains with high
-						availability, cloud governance, and timely delivery.</li>
-				</ul>
-				<p><strong>Note: <i>Due to NDA, only client names are mentioned.</i></strong></p>
-			</div>
-		</div>
+          <h5>
+            Lead Software Architect, nVent Hoffman | Oct 2024 - Apr 2025 |
+            Mumbai
+          </h5>
+          <ul>
+            <li>
+              Delivered centralized API services (Python & Go), reducing
+              redundancy and improving scalability.
+            </li>
+            <li>
+              Built tooling solutions saving $2K+ annually and mentored
+              cross-functional teams.
+            </li>
+          </ul>
 
-		<!-- Professional Experience -->
-		<div class="row">
-			<div class="col-md-12">
-				<h4>Professional Experience - <span class="totalExperience"></span></h4>
-				<hr>
-				<h5>Solution Architect, Wipro Limited | April 2025 - Present | Mumbai</h5>
-				<ul>
-					<li>Provisioned Azure infrastructure using Terraform for <b>UnitedHealth Group</b>.</li>
-					<li>Designed and executed hybrid cloud migrations for on-prem APIs and microservices.</li>
-					<li>Provided technical leadership, guidance, and resolved architecture and security challenges.</li>
-				</ul>
+          <h5>Technology Architect, Infosys | Sep 2022 - Oct 2024 | Mumbai</h5>
+          <ul>
+            <li>
+              Architected microservices and API services on AWS & Azure for
+              major applications.
+            </li>
+            <li>
+              Executed multi-cloud migration strategies, ensuring HADR, RTO=0,
+              RPO=0, GDPR/HIPAA compliance.
+            </li>
+            <li>
+              Led architecture reviews, development teams, and ensured secure,
+              cost-optimized solutions.
+            </li>
+          </ul>
 
-				<h5>Lead Software Architect, nVent Hoffman | Oct 2024 - Apr 2025 | Mumbai</h5>
-				<ul>
-					<li>Delivered centralized API services (Python & Go), reducing redundancy and improving scalability.
-					</li>
-					<li>Built tooling solutions saving $2K+ annually and mentored cross-functional teams.</li>
-				</ul>
+          <h5>Earlier Roles:</h5>
+          <ul>
+            <li>Technology Lead, LTIMindtree (Aug 2018 - Aug 2022)</li>
+            <li>
+              Sr. Software Developer, Celusion Technologies (Mar 2017 - Aug
+              2018)
+            </li>
+            <li>
+              Software Developer, NeoSOFT Technologies (Sep 2012 - Dec 2016)
+            </li>
+            <li>
+              Junior .Net Developer, Absolute Information System (Feb 2012 - Aug
+              2012)
+            </li>
+          </ul>
+        </div>
+      </div>
 
-				<h5>Technology Architect, Infosys | Sep 2022 - Oct 2024 | Mumbai</h5>
-				<ul>
-					<li>Architected microservices and API services on AWS & Azure for major applications.</li>
-					<li>Executed multi-cloud migration strategies, ensuring HADR, RTO=0, RPO=0, GDPR/HIPAA compliance.
-					</li>
-					<li>Led architecture reviews, development teams, and ensured secure, cost-optimized solutions.</li>
-				</ul>
+      <!-- LinkedIn account disclosure -->
+      <div
+        style="
+          margin-top: 20px;
+          font-size: 0.8em;
+          color: grey;
+          text-align: left;
+        "
+      >
+        <p>
+          Note: My previous LinkedIn account is no longer active; the LinkedIn
+          link above points to my current profile.
+        </p>
+      </div>
+    </div>
 
-				<h5>Earlier Roles:</h5>
-				<ul>
-					<li>Technology Lead, LTIMindtree (Aug 2018 - Aug 2022)</li>
-					<li>Sr. Software Developer, Celusion Technologies (Mar 2017 - Aug 2018)</li>
-					<li>Software Developer, NeoSOFT Technologies (Sep 2012 - Dec 2016)</li>
-					<li>Junior .Net Developer, Absolute Information System (Feb 2012 - Aug 2012)</li>
-				</ul>
-			</div>
-		</div>
+    <script>
+      function calculateDuration(dateString) {
+        let [day, month, year] = dateString.split("-").map(Number);
+        let inputDate = new Date(year, month - 1, day);
+        let currentDate = new Date();
+        let years = currentDate.getFullYear() - inputDate.getFullYear();
+        let months = currentDate.getMonth() - inputDate.getMonth();
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+        return `${years}.${months}+ years`;
+      }
 
-		<!-- LinkedIn account disclosure -->
-		<div style="margin-top:20px; font-size:0.8em; color:grey; text-align:left;">
-			<p>
-				Note: My previous LinkedIn account is no longer active; the LinkedIn link above points to my current profile.
-			</p>
-		</div>
-	</div>
+      let elements = document.getElementsByClassName("totalExperience");
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].textContent = calculateDuration("16-02-2012");
+      }
 
-	<script>
-		function calculateDuration(dateString) {
-			let [day, month, year] = dateString.split('-').map(Number);
-			let inputDate = new Date(year, month - 1, day);
-			let currentDate = new Date();
-			let years = currentDate.getFullYear() - inputDate.getFullYear();
-			let months = currentDate.getMonth() - inputDate.getMonth();
-			if (months < 0) {
-				years--;
-				months += 12;
-			}
-			return `${years}.${months}+ years`;
-		}
+      function updateNoticePeriod(isServing, endDateString = "") {
+        const noticeElement = document.getElementById("noticePeriod");
+        if (isServing && endDateString) {
+          let [day, month, year] = endDateString.split("-").map(Number);
+          let endDate = new Date(year, month - 1, day);
+          let today = new Date();
+          let diffMs = endDate - today;
+          let diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+          noticeElement.innerText =
+            diffDays > 0
+              ? `Serving Notice Period: ${diffDays} days remaining.`
+              : "Notice Period Served.";
+        } else {
+          noticeElement.innerText =
+            "Thank you for resume consideration. Notice Period: 3 Months.";
+        }
+      }
 
-		let elements = document.getElementsByClassName('totalExperience');
-		for (let i = 0; i < elements.length; i++) {
-			elements[i].textContent = calculateDuration('16-02-2012');
-		}
-
-		function updateNoticePeriod(isServing, endDateString = "") {
-			const noticeElement = document.getElementById("noticePeriod");
-			if (isServing && endDateString) {
-				let [day, month, year] = endDateString.split('-').map(Number);
-				let endDate = new Date(year, month - 1, day);
-				let today = new Date();
-				let diffMs = endDate - today;
-				let diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-				noticeElement.innerText = diffDays > 0 ? `Serving Notice Period: ${diffDays} days remaining.` : "Notice Period Served.";
-			} else {
-				noticeElement.innerText = "Thank you for resume consideration. Notice Period: 3 Months.";
-			}
-		}
-
-		document.getElementById('lastUpdatedDate').textContent = " Last Updated: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-		document.getElementById("age").innerText = parseInt(calculateDuration('01-07-1988'));
-		updateNoticePeriod(false); // Set to true and provide 'DD-MM-YYYY' to track remaining days
-	</script>
-</body>
-
+      document.getElementById("lastUpdatedDate").textContent =
+        " Last Updated: " +
+        new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      document.getElementById("age").innerText = parseInt(
+        calculateDuration("01-07-1988"),
+      );
+      updateNoticePeriod(false); // Set to true and provide 'DD-MM-YYYY' to track remaining days
+    </script>
+  </body>
 </html>
