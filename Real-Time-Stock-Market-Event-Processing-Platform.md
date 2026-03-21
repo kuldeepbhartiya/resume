@@ -1,4 +1,4 @@
-# Real-Time Stock Market Event Processing Platform
+# Reference Architecture: High-Availability Stateful Streaming for Financial Telemetry - realtime event processing e.g stock market, sport events, etc.
 
 ## Project Type
 High-Frequency Streaming Application / Financial Market Event Processing
