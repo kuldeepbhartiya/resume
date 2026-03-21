@@ -1,4 +1,4 @@
-# AI-Driven M&A Prediction Platform
+# Enterprise Blueprint: AI-Native Event Forecasting/Prediction Platform that can be used for - Companies mergers, Acquisition, Sentiment Forecasting
 
 ## Overview
 This platform was designed to predict the probability of corporate events such as:
@@ -15,9 +15,9 @@ The solution evolved through two major architecture phases:
 
 A later modernization effort consolidated the Azure stack using Microsoft Fabric.
 
-### Highlights / Metrics for Impact:
+### Highlights / Metrics for Impact - Sample Data for any company:
 - Historical dataset: ~180 GB (24-month rolling window)
-- Daily ingestion: ~50–200 MB from Reuters API
+- Daily ingestion: ~50–200 MB from Reuters API or Bloomberg API
 - Articles processed per day: 10k–50k
 - ML inference latency: Batch ~minutes; Real-time <2 sec per request
 - Storage optimization: Parquet / Delta Lake formats
@@ -105,9 +105,9 @@ Distributed Spark processing was selected to:
 **Platform:** Amazon SageMaker
 
 **Model Strategy:**
-- Pre-trained BERT model
+- Pre-trained BERT model / MiniLM / Longformer / ModernBERT
 - Fine-tuned on financial-domain corpus
-- Supervised training using historical M&A event labels
+- Supervised training using historical Merger, Acquisitions, Sentiments, Forecasting event labels
 
 **Training Design:**
 - Rolling historical windows: 6 months, 12 months, 24 months
