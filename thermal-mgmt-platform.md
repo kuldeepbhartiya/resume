@@ -1,7 +1,7 @@
-# nVent Thermal Management Platform
+# Thermal Management Platform
 
 ## 1. Summary
-The nVent Thermal Management Platform is a real-time industrial IoT solution for monitoring and controlling heating systems, including heating cables, controllers, thermostats, and HMI panels. The system collects telemetry from controllers via Modbus TCP/RTU, processes it in Golang microservices, and provides real-time operator dashboards through Angular-based HMI panels.
+The Thermal Management Platform is a real-time industrial IoT solution for monitoring and controlling heating systems, including heating cables, controllers, thermostats, and HMI panels. The system collects telemetry from controllers via Modbus TCP/RTU, processes it in Golang microservices, and provides real-time operator dashboards through Angular-based HMI panels.
 
 The platform is designed for industrial, commercial, and residential applications, including pipe freeze protection, roof/gutter de-icing, tank heating, and rail switch heating. The architecture ensures low-latency updates, high availability, and persistent data storage for analytics, monitoring, and predictive maintenance readiness.
 
