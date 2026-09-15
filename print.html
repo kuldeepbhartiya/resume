@@ -1,359 +1,345 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Resume - Kuldeep J. Bhartiya</title>
-    <!-- CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
 
-    <!-- JS Bundle -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <style>
+<head>
+  <title>Resume - Kuldeep J. Bhartiya</title>
+  <!-- CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+  <!-- JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    hr {
+      border: 1px solid grey;
+    }
+
+    a {
+      text-decoration: none !important;
+      white-space: nowrap;
+      color: inherit;
+    }
+
+    .img-circle {
+      border-radius: 50%;
+    }
+
+    .skills-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      /* space between columns */
+    }
+
+    .skills-left,
+    .skills-right {
+      flex: 1 1 45%;
+      /* two columns with responsive fallback */
+      min-width: 280px;
+      /* ensures readability on small screens */
+    }
+
+    .skills-left ul li,
+    .skills-right ul li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .primary {
+      font-weight: 600;
+    }
+
+    .rating {
+      font-size: 0.8em;
+      color: #888;
+    }
+
+    .contact-info span {
+      display: inline-block;
+      margin-right: 10px;
+      justify-content: justify-between;
+    }
+
+    .contact-info i {
+      margin-right: 5px;
+      width: 8%;
+      word-wrap: break-word;
+    }
+
+    .secondary {
+      color: grey;
+    }
+
+    .secondary2 {
+      color: #c8c8c8;
+    }
+
+    .secondary3 {
+      color: #7fffd4;
+    }
+
+    #printButton {
+      float: right;
+      font-size: 1em;
+      padding: 10px;
+      background-color: #4caf50;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+
+    #printButton:hover {
+      background-color: #45a049;
+    }
+
+    @media print {
+      #printButton {
+        display: none;
+      }
+
       body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
+        font-size: 12pt;
+        color: #000;
       }
 
-      hr {
-        border: 1px solid grey;
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #000 !important;
       }
 
-      a {
-        text-decoration: none !important;
-        white-space: nowrap;
-        color: inherit;
-      }
-
-      .img-circle {
-        border-radius: 50%;
+      .secondary2,
+      .secondary3,
+      .primary,
+      .secondary {
+        color: #000 !important;
+        /* ensures all text prints black */
       }
 
       .skills-section {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px; /* space between columns */
+        display: block;
+        /* avoid flex wrapping issues in PDF */
       }
 
-      .skills-left,
-      .skills-right {
-        flex: 1 1 45%; /* two columns with responsive fallback */
-        min-width: 280px; /* ensures readability on small screens */
+      a {
+        color: #000 !important;
+        text-decoration: underline !important;
       }
 
-      .skills-left ul li,
-      .skills-right ul li {
-        margin-bottom: 8px;
-        line-height: 1.5;
+      hr {
+        border: 1px solid #000;
       }
+    }
+  </style>
+</head>
 
-      .primary {
-        font-weight: 600;
-      }
+<body oncontextmenu="return false;">
+  <div class="container content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6> -->
+        <p style="text-align: center; font-size: 0.85em">
+          For latest info visit
+          <a href="https://kuldeepbhartiya.github.io/resume/" target="_blank"
+            style="color: #0066cc; text-decoration: none">
+            https://kuldeepbhartiya.github.io/resume/
+          </a>
+        </p>
+      </div>
 
-      .rating {
-        font-size: 0.8em;
-        color: #888;
-      }
-
-      .contact-info span {
-        display: inline-block;
-        margin-right: 10px;
-        justify-content: justify-between;
-      }
-
-      .contact-info i {
-        margin-right: 5px;
-        width: 8%;
-        word-wrap: break-word;
-      }
-
-      .secondary {
-        color: grey;
-      }
-
-      .secondary2 {
-        color: #c8c8c8;
-      }
-
-      .secondary3 {
-        color: #7fffd4;
-      }
-
-      #printButton {
-        float: right;
-        font-size: 1em;
-        padding: 10px;
-        background-color: #4caf50;
-        border: none;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 12px;
-      }
-
-      #printButton:hover {
-        background-color: #45a049;
-      }
-
-      @media print {
-        #printButton {
-          display: none;
-        }
-
-        body {
-          font-size: 12pt;
-          color: #000;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-          color: #000 !important;
-        }
-
-        .secondary2,
-        .secondary3,
-        .primary,
-        .secondary {
-          color: #000 !important;
-          /* ensures all text prints black */
-        }
-
-        .skills-section {
-          display: block;
-          /* avoid flex wrapping issues in PDF */
-        }
-
-        a {
-          color: #000 !important;
-          text-decoration: underline !important;
-        }
-
-        hr {
-          border: 1px solid #000;
-        }
-      }
-    </style>
-  </head>
-
-  <body oncontextmenu="return false;">
-    <div class="container content">
-      <div class="row">
-        <div class="col-md-12">
-          <!-- <h6 id='noticePeriod' class="secondary2" style="text-align:center"></h6> -->
-          <p style="text-align: center; font-size: 0.85em">
-            For latest info visit
-            <a
-              href="https://kuldeepbhartiya.github.io/resume/"
-              target="_blank"
-              style="color: #0066cc; text-decoration: none"
-            >
-              https://kuldeepbhartiya.github.io/resume/
-            </a>
-          </p>
-        </div>
-
-        <div class="col-md-8">
-          <div class="row">
-            <div class="col-md-6">
-              <h2 style="color: black; font-weight: bold">
-                Kuldeep J. Bhartiya
-              </h2>
-            </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">
+            <h2 style="color: black; font-weight: bold">
+              Kuldeep J. Bhartiya
+            </h2>
           </div>
-          <h4 style="color: blue">
-            Senior Architect (<span class="totalExperience"></span>) — Cloud,
-            IoT & Real‑Time Platforms
-          </h4>
-
-          <p class="contact-info">
-            <span
-              ><i class="fas fa-user"></i> Male,
-              <label id="age"> </label> years</span
-            >
-            <span><i class="fas fa-phone"></i> +91 8452811781</span>
-            <span
-              ><a href="mailto:kjb1788@gmail.com" title="Click to send an email"
-                ><i class="fas fa-envelope"></i> kjb1788@gmail.com</a
-              ></span
-            >
-            <span
-              ><a
-                title="click to visit kuldeep's LinkedIn profile"
-                href="https://in.linkedin.com/in/kuldeep-bhartiya-0b80953b1"
-                target="_blank"
-                ><i class="fab fa-linkedin"></i> Kuldeep Bhartiya</a
-              ></span
-            >
-            <span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
-          </p>
-
-          <!-- Notice Period placeholder below contact info -->
-          <p id="noticePeriod" style="font-weight: bold; color: darkred"></p>
         </div>
-        <div class="col-md-4">
-          <button id="printButton" onclick="window.print()">
-            <i class="fas fa-print"> Print Resume</i>
-            <span id="lastUpdatedDate" class="secondary2"></span>
-          </button>
+        <h4 style="color: blue">
+          Senior Architect (<span class="totalExperience"></span>) — Cloud, AI, IoT & Real‑Time Platforms
+        </h4>
+
+        <p class="contact-info">
+          <span><i class="fas fa-user"></i> Male,
+            <label id="age"> </label> years</span>
+          <span><i class="fas fa-phone"></i> +91 8452811781</span>
+          <span><a href="mailto:kjb1788@gmail.com" title="Click to send an email"><i class="fas fa-envelope"></i>
+              kjb1788@gmail.com</a></span>
+          <span><a title="click to visit kuldeep's LinkedIn profile"
+              href="https://in.linkedin.com/in/kuldeep-bhartiya-0b80953b1" target="_blank"><i
+                class="fab fa-linkedin"></i> Kuldeep Bhartiya</a></span>
+          <span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
+        </p>
+
+        <!-- Notice Period placeholder below contact info -->
+        <p id="noticePeriod" style="font-weight: bold; color: darkred"></p>
+      </div>
+      <div class="col-md-4">
+        <button id="printButton" onclick="window.print()">
+          <i class="fas fa-print"> Print Resume</i>
+          <span id="lastUpdatedDate" class="secondary2"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Professional Summary</h4>
+        <hr />
+        <p>
+          <strong>From Code to Cloud | Enterprise Solution Architect | Azure, Multi-Cloud &amp; Industrial IoT
+            Specialist</strong>
+          — Senior Cloud &amp; IoT Solution Architect with
+          <strong><span class="totalExperience"></span> of experience</strong>
+          designing and leading the delivery of secure, compliant, and highly
+          available enterprise-grade cloud and industrial IoT architectures.
+          Proven technical expertise in
+          <strong>Azure hub–spoke networking, ExpressRoute hybrid connectivity,
+            RBAC, private endpoint security, AKS (Azure Kubernetes Service), and Terraform IaC (Infrastructure as
+            Code)</strong>.
+        </p>
+
+        <p>
+          Experienced in
+          <strong>greenfield cloud-native platforms, brownfield modernization, and
+            industrial IoT integration</strong>, including <strong>On-Premises to Azure</strong> and
+          <strong>AWS to Azure cloud migrations</strong>. Architected
+          <strong>secure multi-cloud connectivity and enterprise transit routing</strong> using the
+          <strong>Aviatrix cloud network platform</strong>, Site-to-Site
+          VPN, Virtual Network Gateways, ExpressRoute, and AWS Direct Connect.
+          Skilled in designing
+          <strong>real-time data telemetry pipelines, API/microservices architectures,
+            and edge/cloud-integrated platforms</strong>
+          for operational efficiency, predictive monitoring, and analytics.
+        </p>
+
+        <p>
+          <strong>Architected and guided enterprise implementations</strong> for tier-1
+          global clients including
+          <strong>Microsoft as enterprise partner for London Stock Exchange Group (LSEG), Phillips 66 (P66), and
+            UnitedHealth
+            Group</strong>, ensuring scalable, regulatory-compliant, and cost-optimized solutions.
+          Demonstrated cross-domain expertise delivering:
+        </p>
+        <ul>
+          <li><strong>BFSI &amp; NBFC Banking Architectures:</strong> High-availability, PCI-DSS compliant banking
+            platforms featuring real-time fraud detection, core system modernization, and secure API-driven open banking
+            ecosystems.</li>
+          <li><strong>Healthcare Information Systems:</strong> HIPAA-compliant cloud architectures utilizing FHIR/HL7
+            standards for EHR/EMR systems integration, secure PHI/PII data masking, and automated medical claims
+            adjudication.</li>
+          <li><strong>Oil &amp; Gas Industrial IoT:</strong> High-throughput IoT telemetry solutions optimized for SCADA
+            integration, edge computing nodes, and predictive asset maintenance pipelines.</li>
+        </ul>
+
+        <p>
+          Strategic leader adept at aligning architecture strategy with business objectives,
+          mentoring engineering teams, and driving
+          <strong>enterprise cloud adoption with AI-ready, analytics-capable platforms, including Generative AI with LLM
+            integration, Retrieval-Augmented Generation (RAG Agents), and Agentic AI solutions</strong>.
+        </p>
+      </div>
+
+      <!-- Skills (Left Side, Vertically Equivalent, Divided Horizontally into 2 Parts) -->
+      <div class="col-md-8">
+        <h4>Core Skills</h4>
+        <hr />
+        <div class="skills-section">
+          <!-- Part 1: Infrastructure, Engineering, Automation -->
+          <div class="skills-part-1" style="margin-bottom: 20px;">
+            <ul>
+              <li>
+                <strong>Cloud &amp; Infrastructure:</strong> Azure (Virtual
+                Networks, Subnets, ExpressRoute, Site-to-Site VPN, Private
+                Endpoints, AKS, App Services, Service Bus, Key Vault,
+                Storage), AWS (EC2, VPC, EKS, S3), Aviatrix Cloud Network Platform, Hybrid &amp; Multi-Cloud
+                Architecture, High Availability &amp; Disaster Recovery (HA/DR)
+              </li>
+              <li>
+                <strong>Networking &amp; Security:</strong> Hub-Spoke
+                Architecture, RBAC, Cloud Firewalls, IP Whitelisting, DNS, Route
+                Tables, Secure Connectivity Patterns, Zero Trust Network Access (ZTNA)
+              </li>
+              <li>
+                <strong>Application &amp; Engineering:</strong> Microservices
+                Architectures (Golang, Python, C#/.NET Core), RESTful APIs, Angular,
+                TypeScript, Bootstrap, Event-Driven &amp; Real-Time Systems, Saga
+                &amp; Orchestrator Design Patterns
+              </li>
+              <li>
+                <strong>DevOps &amp; Automation:</strong> Terraform IaC (Infrastructure as Code), Docker,
+                Kubernetes (AKS/K8s/EKS), Jenkins CI/CD Pipelines, Git, SonarQube,
+                GitHub Actions/Workflows, Observability &amp; Monitoring (SRE)
+              </li>
+              <li>
+                <strong>Identity &amp; Access Management (IAM):</strong> Managed Identities, Azure Service Principals,
+                Enterprise IAM, Role-Based Access Control, Cloud Security Governance
+              </li>
+              <li>
+                <strong>Data &amp; Industrial IoT:</strong> SQL Server, MongoDB, Azure Data
+                Factory (ADF), Cloud Data Pipelines, Telemetry Integration, SCADA, Modbus TCP/RTU, Real-Time Event
+                Processing
+              </li>
+              <li>
+                <strong>AI &amp; Emerging Tech:</strong> Generative AI, Large Language Models (LLMs), RAG Agents
+                (Agentic AI), Azure AI Services, Prompt Engineering, Retrieval-Augmented Generation
+              </li>
+              <li>
+                <strong>Architecture &amp; Design:</strong> Solution Architecture Design,
+                High-Level Design (HLD), Low-Level Design (LLD), Network/Sequence Diagrams, Lucidchart, Draw.io,
+                Confluence, Enterprise-Scale Resilient Systems
+              </li>
+              <li>
+                <strong>Methodologies &amp; Frameworks:</strong> TOGAF Enterprise Architecture, Scrum,
+                Kanban Agile Frameworks, Microsoft Cloud Adoption Framework (CAF), Well-Architected Framework (WAF)
+              </li>
+              <li>
+                <strong>Leadership &amp; Management:</strong> Architecture Design Reviews (ADR), Stakeholder Management,
+                Engineering Mentorship, Team Leadership, Technical Client Engagement (Microsoft, LSEG, P66, UnitedHealth
+                Group), Migration Planning (On-Premises to Cloud)
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <!-- Summary -->
-      <div class="row">
-        <div class="col-md-12">
-          <h4>Professional Summary</h4>
-          <hr />
-          <p>
-            <strong
-              >From Code to Cloud | Enterprise Solution Architect | Azure, Multi-Cloud &amp; Industrial IoT Specialist</strong
-            >
-            — Senior Cloud &amp; IoT Solution Architect with
-            <strong><span class="totalExperience"></span> of experience</strong>
-            designing and leading the delivery of secure, compliant, and highly
-            available enterprise-grade cloud and industrial IoT architectures.
-            Proven technical expertise in
-            <strong
-              >Azure hub–spoke networking, ExpressRoute hybrid connectivity,
-              RBAC, private endpoint security, AKS (Azure Kubernetes Service), and Terraform IaC (Infrastructure as Code)</strong
-            >.
-          </p>
+      <!-- Certifications & Education (Right Side Container Stack) -->
+      <div class="col-md-4">
+        <h4>Certifications</h4>
+        <hr />
+        <ul>
+          <li>AZ-305 - Microsoft Certified: Azure Solutions Architect Expert</li>
+          <li>AZ 104 - Microsoft Certified: Azure Administrator Associate</li>
+          <li>AI 102 - Microsoft Certified: Azure AI Engineer Associate</li>
+          <li>Microsoft / LinkedIn: Career Essentials in Generative AI</li>
+          <li>Infosys: Generative AI Professional, Prompt Engineering</li>
 
-          <p>
-            Experienced in
-            <strong
-              >greenfield cloud-native platforms, brownfield modernization, and
-              industrial IoT integration</strong
-            >, including <strong>On-Premises to Azure</strong> and
-            <strong>AWS to Azure cloud migrations</strong>. Architected
-            <strong>secure multi-cloud connectivity and enterprise transit routing</strong> using the 
-            <strong>Aviatrix cloud network platform</strong>, Site-to-Site
-            VPN, Virtual Network Gateways, ExpressRoute, and AWS Direct Connect.
-            Skilled in designing
-            <strong
-              >real-time data telemetry pipelines, API/microservices architectures,
-              and edge/cloud-integrated platforms</strong>
-            for operational efficiency, predictive monitoring, and analytics.
-          </p>
+          <li>Currently Pursuing: Azure OpenAI &amp; Advanced AI Skills</li>
+        </ul>
 
-          <p>
-            <strong>Architected and guided enterprise implementations</strong> for tier-1
-            global clients including
-            <strong>Microsoft as enterprise partner for London Stock Exchange Group (LSEG), Phillips 66 (P66), and UnitedHealth
-              Group</strong>, ensuring scalable, regulatory-compliant, and cost-optimized solutions. 
-            Demonstrated cross-domain expertise delivering:
-          </p>
-          <ul>
-            <li><strong>BFSI &amp; NBFC Banking Architectures:</strong> High-availability, PCI-DSS compliant banking platforms featuring real-time fraud detection, core system modernization, and secure API-driven open banking ecosystems.</li>
-            <li><strong>Healthcare Information Systems:</strong> HIPAA-compliant cloud architectures utilizing FHIR/HL7 standards for EHR/EMR systems integration, secure PHI/PII data masking, and automated medical claims adjudication.</li>
-            <li><strong>Oil &amp; Gas Industrial IoT:</strong> High-throughput IoT telemetry solutions optimized for SCADA integration, edge computing nodes, and predictive asset maintenance pipelines.</li>
-          </ul>
-
-          <p>
-            Strategic leader adept at aligning architecture strategy with business objectives,
-            mentoring engineering teams, and driving
-            <strong
-              >enterprise cloud adoption with AI-ready, analytics-capable platforms, including Generative AI with LLM integration, Retrieval-Augmented Generation (RAG Agents), and Agentic AI solutions</strong
-            >.
-          </p>
-        </div>
-
-        <!-- Skills (Left Side, Vertically Equivalent, Divided Horizontally into 2 Parts) -->
-        <div class="col-md-8">
-          <h4>Core Skills</h4>
-          <hr />
-          <div class="skills-section">
-            <!-- Part 1: Infrastructure, Engineering, Automation -->
-            <div class="skills-part-1" style="margin-bottom: 20px;">
-              <ul>
-                <li>
-                  <strong>Cloud &amp; Infrastructure:</strong> Azure (Virtual
-                  Networks, Subnets, ExpressRoute, Site-to-Site VPN, Private
-                  Endpoints, AKS, App Services, Service Bus, Key Vault,
-                  Storage), AWS (EC2, VPC, EKS, S3), Aviatrix Cloud Network Platform, Hybrid &amp; Multi-Cloud
-                  Architecture, High Availability &amp; Disaster Recovery (HA/DR)
-                </li>
-                <li>
-                  <strong>Networking &amp; Security:</strong> Hub-Spoke
-                  Architecture, RBAC, Cloud Firewalls, IP Whitelisting, DNS, Route
-                  Tables, Secure Connectivity Patterns, Zero Trust Network Access (ZTNA)
-                </li>
-                <li>
-                  <strong>Application &amp; Engineering:</strong> Microservices
-                  Architectures (Golang, Python, C#/.NET Core), RESTful APIs, Angular,
-                  TypeScript, Bootstrap, Event-Driven &amp; Real-Time Systems, Saga
-                  &amp; Orchestrator Design Patterns
-                </li>
-                <li>
-                  <strong>DevOps &amp; Automation:</strong> Terraform IaC (Infrastructure as Code), Docker,
-                  Kubernetes (AKS/K8s/EKS), Jenkins CI/CD Pipelines, Git, SonarQube,
-                  GitHub Actions/Workflows, Observability &amp; Monitoring (SRE)
-                </li>
-                <li>
-                  <strong>Identity &amp; Access Management (IAM):</strong> Managed Identities, Azure Service Principals, Enterprise IAM, Role-Based Access Control, Cloud Security Governance
-                </li>
-                <li>
-                  <strong>Data &amp; Industrial IoT:</strong> SQL Server, MongoDB, Azure Data
-                  Factory (ADF), Cloud Data Pipelines, Telemetry Integration, SCADA, Modbus TCP/RTU, Real-Time Event Processing
-                </li>
-                <li>
-                  <strong>AI &amp; Emerging Tech:</strong> Generative AI, Large Language Models (LLMs), RAG Agents (Agentic AI), Azure AI Services, Prompt Engineering, Retrieval-Augmented Generation
-                </li>
-                <li>
-                  <strong>Architecture &amp; Design:</strong> Solution Architecture Design,
-                  High-Level Design (HLD), Low-Level Design (LLD), Network/Sequence Diagrams, Lucidchart, Draw.io,
-                  Confluence, Enterprise-Scale Resilient Systems
-                </li>
-                <li>
-                  <strong>Methodologies &amp; Frameworks:</strong> TOGAF Enterprise Architecture, Scrum,
-                  Kanban Agile Frameworks, Microsoft Cloud Adoption Framework (CAF), Well-Architected Framework (WAF)
-                </li>
-                <li>
-                  <strong>Leadership &amp; Management:</strong> Architecture Design Reviews (ADR), Stakeholder Management, Engineering Mentorship, Team Leadership, Technical Client Engagement (Microsoft, LSEG, P66, UnitedHealth Group), Migration Planning (On-Premises to Cloud)
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Certifications & Education (Right Side Container Stack) -->
-        <div class="col-md-4">
-          <h4>Certifications</h4>
-          <hr />
-          <ul>
-            <li>AZ-305 - Microsoft Certified: Azure Solutions Architect Expert</li>
-			      <li>AZ 104 - Microsoft Certified: Azure Administrator Associate</li>
-			      <li>AI 102 - Microsoft Certified: Azure AI Engineer Associate</li>
-            <li>Microsoft / LinkedIn: Career Essentials in Generative AI</li>
-            <li>Infosys: Generative AI Professional, Prompt Engineering</li>
-            
-            <li>Currently Pursuing: Azure OpenAI &amp; Advanced AI Skills</li>
-          </ul>
-
-          <h4 style="margin-top: 25px;">Education</h4>
-          <hr />
-          <ul>
-            <li>MCA, Master of Computer Applications, 2012</li>
-            <li>BSc, Computer Science, 2009</li>
-          </ul>
-        </div>
+        <h4 style="margin-top: 25px;">Education</h4>
+        <hr />
+        <ul>
+          <li>MCA, Master of Computer Applications, 2012</li>
+          <li>BSc, Computer Science, 2009</li>
+        </ul>
+      </div>
 
       <!-- Projects & Achievements -->
       <div class="row">
@@ -377,7 +363,7 @@
             </li>
             <li>
               Spearheaded enterprise-scale cloud transformation for the <b>London
-              Stock Exchange Group (LSEG)</b>, leading migration from a hybrid AWS
+                Stock Exchange Group (LSEG)</b>, leading migration from a hybrid AWS
               environment to Microsoft Azure. Architected and delivered a
               multi-region, highly resilient, regulatory-compliant platform
               aligned with financial services standards. Defined and executed 4R
@@ -419,18 +405,14 @@
             </li>
           </ul>
           <p>
-            <strong
-              >Note: <i>Due to NDA, only client names are mentioned with no project details.</i></strong
-            >
+            <strong>Note: <i>Due to NDA, only client names are mentioned with no project details.</i></strong>
           </p>
 
           <h4>Key Projects</h4>
           <ul>
             <li>
-              <strong
-                >AI Platform Architect – AI-Driven M&A Prediction
-                Platform</strong
-              >
+              <strong>AI Platform Architect – AI-Driven M&A Prediction
+                Platform</strong>
               : Led the end-to-end re-architecture and migration of a strategic
               M&A prediction platform from AWS to Azure-native services.
               <ul>
@@ -462,10 +444,8 @@
               </ul>
             </li>
             <li>
-              <strong
-                >Cloud Platform Architect – Real-Time Stock Market Event
-                Processing Platform</strong
-              >
+              <strong>Cloud Platform Architect – Real-Time Stock Market Event
+                Processing Platform</strong>
               : Designed and implemented a high-throughput, multi-region
               streaming platform for live stock market and financial news feeds.
               <ul>
@@ -494,8 +474,7 @@
             <li>
               <strong>
                 Lead - Cloud & IoT Architect – Thermal Management
-                Platform</strong
-              >: Designed, developed, and implemented a scalable, resilient
+                Platform</strong>: Designed, developed, and implemented a scalable, resilient
               industrial IoT platform for monitoring and controlling thermal
               systems.
               <ul>
@@ -547,7 +526,7 @@
             <li>Design, Develop, Integrate and Implement the e2e solution.</li>
             <li>Stakeholder Management - Client, Delivery Managers, Lead Cross-functional Teams.</li>
             <li>
-              Provisioned Azure infrastructure using Terraform  and Integrated with NextGen for
+              Provisioned Azure infrastructure using Terraform and Integrated with NextGen for
               <b>UnitedHealth Group</b>.
             </li>
             <li>
@@ -599,9 +578,8 @@
               RPO=0, GDPR/HIPAA compliance.
             </li>
             <li>
-              Led architecture reviews, development teams <b>(20+ Members)</b, and ensured secure,
-              cost-optimized solutions.
-            </li>
+              Led architecture reviews, development teams <b>(20+ Members)</b, and ensured secure, cost-optimized
+                  solutions. </li>
           </ul>
 
           <h5>Earlier Roles:</h5>
@@ -631,14 +609,12 @@
       </div>
 
       <!-- LinkedIn account disclosure -->
-      <div
-        style="
+      <div style="
           margin-top: 20px;
           font-size: 0.8em;
           color: grey;
           text-align: left;
-        "
-      >
+        ">
         <p>
           Note: My previous LinkedIn account is no longer active; the LinkedIn
           link above points to my current profile.
@@ -695,5 +671,6 @@
       );
       updateNoticePeriod(false); // Set to true and provide 'DD-MM-YYYY' to track remaining days
     </script>
-  </body>
+</body>
+
 </html>

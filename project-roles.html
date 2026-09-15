@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Experience</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #4b5563;
+        --line: #dfe7f1;
+        --accent: #0b57d0;
+        --accent-soft: #eaf2ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        padding: 30px 32px;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 2rem;
+        color: #111827;
+      }
+
+      .header-line {
+        border: 0;
+        border-top: 2px solid var(--line);
+        margin: 12px 0 24px;
+      }
+
+      .role {
+        margin-bottom: 28px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .role:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .role-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+
+      .company {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .title {
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .meta {
+        font-size: 0.94rem;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0 0 12px;
+        color: var(--text);
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          margin: 20px 12px;
+          padding: 20px 18px;
+        }
+
+        .role-header {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Professional Experience</h1>
+      <hr class="header-line" />
+
+      <section class="role">
+        <div class="role-header">
+          <div>
+            <span class="company">Wipro Limited</span>
+            <span class="title"> — Solution Architect</span>
+          </div>
+          <div class="meta">Apr 2025 – Present</div>
+        </div>
+
+        <p>
+          As a Solution Architect, leading end-to-end cloud solution design,
+          enterprise integration, and technical delivery for complex healthcare and
+          enterprise platforms.
+        </p>
+
+        <ul>
+          <li>
+            Architect and implement Azure cloud solutions, including
+            infrastructure provisioning through Terraform, secure networking, and
+            enterprise integrations for UnitedHealth Group.
+          </li>
+          <li>
+            Design and execute hybrid cloud migrations for on-premises APIs and
+            microservices, with a focus on scalability, security, high
+            availability, and compliance.
+          </li>
+          <li>
+            Lead solution architecture, design reviews, and technical
+            decision-making, translating business requirements into scalable and
+            resilient architectures.
+          </li>
+          <li>
+            Manage technical stakeholders across clients, delivery managers, and
+            cross-functional engineering teams to ensure successful delivery.
+          </li>
+          <li>
+            Provide technical leadership, mentorship, and architectural guidance,
+            resolving complex engineering, integration, and security challenges.
+          </li>
+        </ul>
+      </section>
+
+      <section class="role">
+        <div class="role-header">
+          <div>
+            <span class="company">nVent</span>
+            <span class="title"> — Lead Software Architect</span>
+          </div>
+          <div class="meta">Oct 2024 – Mar 2025</div>
+        </div>
+
+        <p>
+          As Lead Software Architect, architected and guided the development of a
+          real-time Industrial IoT thermal management platform, integrating
+          cloud-native services with industrial control systems.
+        </p>
+
+        <ul>
+          <li>
+            Designed a scalable platform using Golang microservices, Python APIs,
+            AWS Fargate, and Angular HMIs, enabling low-latency communication
+            with industrial controllers.
+          </li>
+          <li>
+            Integrated Modbus TCP/RTU with real-time telemetry pipelines and
+            MySQL persistence for monitoring, analytics, and predictive
+            maintenance.
+          </li>
+          <li>
+            Centralized backend services and developed reusable engineering
+            tools, reducing redundancy and delivering $2K+ in annual savings.
+          </li>
+          <li>
+            Provided architecture strategy, technical problem-solving, and
+            engineering guidance across a 30+ member cross-functional team.
+          </li>
+          <li>
+            Drove improvements in platform reliability, maintainability, and
+            operational efficiency across the application lifecycle.
+          </li>
+        </ul>
+      </section>
+
+      <section class="role">
+        <div class="role-header">
+          <div>
+            <span class="company">Infosys</span>
+            <span class="title"> — Technology Architect</span>
+          </div>
+          <div class="meta">Sep 2022 – Oct 2024</div>
+        </div>
+
+        <p>
+          As a Technology Architect, led the architecture and modernization of
+          enterprise applications, distributed microservices, and multi-cloud
+          platforms for global clients.
+        </p>
+
+        <ul>
+          <li>
+            Designed and delivered RESTful APIs and distributed microservices
+            using .NET Core on AWS, applying Saga and Orchestrator patterns for
+            resilient inter-service coordination.
+          </li>
+          <li>
+            Architected and executed multi-cloud migration strategies with
+            emphasis on high availability, disaster recovery, security, and
+            enterprise compliance requirements.
+          </li>
+          <li>
+            Led architecture reviews, solution design, and technical
+            implementation across complex enterprise applications and
+            integrations.
+          </li>
+          <li>
+            Collaborated with clients, delivery managers, and cross-functional
+            teams to translate business requirements into scalable and
+            fault-tolerant solutions.
+          </li>
+          <li>
+            Provided technical leadership and mentorship to 20+ member engineering
+            teams, driving design quality and successful delivery.
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
