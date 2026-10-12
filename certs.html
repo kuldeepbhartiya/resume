@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Microsoft certifications earned by Kuldeep Bhartiya in Azure, AI, and solution architecture."
+    />
+    <title>Certifications | Kuldeep Bhartiya</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #14243a;
+        --muted: #5e6e82;
+        --blue: #0877d1;
+        --blue-dark: #075ba3;
+        --blue-soft: #eaf5ff;
+        --line: #dce7f1;
+        --surface: #ffffff;
+        --background: #f4f8fc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 48px 20px;
+        background:
+          radial-gradient(ellipse at 50% -15%, #dceeff 0, transparent 48%),
+          var(--background);
+        color: var(--ink);
+        font-family: "Segoe UI", Arial, sans-serif;
+        line-height: 1.5;
+      }
+
+      .page {
+        width: min(100%, 1080px);
+        margin: 0 auto;
+      }
+
+      .intro {
+        margin: 0 auto 34px;
+        text-align: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 14px;
+        color: var(--blue-dark);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--blue);
+        content: "";
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        letter-spacing: -0.045em;
+        line-height: 1.12;
+      }
+
+      .subtitle {
+        max-width: 590px;
+        margin: 16px auto 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .count {
+        display: inline-block;
+        margin-top: 22px;
+        padding: 6px 13px;
+        border: 1px solid #cfe5f8;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--blue-dark);
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+
+      .streams {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: stretch;
+        gap: 20px;
+      }
+
+      .stream {
+        display: flex;
+        min-width: 0;
+        height: 100%;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .tier-heading {
+        min-height: 88px;
+        padding: 2px 3px 10px;
+      }
+
+      .tier-heading h2 {
+        margin: 0 0 5px;
+        font-size: 1.2rem;
+        letter-spacing: -0.02em;
+      }
+
+      .tier-label {
+        color: var(--muted);
+        font-size: 0.83rem;
+      }
+
+      .stream-label {
+        display: block;
+        margin: 3px 0 0;
+        color: var(--blue-dark);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .cert-card {
+        display: flex;
+        min-height: 250px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        box-shadow: 0 8px 24px rgba(30, 64, 98, 0.055);
+        transition:
+          transform 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .stream .cert-card {
+        width: 100%;
+      }
+
+      .stream > .cert-card:first-of-type {
+        min-height: 300px;
+      }
+
+      .cert-card:hover {
+        transform: translateY(-3px);
+        border-color: #a9d3f3;
+        box-shadow: 0 14px 30px rgba(30, 64, 98, 0.1);
+      }
+
+      .cert-icon {
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid #d5eaff;
+        border-radius: 12px;
+        background: var(--blue-soft);
+        color: var(--blue-dark);
+      }
+
+      .cert-icon svg {
+        width: 23px;
+        height: 23px;
+      }
+
+      .issuer {
+        margin: 19px 0 6px;
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .cert-card h2 {
+        margin: 0 0 20px;
+        font-size: 1.08rem;
+        letter-spacing: -0.015em;
+        line-height: 1.4;
+      }
+
+      .cert-note {
+        margin: -10px 0 18px;
+        color: var(--muted);
+        font-size: 0.86rem;
+        line-height: 1.45;
+      }
+
+      .cert-note a {
+        color: var(--blue-dark);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .prerequisite {
+        display: inline-block;
+        margin: -8px 0 16px;
+        padding: 5px 9px;
+        border-radius: 7px;
+        background: var(--blue-soft);
+        color: var(--blue-dark);
+        font-size: 0.76rem;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .upcoming-card {
+        min-height: 250px;
+        justify-content: center;
+        border-style: dashed;
+        background: rgba(255, 255, 255, 0.62);
+        box-shadow: none;
+      }
+
+      .upcoming-card:hover {
+        transform: none;
+        border-color: #a9d3f3;
+        box-shadow: none;
+      }
+
+      .upcoming-card .issuer {
+        margin-top: 15px;
+      }
+
+      .upcoming-card h2 {
+        margin-bottom: 8px;
+      }
+
+      .upcoming-card .cert-note {
+        margin: 0;
+      }
+
+      .verify-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto;
+        color: var(--blue-dark);
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .verify-link:hover {
+        color: #03477f;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .verify-link:focus-visible {
+        border-radius: 3px;
+        outline: 3px solid #80c3f4;
+        outline-offset: 4px;
+      }
+
+      .verify-link svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      footer {
+        margin-top: 30px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+
+      @media (max-width: 960px) {
+        .streams {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        body {
+          padding: 34px 16px;
+        }
+
+        .intro {
+          margin-bottom: 26px;
+        }
+
+        .streams {
+          grid-template-columns: 1fr;
+          gap: 13px;
+        }
+
+        .tier-heading {
+          min-height: 0;
+        }
+
+        .cert-card,
+        .upcoming-card {
+          min-height: 220px;
+        }
+
+        .stream > .cert-card:first-of-type {
+          min-height: 260px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <p class="eyebrow">Professional credentials</p>
+        <h1>Certifications</h1>
+        <p class="subtitle">
+          Microsoft credentials earned by Kuldeep Bhartiya across Azure,
+          artificial intelligence, and solution architecture.
+        </p>
+        <span class="count">5 earned certifications · 2 upcoming</span>
+      </header>
+
+      <section class="streams" aria-label="Certification streams">
+        <section class="stream" aria-labelledby="agentic-stream-heading">
+          <header class="tier-heading">
+            <h2 id="agentic-stream-heading">Agentic AI Architecture</h2>
+            <span class="tier-label">Expert certification and qualifying Associate</span>
+          </header>
+          <article class="cert-card">
+            <span class="cert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 14.3 5l3-.1.8 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.8 2.9-3-.1L12 21l-2.3-2-3 .1-.8-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.8-2.9 3 .1L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <p class="issuer">Microsoft Certified · AB-100</p>
+            <h2>Agentic AI Business Solutions Architect Expert</h2>
+            <p class="cert-note">
+              Requires the AB-100 exam and at least one eligible Associate
+              certification. See Microsoft's
+              <a href="https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-business-solutions-architect/" target="_blank" rel="noopener noreferrer">prerequisite list</a>.
+            </p>
+            <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/50B9AD9F8DFA182D?sharingId=37173F872693807D" target="_blank" rel="noopener noreferrer">
+              Verify credential
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M7 4h9v9M16 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 11v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </article>
+
+          <article class="cert-card">
+            <span class="cert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 14.3 5l3-.1.8 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.8 2.9-3-.1L12 21l-2.3-2-3 .1-.8-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.8-2.9 3 .1L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <p class="issuer">Microsoft Certified · AI-103</p>
+            <h2>Azure AI Apps and Agents Developer Associate</h2>
+            <span class="prerequisite">Qualifying Associate prerequisite for AB-100</span>
+            <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/26DE2C22087617DE?sharingId=37173F872693807D" target="_blank" rel="noopener noreferrer">
+              Verify credential
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M7 4h9v9M16 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 11v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </article>
+
+          <article class="cert-card">
+            <span class="cert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 14.3 5l3-.1.8 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.8 2.9-3-.1L12 21l-2.3-2-3 .1-.8-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.8-2.9 3 .1L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <p class="issuer">Microsoft Certified · AI-901</p>
+            <h2>Azure AI Fundamentals</h2>
+            <span class="stream-label">Additional foundational credential</span>
+            <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/299D8ACEC77D0D67?sharingId=37173F872693807D" target="_blank" rel="noopener noreferrer">
+              Verify credential
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M7 4h9v9M16 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 11v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </article>
+      </section>
+
+      <section class="stream" aria-labelledby="azure-stream-heading">
+          <header class="tier-heading">
+            <h2 id="azure-stream-heading">Azure Architecture</h2>
+            <span class="tier-label">Expert certification and required Associate</span>
+          </header>
+          <article class="cert-card">
+            <span class="cert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 14.3 5l3-.1.8 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.8 2.9-3-.1L12 21l-2.3-2-3 .1-.8-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.8-2.9 3 .1L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <p class="issuer">Microsoft Certified · AZ-305</p>
+            <h2>Azure Solutions Architect Expert</h2>
+            <p class="cert-note">
+              Microsoft requires the Azure Administrator Associate
+              certification as a prerequisite.
+            </p>
+            <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/EEB6B10508EAC43A?sharingId=37173F872693807D" target="_blank" rel="noopener noreferrer">
+              Verify credential
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M7 4h9v9M16 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 11v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </article>
+          <article class="cert-card">
+            <span class="cert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 14.3 5l3-.1.8 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.8 2.9-3-.1L12 21l-2.3-2-3 .1-.8-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.8-2.9 3 .1L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <p class="issuer">Microsoft Certified · AZ-104</p>
+            <h2>Azure Administrator Associate</h2>
+            <span class="prerequisite">Required prerequisite for AZ-305</span>
+            <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/KuldeepBhartiya-4485/2C64B00D6D64D8B9?sharingId=37173F872693807D" target="_blank" rel="noopener noreferrer">
+              Verify credential
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M7 4h9v9M16 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 11v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </article>
+      </section>
+
+      <section class="stream" aria-labelledby="security-stream-heading">
+          <header class="tier-heading">
+            <h2 id="security-stream-heading">Security Architecture</h2>
+            <span class="tier-label">Upcoming certifications</span>
+          </header>
+          <article class="cert-card upcoming-card">
+            <span class="cert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 4.5 6v5.2c0 4.4 3.2 8.3 7.5 9.8 4.3-1.5 7.5-5.4 7.5-9.8V6L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M9 12h6M12 9v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <p class="issuer">Upcoming · SC-100</p>
+            <h2>Cybersecurity Architect Expert</h2>
+            <p class="cert-note">Planned certification; not yet earned.</p>
+          </article>
+          <article class="cert-card upcoming-card">
+            <span class="cert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 4.5 6v5.2c0 4.4 3.2 8.3 7.5 9.8 4.3-1.5 7.5-5.4 7.5-9.8V6L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M9 12h6M12 9v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <p class="issuer">Upcoming · SC-500</p>
+            <h2>Cloud and AI Security Engineer Associate</h2>
+            <p class="cert-note">Planned certification; not yet earned.</p>
+          </article>
+      </section>
+      </section>
+
+      <footer>
+        Credential links open Microsoft Learn. Upcoming certifications are
+        shown separately and are not included in the earned total.
+      </footer>
+    </main>
+  </body>
+</html>
