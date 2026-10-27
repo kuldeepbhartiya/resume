@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Eight Azure- and Microsoft-oriented enterprise architecture case studies for Principal-level interview preparation across BFSI, healthcare, pharma, energy, telecom, and retail."
+    />
+    <title>Enterprise Architecture Case Studies | Interview Preparation</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --surface: #fff;
+        --text: #202b3c;
+        --muted: #526174;
+        --line: #dce5ef;
+        --blue: #0b57d0;
+        --navy: #123b70;
+        --blue-soft: #eaf2ff;
+        --green: #18794e;
+        --green-soft: #edf7f1;
+        --amber: #9a6100;
+        --amber-soft: #fff7e6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        padding: 24px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.65;
+      }
+
+      .page {
+        max-width: 1180px;
+        margin: 16px auto;
+        padding: 32px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      }
+
+      header {
+        padding: 32px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--navy), var(--blue));
+        border-radius: 10px;
+      }
+
+      header h1 {
+        max-width: 900px;
+        margin: 0 0 12px;
+        font-size: clamp(1.9rem, 4vw, 2.7rem);
+        line-height: 1.2;
+      }
+
+      header p {
+        max-width: 920px;
+        margin: 0;
+        color: #edf4ff;
+      }
+
+      .eyebrow {
+        margin-bottom: 8px;
+        color: #d7e7ff;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      nav a,
+      a {
+        color: var(--blue);
+      }
+
+      nav a {
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      a:hover,
+      a:focus-visible {
+        text-decoration: underline;
+      }
+
+      section {
+        margin-top: 34px;
+        scroll-margin-top: 16px;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        color: #111827;
+        font-size: 1.7rem;
+        line-height: 1.3;
+      }
+
+      h3 {
+        margin: 0 0 8px;
+        color: var(--navy);
+        font-size: 1.25rem;
+      }
+
+      h4 {
+        margin: 20px 0 7px;
+        color: #173b70;
+        font-size: 1rem;
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      ul,
+      ol {
+        margin: 8px 0 14px;
+        padding-left: 22px;
+      }
+
+      li {
+        margin-bottom: 6px;
+      }
+
+      .intro {
+        max-width: 950px;
+        color: var(--muted);
+      }
+
+      .notice {
+        margin-top: 18px;
+        padding: 18px 20px;
+        background: var(--amber-soft);
+        border-left: 5px solid #d99a19;
+        border-radius: 7px;
+      }
+
+      .notice strong {
+        color: #744700;
+      }
+
+      .principles {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .principle {
+        padding: 18px;
+        background: #f7f9fc;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .principle strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--navy);
+      }
+
+      .case {
+        margin-top: 24px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-top: 5px solid var(--blue);
+        border-radius: 10px;
+        scroll-margin-top: 16px;
+      }
+
+      .case-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 10px;
+      }
+
+      .case-number {
+        display: inline-block;
+        margin-bottom: 8px;
+        padding: 3px 10px;
+        color: var(--navy);
+        background: var(--blue-soft);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .sector {
+        flex: 0 0 auto;
+        padding: 5px 10px;
+        color: #405168;
+        background: #f0f3f7;
+        border-radius: 5px;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .case-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .panel {
+        min-width: 0;
+        padding: 17px;
+        background: #fbfcfe;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .panel h3 {
+        font-size: 1.08rem;
+      }
+
+      .stack {
+        padding: 16px 18px;
+        background: var(--blue-soft);
+        border-radius: 8px;
+      }
+
+      .stack strong {
+        color: var(--navy);
+      }
+
+      .ai-panel {
+        margin-top: 16px;
+        padding: 18px;
+        background: var(--green-soft);
+        border-left: 4px solid var(--green);
+        border-radius: 7px;
+      }
+
+      .ai-panel h3 {
+        color: #145c3d;
+      }
+
+      .measure {
+        margin-top: 16px;
+        padding: 15px 18px;
+        background: #f5f7fa;
+        border-radius: 7px;
+      }
+
+      .question {
+        margin-top: 16px;
+        padding: 15px 18px;
+        background: #f3f6fa;
+        border-left: 4px solid #7b9ac4;
+        border-radius: 6px;
+      }
+
+      .question strong {
+        color: var(--navy);
+      }
+
+      .references {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px 16px;
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        font-size: 0.91rem;
+      }
+
+      .references a {
+        overflow-wrap: anywhere;
+      }
+
+      .shared-stack {
+        margin-top: 18px;
+        padding: 20px;
+        background: #f7f9fc;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .shared-stack h3 {
+        margin-bottom: 8px;
+      }
+
+      .flow {
+        overflow-wrap: anywhere;
+        padding: 13px 15px;
+        color: #173b70;
+        background: var(--blue-soft);
+        border-radius: 7px;
+        font-weight: 600;
+      }
+
+      footer {
+        margin-top: 36px;
+        padding-top: 18px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding: 12px;
+        }
+
+        .page {
+          margin: 4px auto;
+          padding: 20px;
+        }
+
+        header {
+          padding: 22px;
+        }
+
+        .principles,
+        .case-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .case {
+          padding: 18px;
+        }
+
+        .case-header {
+          display: block;
+        }
+
+        .sector {
+          display: inline-block;
+        }
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: #fff;
+        }
+
+        .page {
+          max-width: none;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          box-shadow: none;
+        }
+
+        nav {
+          display: none;
+        }
+
+        .case,
+        .panel,
+        .ai-panel,
+        .notice,
+        .question {
+          break-inside: avoid;
+        }
+
+        a {
+          color: inherit;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="eyebrow">Interview preparation · Enterprise architecture</p>
+        <h1>Azure-Centered Industry Case Studies</h1>
+        <p>
+          Eight realistic discussion scenarios across BFSI, healthcare, pharma,
+          oil and gas, renewables and power, telecom, and retail. Each combines
+          Microsoft technologies with existing enterprise platforms and open
+          standards that commonly need to coexist in production.
+        </p>
+      </header>
+
+      <nav aria-label="Case study sections">
+        <a href="#how-to-use">How to use</a>
+        <a href="#shared-platform">Shared architecture</a>
+        <a href="#bfsi-bank">BFSI: banking &amp; insurance</a>
+        <a href="#bfsi-markets">BFSI: capital markets</a>
+        <a href="#healthcare-payer">Healthcare: payer and provider</a>
+        <a href="#pharma-manufacturing">Pharmaceutical manufacturing</a>
+        <a href="#energy-oilgas">Oil &amp; gas</a>
+        <a href="#energy-power">Renewables &amp; power</a>
+        <a href="#telecom">Telecom</a>
+        <a href="#retail">Retail</a>
+      </nav>
+
+      <section id="how-to-use">
+        <h2>How to use these case studies</h2>
+        <p class="intro">
+          These are interview design exercises, not descriptions of any named
+          company's private systems. Start by clarifying business outcomes,
+          existing technology, non-functional requirements, regulatory
+          obligations, and operational ownership. Then explain a phased design,
+          integration choices, failure handling, and measurable success
+          criteria.
+        </p>
+        <div class="notice">
+          <strong>Important:</strong> Public company and sector references
+          support the business context and standards; they do not prove a
+          company's internal architecture. The proposed Azure/.NET stacks below
+          are candidate designs, not claims about any named organization's
+          private systems or exact products. Keep NDA-protected details out of
+          interviews.
+        </div>
+        <div class="principles">
+          <div class="principle">
+            <strong>Fit the installed estate</strong>
+            Preserve systems of record and existing identity, network,
+            integration, and operations platforms unless a migration has a
+            measurable business case.
+          </div>
+          <div class="principle">
+            <strong>Choose Azure services by need</strong>
+            Use .NET where it fits. Select App Service, VMs, Functions, or AKS
+            according to runtime, control, portability, and operations—not
+            because every workload should be containerized.
+          </div>
+          <div class="principle">
+            <strong>Keep AI bounded</strong>
+            Apply AI to assistive workflows first. Protect sensitive data,
+            preserve authorization, measure quality, and keep accountable
+            people responsible for regulated or safety-critical decisions.
+          </div>
+        </div>
+      </section>
+
+      <section id="shared-platform">
+        <h2>Reusable Azure and Microsoft ecosystem baseline</h2>
+        <p class="intro">
+          Treat this as a menu, not a reference design to impose on every
+          client. A real architecture can connect Azure to Windows Server,
+          Active Directory, SQL Server, SAP, Oracle, Salesforce, ServiceNow,
+          Kafka / Confluent, enterprise API gateways, and observability tools
+          already operated by the organization.
+        </p>
+        <div class="shared-stack">
+          <h3>Common building blocks</h3>
+          <ul>
+            <li>
+              <strong>Application and APIs:</strong> C#/.NET and ASP.NET Core;
+              Azure App Service for suitable web/API workloads; Azure Functions
+              for event-driven tasks; AKS only when Kubernetes control,
+              portability, or workload density justifies its operating cost.
+            </li>
+            <li>
+              <strong>Identity and security:</strong> Microsoft Entra ID,
+              existing Active Directory federation, managed identities, Key
+              Vault, private connectivity, network segmentation, Defender for
+              Cloud, and the customer's SIEM such as Microsoft Sentinel or
+              Splunk.
+            </li>
+            <li>
+              <strong>Integration:</strong> API Management alongside existing
+              Kong / Apigee gateways; Service Bus for durable business
+              messaging; Event Hubs or an existing Kafka / Confluent platform
+              for partitioned streams; Logic Apps / Data Factory where
+              integration or data movement is the actual requirement.
+            </li>
+            <li>
+              <strong>Data and analytics:</strong> retain SQL Server, Oracle,
+              SAP, or other authoritative operational systems as required.
+              Use Azure SQL, PostgreSQL, ADLS Gen2, Databricks / Delta Lake, or
+              Fabric only when workload, governance, and ownership fit.
+            </li>
+            <li>
+              <strong>Operations:</strong> Azure Monitor and Application
+              Insights integrated with existing OpenTelemetry, Splunk,
+              Datadog, Dynatrace, ITSM, incident, and change-management
+              practices.
+            </li>
+          </ul>
+          <p>
+            <strong>Example request path:</strong>
+          </p>
+          <p class="flow">
+            Existing enterprise identity → API gateway → .NET service or
+            workload → existing system of record / broker → governed analytics
+            → monitoring, audit, and recovery
+          </p>
+        </div>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/" target="_blank" rel="noopener noreferrer">Azure Architecture Center</a>
+          <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/" target="_blank" rel="noopener noreferrer">Azure landing-zone architecture</a>
+          <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/media/azure-landing-zone-conceptual-architecture.svg" target="_blank" rel="noopener noreferrer">Landing-zone architecture diagram (SVG)</a>
+          <a href="https://learn.microsoft.com/en-us/dotnet/architecture/" target="_blank" rel="noopener noreferrer">.NET architecture documentation</a>
+          <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts" target="_blank" rel="noopener noreferrer">Azure API Management</a>
+          <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview" target="_blank" rel="noopener noreferrer">Azure Service Bus</a>
+          <a href="https://learn.microsoft.com/en-us/azure/event-hubs/" target="_blank" rel="noopener noreferrer">Azure Event Hubs</a>
+          <a href="https://opentelemetry.io/docs/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a>
+        </div>
+      </section>
+
+      <section id="bfsi-bank" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 1 · BFSI</span>
+            <h2>Retail and commercial banking with insurance servicing</h2>
+          </div>
+          <span class="sector">Banking · Payments · Lending · Insurance</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> A large financial group wants to simplify
+          digital customer servicing across deposit accounts, payments, lending,
+          and insurance policy / claim journeys. It has a long-lived core
+          banking platform, separate policy and claims applications, a data
+          center estate, and a growing set of partner APIs.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                Core ledger, loan servicing, card processing, policy
+                administration, and claims have different owners, release
+                cycles, data models, and availability windows.
+              </li>
+              <li>
+                Balance and payment correctness matters more than a
+                cosmetically uniform API. Retries, duplicate submissions,
+                settlement, reversals, reconciliation, and idempotency need
+                explicit treatment.
+              </li>
+              <li>
+                Customer identity, KYC / AML case management, fraud controls,
+                consent, and audit evidence span channels and operational
+                teams.
+              </li>
+              <li>
+                Existing systems can include SQL Server, Oracle, mainframe or
+                vendor core platforms, Active Directory / Entra ID, commercial
+                payment networks, CRM, and an enterprise service bus.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Start with a channel-facing ASP.NET Core API layer behind the
+                existing gateway or Azure API Management; do not bypass core
+                service contracts.
+              </li>
+              <li>
+                Use synchronous APIs for customer queries and carefully bounded
+                commands; use Service Bus or the existing broker for durable
+                workflows and Kafka / Confluent or Event Hubs for event
+                streams, according to existing standards.
+              </li>
+              <li>
+                Introduce domain services incrementally. Keep the system of
+                record authoritative; publish changes through an outbox or
+                equivalent reliable event pattern rather than dual-writing
+                unrelated databases.
+              </li>
+              <li>
+                Integrate Entra ID with existing workforce and customer
+                identity platforms; apply least privilege, private network
+                paths, Key Vault, and centralized audit / SIEM controls.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> C# / ASP.NET Core, App Service or
+          AKS where justified, API Management or existing Kong / Apigee,
+          Service Bus and existing Kafka / Confluent, retained core banking and
+          policy systems, SQL Server / Oracle, Azure SQL only for bounded new
+          services, Entra ID, Key Vault, Azure Monitor / OpenTelemetry, and
+          existing CRM / ITSM.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Document intake:</strong> classify and extract fields
+              from loan or claim documents with Azure AI Document Intelligence;
+              validate fields against deterministic rules and route exceptions
+              to staff.
+            </li>
+            <li>
+              <strong>Fraud / AML investigation assistance:</strong> use Azure
+              Machine Learning or an approved existing risk engine to
+              prioritize patterns; let investigators review alerts and make
+              accountable decisions.
+            </li>
+            <li>
+              <strong>Policy and procedure assistant:</strong> retrieval with
+              Azure AI Search and an approved model endpoint; enforce
+              entitlement-aware retrieval, citations, redaction, logging, and
+              refusal when source material is missing.
+            </li>
+          </ul>
+          <p>
+            Do not let a generative model post ledger entries, approve credit,
+            settle payments, or make final coverage / claims decisions.
+          </p>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> payment duplicate and reversal
+          rates, reconciliation breaks, API availability and p95 latency,
+          account-service completion, claim / loan document rework, fraud
+          investigation time, audit exceptions, and cost per transaction.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Explain how you modernize around a
+          core system without destabilizing it. Discuss consistency,
+          idempotency, orchestration, regulatory evidence, and which part you
+          would explicitly leave unchanged in the first release.
+        </div>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/industry/financial-services/" target="_blank" rel="noopener noreferrer">Microsoft Financial Services documentation</a>
+          <a href="https://www.pcisecuritystandards.org/standards/" target="_blank" rel="noopener noreferrer">PCI Security Standards Council</a>
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/" target="_blank" rel="noopener noreferrer">Azure architecture patterns</a>
+          <a href="https://www.finra.org/rules-guidance/key-topics/aml" target="_blank" rel="noopener noreferrer">FINRA AML overview</a>
+        </div>
+      </section>
+
+      <section id="bfsi-markets" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 2 · BFSI</span>
+            <h2>Capital markets, exchange data, and surveillance</h2>
+          </div>
+          <span class="sector">Markets · Trading · Data · Risk</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> A market operator or investment firm needs
+          resilient ingestion and distribution of trades, quotes, reference
+          data, and news, with a cloud analytics path for surveillance and
+          reporting. This is a cloud-adjacent modernization case, not an
+          assumption that latency-critical matching should move to a public
+          cloud.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                Feed handlers, order gateways, matching engines, risk checks,
+                and market-data distribution have different latency and
+                availability needs. Some core paths remain colocated or on
+                tightly controlled infrastructure.
+              </li>
+              <li>
+                Event ordering is usually scoped to an instrument, partition,
+                or source; a global total order is expensive and should not be
+                assumed.
+              </li>
+              <li>
+                Feed gaps, duplicates, clock drift, late corrections, schema
+                changes, market opens, and bursts require replay and
+                reconciliation procedures.
+              </li>
+              <li>
+                Surveillance needs lineage from alert to source events, analyst
+                disposition, model or rule version, and any resulting report.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Keep exchange connectivity and latency-critical order execution
+                in the approved low-latency zone; use a controlled gateway to
+                publish copies or derived events to enterprise streaming.
+              </li>
+              <li>
+                Use existing Kafka / Confluent or Event Hubs with partition
+                keys, sequence checks, durable retention, and replay policies;
+                never infer business-level exactly-once processing from broker
+                delivery alone.
+              </li>
+              <li>
+                Land immutable, access-controlled raw events in ADLS Gen2;
+                curate analytics in Databricks / Delta Lake or an established
+                lakehouse, and serve operational dashboards separately from
+                transaction systems.
+              </li>
+              <li>
+                ASP.NET Core services can provide analyst workflows, case
+                APIs, and reference-data access; integrate with the existing
+                surveillance, execution, identity, and records platforms.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> Existing feed handlers and
+          exchange connectivity; C#/.NET services for workflow and control
+          plane, with native or vendor components retained for latency-critical
+          paths; Kafka / Confluent or Event Hubs, ADLS Gen2, Databricks / Delta
+          Lake, SQL Server for bounded workflow data, Entra ID, Key Vault,
+          private networking, OpenTelemetry, and the firm's current surveillance
+          and market-data products.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Surveillance triage:</strong> anomaly models can rank
+              alerts for human review using Azure Machine Learning or the
+              existing model platform; preserve reproducible features, rule
+              versions, and analyst outcomes.
+            </li>
+            <li>
+              <strong>Research retrieval:</strong> Azure AI Search over
+              licensed filings, approved research, and internal procedures,
+              with document entitlements and source citations.
+            </li>
+            <li>
+              <strong>Operations support:</strong> summarize feed-health and
+              incident evidence for on-call teams, without allowing an LLM to
+              alter orders, market data, or surveillance dispositions.
+            </li>
+          </ul>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> feed completeness, sequence-gap
+          detection time, event lag, p99 analytics latency, replay success,
+          surveillance alert precision / review time, lineage completeness, and
+          cost per billion events processed.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Explain how you separate a
+          deterministic execution path from an asynchronous analytics path.
+          State the ordering scope, replay design, and failure behavior during
+          a market-data burst or regional outage.
+        </div>
+        <div class="references">
+          <a href="https://kafka.apache.org/documentation/" target="_blank" rel="noopener noreferrer">Apache Kafka documentation</a>
+          <a href="https://docs.confluent.io/" target="_blank" rel="noopener noreferrer">Confluent documentation</a>
+          <a href="https://docs.databricks.com/en/lakehouse/index.html" target="_blank" rel="noopener noreferrer">Databricks lakehouse and diagram</a>
+          <a href="https://learn.microsoft.com/en-us/azure/event-hubs/" target="_blank" rel="noopener noreferrer">Azure Event Hubs</a>
+        </div>
+      </section>
+
+      <section id="healthcare-payer" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 3 · Healthcare</span>
+            <h2>Large healthcare payer and care operations</h2>
+          </div>
+          <span class="sector">Payer · Provider · Claims · Care</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> A large healthcare payer and care-services
+          organization needs to improve member and provider workflows across
+          eligibility, claims, prior authorization, and care coordination.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                Payer and provider workflows exchange eligibility, claim,
+                authorization, remittance, clinical, and identity data with
+                different ownership and processing timelines.
+              </li>
+              <li>
+                Real estates commonly combine commercial claims platforms,
+                provider systems / EHRs, SQL and document databases, batch
+                extracts, X12 transactions, APIs, and older HL7 interfaces.
+              </li>
+              <li>
+                Data must be purpose-limited and access-controlled. Minimum
+                necessary, consent, retention, identity matching, and
+                auditability are design concerns, not a final deployment
+                checklist.
+              </li>
+              <li>
+                Eligibility and authorization decisions depend on current
+                policy, clinical context, benefits, and human workflow; stale
+                or mismatched records can cause rework and member harm.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Keep claims and policy systems of record authoritative. Add
+                ASP.NET Core façade APIs and workflow services incrementally
+                behind existing API management and identity controls.
+              </li>
+              <li>
+                Use Azure Health Data Services FHIR where the use case and
+                FHIR version fit; bridge existing HL7 v2 and X12 EDI via
+                approved integration engines or partners rather than assuming
+                they are replaced by FHIR.
+              </li>
+              <li>
+                Separate PHI-bearing operational paths from analytical
+                workloads using classified storage, managed identities,
+                encryption, private connectivity, controlled de-identification,
+                and auditable access.
+              </li>
+              <li>
+                Integrate with existing EHR, claims adjudication, pharmacy
+                benefit, CRM, provider directory, and call-center platforms.
+                Track provenance and reconciliation across asynchronous
+                exchanges.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> ASP.NET Core, Azure API Management
+          or the existing gateway, Azure Health Data Services FHIR where
+          appropriate, existing HL7 / X12 integration services, Service Bus
+          for workflow commands, existing Kafka / Event Hubs for analytics
+          events, SQL Server / claims platforms retained as systems of record,
+          ADLS Gen2 and Databricks / Fabric for governed analytics, Entra ID,
+          Key Vault, private networking, Azure Monitor / Sentinel, and
+          organization-approved de-identification services.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Prior-authorization packet assistance:</strong> use
+              Azure AI Document Intelligence to extract requested fields and
+              missing documents; present evidence to qualified reviewers
+              rather than making an automated denial.
+            </li>
+            <li>
+              <strong>Call-center and care-team retrieval:</strong> use Azure
+              AI Search and an approved model endpoint to summarize
+              entitlement-filtered policy material with source citations and
+              PHI-safe logging.
+            </li>
+            <li>
+              <strong>Claims operations:</strong> use validated ML to identify
+              duplicate or anomalous submissions for investigation. Keep
+              adjudication rules deterministic, auditable, and governed by the
+              organization's authorized process.
+            </li>
+          </ul>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> eligibility response success,
+          claim rework and reconciliation, prior-authorization cycle time,
+          provider data match rate, member call resolution, FHIR / X12
+          interface errors, PHI access exceptions, and reviewer override rates.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Describe how you preserve the
+          payer's system of record while enabling interoperable APIs. Explain
+          authorization propagation, PHI boundaries, interface retries, and
+          why FHIR does not remove existing X12 and HL7 integration needs.
+        </div>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/azure/healthcare-apis/" target="_blank" rel="noopener noreferrer">Azure Health Data Services</a>
+          <a href="https://www.hl7.org/fhir/" target="_blank" rel="noopener noreferrer">HL7 FHIR specification</a>
+          <a href="https://www.hhs.gov/hipaa/for-professionals/security/index.html" target="_blank" rel="noopener noreferrer">HHS HIPAA Security Rule</a>
+          <a href="https://learn.microsoft.com/en-us/industry/healthcare/architecture/overview" target="_blank" rel="noopener noreferrer">Microsoft healthcare reference architectures</a>
+        </div>
+      </section>
+
+      <section id="pharma-manufacturing" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 4 · Healthcare &amp; Pharma</span>
+            <h2>Global pharmaceutical manufacturing operations</h2>
+          </div>
+          <span class="sector">Manufacturing · Quality · Supply</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> A global pharmaceutical manufacturer wants
+          better visibility across plants, laboratory systems, quality events,
+          serialization, and distribution. This scenario does not assert that
+          any specific company uses the proposed Azure stack or has a particular
+          internal deficiency.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                Plant operations combine MES / batch records, LIMS, QMS,
+                ERP such as SAP, historians, equipment vendor systems,
+                warehouse management, and serialization services. Interfaces
+                may be site-specific and validated on separate release cycles.
+              </li>
+              <li>
+                A batch has controlled master data, material genealogy,
+                equipment state, process parameters, quality checks, and
+                release decisions. Data lineage and time synchronization matter
+                during deviations and investigations.
+              </li>
+              <li>
+                Electronic records, signatures, audit trails, validated
+                changes, retention, segregation of duties, and controlled
+                access must align with applicable GxP and jurisdictional
+                requirements.
+              </li>
+              <li>
+                Serialization and product traceability link manufacturing,
+                packaging, logistics partners, markets, and exception
+                resolution. Connectivity and partner standards vary by region.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Leave validated MES, LIMS, QMS, ERP, and plant control
+                systems authoritative. Integrate through supported vendor
+                interfaces, message queues, APIs, or controlled batch exchange.
+              </li>
+              <li>
+                Use an OT/IT boundary with segmented plant networks and an
+                edge gateway; buffer telemetry locally through site outages.
+                Do not put cloud connectivity in the safety or deterministic
+                control loop.
+              </li>
+              <li>
+                Stream approved events to Event Hubs or the existing Kafka
+                platform. Land governed analytics copies in ADLS Gen2 and an
+                established Databricks / Fabric environment; keep the validated
+                source record clear.
+              </li>
+              <li>
+                Implement change control, environment segregation, validation
+                evidence, replay procedures, and plant-by-plant rollout rather
+                than a big-bang global cutover.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> .NET APIs and integration workers
+          where appropriate, Azure Arc-enabled edge Kubernetes / Azure IoT
+          Operations only after OT suitability review, OPC UA / MQTT adapters,
+          existing SAP / MES / LIMS / QMS, Service Bus for controlled
+          workflows, Kafka / Event Hubs for telemetry, ADLS Gen2, Databricks /
+          Delta Lake or the current enterprise data platform, Entra ID,
+          Key Vault, private network links, and controlled audit storage.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Equipment maintenance:</strong> analyze non-GxP or
+              appropriately validated sensor history using Azure Machine
+              Learning or the existing analytics platform to rank inspection
+              needs; a technician approves work.
+            </li>
+            <li>
+              <strong>Quality deviation search:</strong> retrieve approved
+              SOPs and historical deviation / CAPA records using Azure AI
+              Search and an approved model endpoint. Keep access restricted,
+              cite source records, and require quality-unit review.
+            </li>
+            <li>
+              <strong>Visual inspection support:</strong> assess whether
+              computer vision can flag defects for trained operator review.
+              Validate the model, equipment, drift controls, and intended use
+              before considering any production quality decision.
+            </li>
+          </ul>
+          <p>
+            Do not let an LLM change a batch record, release a product, approve
+            a deviation, or sign a regulated record.
+          </p>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> batch-record completeness,
+          deviation investigation time, approved system change lead time,
+          serialization exceptions, historian-to-analytics delay, equipment
+          downtime, validation defects, and audit-trail review completion.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Explain how you add analytics
+          without changing the validated source of truth. Discuss validation
+          scope, electronic signatures, data integrity, plant outage buffering,
+          and controlled deployment.
+        </div>
+        <div class="references">
+          <a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application" target="_blank" rel="noopener noreferrer">FDA Part 11 guidance</a>
+          <a href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11" target="_blank" rel="noopener noreferrer">21 CFR Part 11 text</a>
+          <a href="https://learn.microsoft.com/en-us/azure/iot-operations/overview-iot-operations" target="_blank" rel="noopener noreferrer">Azure IoT Operations and edge data plane</a>
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/industries/manufacturing/" target="_blank" rel="noopener noreferrer">Microsoft manufacturing documentation</a>
+        </div>
+      </section>
+
+      <section id="energy-oilgas" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 5 · Energy</span>
+            <h2>Oil and gas production, midstream, and refining</h2>
+          </div>
+          <span class="sector">Oil &amp; Gas · Industrial IoT</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> An integrated energy company needs
+          operational visibility across remote assets, pipelines, terminals,
+          and processing facilities. Relevant, verifiable energy and
+          industrial-IoT experience can anchor the interview story where
+          disclosure is permitted; this architecture remains generalized and
+          is not a claim about a specific company or site.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                Field assets produce telemetry through PLCs, RTUs, SCADA,
+                historians, meters, and vendor protocols such as Modbus;
+                facilities may also expose OPC UA or MQTT at integration
+                boundaries.
+              </li>
+              <li>
+                Remote connectivity is intermittent and bandwidth constrained.
+                Operations teams need local alarming, operator HMI, and
+                deterministic control to keep functioning if cloud connectivity
+                fails.
+              </li>
+              <li>
+                Production accounting, nominations, pipeline measurement,
+                maintenance, work orders, safety, and environmental reporting
+                are handled in separate OT and business systems.
+              </li>
+              <li>
+                Asset tag naming, units, timestamps, quality flags, and
+                vendor-specific semantics are often inconsistent. Poor
+                normalization makes enterprise dashboards misleading.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Preserve PLC / RTU and SCADA control locally. Use segmented OT
+                zones and a read-only, governed edge integration path for
+                cloud telemetry where practical.
+              </li>
+              <li>
+                Normalize tags, units, timestamps, and quality metadata at
+                the edge; buffer and forward with sequence / gap tracking.
+                Keep historian retention and plant historian tools in place.
+              </li>
+              <li>
+                Use Azure IoT Operations on Azure Arc-enabled Kubernetes only
+                where the site can support the operating model; bridge MQTT /
+                OPC UA or existing vendor gateways to Event Hubs / Kafka.
+              </li>
+              <li>
+                Integrate work orders and asset master data with SAP / EAM /
+                CMMS; publish governed data to ADLS Gen2 and Databricks / Fabric
+                for reliability and production analytics.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> Existing SCADA, PLC/RTU, historian
+          (for example AVEVA PI where already deployed), Modbus / OPC UA /
+          MQTT edge adapters, Azure Arc and Azure IoT Operations where fit,
+          Event Hubs or existing Kafka, .NET APIs for enterprise asset and
+          work-order integration, SAP / CMMS, ADLS Gen2, Databricks / Delta
+          Lake, Entra ID for workforce access, and Azure Monitor / existing OT
+          monitoring.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Predictive maintenance:</strong> use Azure Machine
+              Learning or a current industrial analytics platform to rank
+              compressor / pump inspection risk using historian trends and
+              maintenance outcomes.
+            </li>
+            <li>
+              <strong>Alarm and shift-handover summaries:</strong> retrieve
+              authorized operations procedures and summarize alarm context
+              through Azure AI Search and an approved model endpoint; an
+              operator verifies any action.
+            </li>
+            <li>
+              <strong>Leak / anomaly triage:</strong> correlate sensor
+              deviations, pressure, flow, and maintenance history to prioritize
+              inspection. Safety instrumented systems and emergency shutdown
+              logic remain independent and deterministic.
+            </li>
+          </ul>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> telemetry completeness, edge
+          buffering and recovery, time to detect sensor gaps, alarm
+          acknowledgement, unplanned downtime, maintenance work-order
+        completion, false-positive rate, and operator acceptance.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Describe where the OT trust
+          boundary sits, how the site behaves during a WAN outage, and why
+          cloud AI may recommend inspection but must not replace local control
+          or safety interlocks.
+        </div>
+        <div class="references">
+          <a href="https://www.eia.gov/energyexplained/oil-and-petroleum-products/" target="_blank" rel="noopener noreferrer">EIA: oil, petroleum products, and refining</a>
+          <a href="https://learn.microsoft.com/en-us/azure/iot-operations/overview-iot-operations" target="_blank" rel="noopener noreferrer">Azure IoT Operations</a>
+          <a href="https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/overview" target="_blank" rel="noopener noreferrer">Azure Arc-enabled Kubernetes</a>
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/industries/manufacturing/" target="_blank" rel="noopener noreferrer">Microsoft manufacturing and industrial IoT documentation</a>
+          <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">NIST Cybersecurity Framework 2.0</a>
+          <a href="https://www.phmsa.dot.gov/pipeline" target="_blank" rel="noopener noreferrer">PHMSA pipeline safety</a>
+        </div>
+      </section>
+
+      <section id="energy-power" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 6 · Energy</span>
+            <h2>Renewable generation and power-grid operations</h2>
+          </div>
+          <span class="sector">Wind · Solar · Storage · Grid</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> A utility or independent power producer
+          wants a unified operational data and forecasting layer across wind,
+          solar, storage, and grid-connected assets. The control-room and
+          market-dispatch systems remain authoritative; analytics support
+          operators rather than silently changing dispatch.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                Assets combine plant controllers, inverter telemetry, SCADA,
+                meters, weather services, market schedules, work management,
+                outage management, GIS, and sometimes DERMS / EMS platforms.
+              </li>
+              <li>
+                Generation is variable and forecast error has commercial and
+                reliability impacts. Weather, telemetry, asset availability,
+                curtailment, and grid constraints need time-aligned data.
+              </li>
+              <li>
+                Interconnection and grid operations use utility-specific
+                protocols and approved operational procedures; bulk electric
+                system assets may have additional NERC reliability and
+                cybersecurity obligations.
+              </li>
+              <li>
+                Distributed sites may have intermittent connectivity. A cloud
+                outage must not remove local protection, control, or operator
+                visibility required by the site.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Keep protection relays, plant control, EMS / SCADA commands,
+                and market dispatch in their approved control systems. Treat
+                cloud as supervisory analytics and enterprise integration.
+              </li>
+              <li>
+                Use edge gateways for approved read-only telemetry, time
+                synchronization, local buffering, and normalization; connect
+                across segmented OT boundaries with least privilege.
+              </li>
+              <li>
+                Stream telemetry and weather / schedule data to Event Hubs or
+                the existing Kafka platform; persist time-series and curated
+                history in the organization's chosen historian and lakehouse.
+              </li>
+              <li>
+                Join asset, outage, weather, and market data for fleet
+                analytics. Integrate with existing GIS, OMS, EAM, billing, and
+                regulatory reporting rather than replacing them wholesale.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> Existing plant SCADA / EMS /
+          DERMS / OMS / GIS, approved DNP3 / IEC 61850 / OPC UA gateways,
+          Azure Arc and Azure IoT Operations for edge data where appropriate,
+          Event Hubs / Kafka, .NET APIs for asset and work management, ADLS
+          Gen2, Databricks / Delta Lake or Fabric for analytics, Azure Machine
+          Learning, Entra ID, Key Vault, private links, and operational
+          monitoring integrated with utility practices.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Renewable generation forecasting:</strong> combine
+              approved weather forecasts, asset state, and historical
+              generation using Azure Machine Learning or an existing energy
+              forecasting product; expose confidence intervals and model
+              drift.
+            </li>
+            <li>
+              <strong>Asset health:</strong> rank wind turbine, inverter, or
+              battery maintenance risks using validated telemetry features and
+              work-order history; route recommendations to operations.
+            </li>
+            <li>
+              <strong>Outage and curtailment analysis:</strong> summarize
+              event sequences and likely contributing factors for operator
+              review using Azure AI Search and an approved model endpoint over
+              authorized records.
+            </li>
+          </ul>
+          <p>
+            Keep automated setpoints and grid-protection decisions in approved
+            control systems with engineered safety and change controls.
+          </p>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> forecast error by horizon, asset
+          availability, telemetry freshness, curtailment analysis time,
+          maintenance lead time, false alarms, control-room adoption, and
+          recovery behavior during communications outages.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Explain time alignment, forecast
+          uncertainty, edge buffering, OT segmentation, and the boundary
+          between decision support and control.
+        </div>
+        <div class="references">
+          <a href="https://www.eia.gov/electricity/" target="_blank" rel="noopener noreferrer">EIA electricity data and grid monitoring</a>
+          <a href="https://www.eia.gov/renewable/" target="_blank" rel="noopener noreferrer">EIA renewable energy data</a>
+          <a href="https://www.eia.gov/electricity/gridmonitor/" target="_blank" rel="noopener noreferrer">EIA hourly electric grid monitor</a>
+          <a href="https://www.nerc.com/standards/reliability-standards/cip" target="_blank" rel="noopener noreferrer">NERC Critical Infrastructure Protection standards</a>
+          <a href="https://learn.microsoft.com/en-us/azure/iot-operations/overview-iot-operations" target="_blank" rel="noopener noreferrer">Azure IoT Operations</a>
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/" target="_blank" rel="noopener noreferrer">Azure Architecture Center</a>
+        </div>
+      </section>
+
+      <section id="telecom" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 7 · Telecom</span>
+            <h2>Telecom OSS/BSS modernization and network operations</h2>
+          </div>
+          <span class="sector">5G · OSS · BSS · Customer operations</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> A communications provider wants to
+          improve service provisioning and network assurance while integrating
+          multiple generations of network equipment and long-running business
+          support systems.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                OSS covers inventory, service assurance, fault, configuration,
+                and network orchestration; BSS covers product catalog, order
+                capture, rating, billing, customer care, and partner
+                settlement. The two sides share customer, service, and resource
+                data but often have different owners.
+              </li>
+              <li>
+                Provisioning spans CRM, order management, inventory, workflow,
+                and vendor network controllers. Stale inventory or partial
+                completion can leave customer orders stuck or services
+                inconsistently configured.
+              </li>
+              <li>
+                Radio, core, transport, cloud, and vendor-specific telemetry
+                produce high-volume alarms and metrics. Correlation must
+                distinguish a common underlying fault from many downstream
+                symptoms.
+              </li>
+              <li>
+                Network changes require approved maintenance windows, rollback
+                plans, service impact assessment, and operations-center
+                visibility; autonomous configuration is not the default safe
+                assumption.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Use TM Forum Open APIs or the provider's established API
+                contracts to reduce point-to-point coupling; maintain explicit
+                versions and compatibility testing.
+              </li>
+              <li>
+                Implement order orchestration as durable stateful workflows
+                with idempotent activities, timeout handling, compensation, and
+                manual repair queues for partial provisioning.
+              </li>
+              <li>
+                Retain vendor EMS / NMS, network controllers, inventory, and
+                billing systems as authoritative where they are established.
+                Integrate telemetry via Kafka / Confluent or Event Hubs.
+              </li>
+              <li>
+                Run suitable .NET control-plane APIs on App Service or AKS
+                based on workload needs; use private connectivity for operator
+                and OSS integration and separate customer-facing systems from
+                network-management planes.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> ASP.NET Core, API Management or
+          existing gateway, TM Forum Open APIs, Service Bus / existing
+          workflow engine for order state, Kafka / Confluent or Event Hubs for
+          telemetry, SQL Server / Oracle and OSS/BSS products retained as
+          systems of record, ADLS Gen2 / Databricks for analytics, Entra ID,
+          Key Vault, Azure Monitor / OpenTelemetry and the carrier's existing
+          NOC / ITSM tools.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Alarm correlation:</strong> cluster related alarms and
+              rank likely causes using Azure Machine Learning or the provider's
+              existing AIOps tooling; show supporting topology and telemetry to
+              a network engineer.
+            </li>
+            <li>
+              <strong>Service desk assistance:</strong> retrieve approved
+              runbooks and incident history with Azure AI Search and an
+              approved model endpoint, with citations and access controls.
+            </li>
+            <li>
+              <strong>Capacity forecasting:</strong> predict cell, transport,
+              or edge demand with time-series models; engineers review planned
+              capacity and configuration changes.
+            </li>
+          </ul>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> order fallout, time to provision,
+          service inventory consistency, mean time to detect / repair, alarm
+          noise ratio, customer-impact minutes, API compatibility, and
+          change-related incidents.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Describe how you handle a partial
+          order failure across a CRM, service inventory, and network controller.
+          Explain the workflow state, compensation or repair process, and
+          operational ownership.
+        </div>
+        <div class="references">
+          <a href="https://www.3gpp.org/specifications-technologies" target="_blank" rel="noopener noreferrer">3GPP specifications</a>
+          <a href="https://www.tmforum.org/oda/open-apis/" target="_blank" rel="noopener noreferrer">TM Forum Open APIs</a>
+          <a href="https://docs.temporal.io/" target="_blank" rel="noopener noreferrer">Temporal workflow documentation</a>
+          <a href="https://learn.microsoft.com/en-us/azure/event-hubs/" target="_blank" rel="noopener noreferrer">Azure Event Hubs</a>
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/" target="_blank" rel="noopener noreferrer">Azure Architecture Center</a>
+        </div>
+      </section>
+
+      <section id="retail" class="case">
+        <div class="case-header">
+          <div>
+            <span class="case-number">Case 8 · Retail</span>
+            <h2>Omnichannel retail inventory and order fulfillment</h2>
+          </div>
+          <span class="sector">Stores · E-commerce · Supply chain</span>
+        </div>
+        <p>
+          <strong>Scenario:</strong> A national retailer wants a more reliable
+          inventory and order view across stores, e-commerce, distribution
+          centers, and suppliers. Customers expect pickup, ship-to-home, returns,
+          and accurate delivery promises, while the enterprise must preserve
+          existing ERP, POS, and warehouse operations.
+        </p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Operational realities and pain points</h3>
+            <ul>
+              <li>
+                POS, e-commerce, OMS, ERP, WMS, merchandising, supplier EDI,
+                loyalty, and payment systems update on different schedules and
+                often have different product and location identifiers.
+              </li>
+              <li>
+                Inventory is a changing estimate: reservations, in-flight
+                shipments, returns, shrink, substitutions, cancellations, and
+                late store events affect available-to-promise.
+              </li>
+              <li>
+                Peak events create burst traffic, hot SKUs, inventory
+                contention, slow downstream suppliers, and queue backlogs.
+                Order capture should not imply fulfillment until inventory and
+                policy checks succeed.
+              </li>
+              <li>
+                Card data should remain with approved payment providers and
+                tokenization flows; operational analytics and AI must not
+                expand payment scope unnecessarily.
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Proposed integration and Azure design</h3>
+            <ul>
+              <li>
+                Keep ERP / OMS as explicitly selected systems of record.
+                Publish inventory and order events through an outbox or
+                controlled integration layer, with idempotent consumers.
+              </li>
+              <li>
+                Use ASP.NET Core services for bounded APIs and order workflow;
+                use Service Bus for durable order commands and Kafka / Event
+                Hubs for high-volume inventory and clickstream streams where
+                the existing platform supports them.
+              </li>
+              <li>
+                Use SQL Server / Azure SQL for transactional workloads only
+                where its consistency and scale fit; use Redis or another
+                cache for transient reads with explicit staleness and
+                invalidation rules.
+              </li>
+              <li>
+                Integrate suppliers through existing EDI / API partners and
+                normalize product identifiers, GTINs, locations, and event
+                timestamps before analytical use.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <strong>Candidate stack:</strong> .NET / ASP.NET Core, Azure API
+          Management or current gateway, Service Bus for order commands,
+          Kafka / Confluent or Event Hubs for inventory events, retained
+          POS / ERP / OMS / WMS, SQL Server / Azure SQL for suitable
+          transactional components, Redis for bounded cache use, ADLS Gen2
+          and Databricks / Fabric for demand and operations analytics, Entra ID,
+          Key Vault, Azure Monitor, and existing payment tokenization provider.
+        </div>
+        <div class="ai-panel">
+          <h3>AI opportunities and Microsoft-oriented stack</h3>
+          <ul>
+            <li>
+              <strong>Demand and replenishment:</strong> forecast SKU / store
+              demand using Azure Machine Learning or an existing forecasting
+              platform; show confidence and allow planners to account for
+              promotions, holidays, and supply constraints.
+            </li>
+            <li>
+              <strong>Product discovery and service:</strong> use Azure AI
+              Search for hybrid product search and an approved model endpoint
+              for grounded customer-service answers; respect product
+              availability, locale, and published policy.
+            </li>
+            <li>
+              <strong>Operations exception triage:</strong> summarize delayed
+              orders, supplier notices, and inventory mismatches from
+              authorized records. Require a human decision before financial
+              adjustment, refund, or supplier commitment.
+            </li>
+          </ul>
+        </div>
+        <div class="measure">
+          <strong>Success measures:</strong> inventory accuracy, order
+          cancellation / substitution rates, promise accuracy, fulfillment
+          cycle time, queue age, peak p95 latency, return reconciliation, and
+          payment-data scope.
+        </div>
+        <div class="question">
+          <strong>Interview angle:</strong> Explain what “available inventory”
+          means, how reservations and duplicate events are handled, and what
+          the customer sees if OMS or a store is temporarily disconnected.
+        </div>
+        <div class="references">
+          <a href="https://www.gs1.org/standards/epcis" target="_blank" rel="noopener noreferrer">GS1 EPCIS traceability standard</a>
+          <a href="https://www.gs1.org/standards/id-keys/gtin" target="_blank" rel="noopener noreferrer">GS1 GTIN identification</a>
+          <a href="https://www.pcisecuritystandards.org/standards/" target="_blank" rel="noopener noreferrer">PCI Security Standards Council</a>
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/" target="_blank" rel="noopener noreferrer">Azure Architecture Center patterns and reference designs</a>
+          <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview" target="_blank" rel="noopener noreferrer">Azure Service Bus</a>
+          <a href="https://docs.databricks.com/en/lakehouse/index.html" target="_blank" rel="noopener noreferrer">Databricks lakehouse and diagram</a>
+        </div>
+      </section>
+
+      <section id="portfolio-alignment">
+        <h2>Connect scenarios to verifiable experience</h2>
+        <p class="intro">
+          Use real work only when it is accurate and disclosure is permitted.
+          The resume's public project summaries can support examples involving
+          enterprise Azure architecture, healthcare infrastructure
+          provisioning, capital-markets migration, energy and industrial-IoT
+          work, and the multi-agent .NET modernization platform. Do not invent internal
+          client systems, outcomes, or metrics beyond those approved for
+          disclosure.
+        </p>
+        <ul>
+          <li>
+            <strong>BFSI:</strong> connect capital-markets migration,
+            financial-services modernization, and the real-time market
+            event-processing platform where relevant.
+          </li>
+          <li>
+            <strong>Healthcare:</strong> distinguish actual Azure
+            infrastructure work from this proposed payer/provider integration
+            scenario.
+          </li>
+          <li>
+            <strong>Energy:</strong> connect actual oil-and-gas and Industrial
+            IoT work to the relevant operational patterns; do
+            not claim these hypothetical designs were deployed at those
+            companies.
+          </li>
+          <li>
+            <strong>Pharma, telecom, and retail:</strong> present these as
+            scenario designs unless there is separate, verifiable project
+            experience.
+          </li>
+        </ul>
+        <p>
+          <a href="print.html">Review the resume project summaries</a> ·
+          <a href="interview.html">Open the interview preparation guide</a> ·
+          <a href="cybersecurity.html">Open the cybersecurity case studies</a> ·
+          <a href="career.html">Return to career strategy</a>
+        </p>
+      </section>
+
+      <footer>
+        Case studies are educational interview scenarios. Validate current
+        product capabilities, regulatory applicability, data classification,
+        service availability, and company-specific facts before using a design
+        in production or describing it as real project experience.
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Principal-level interview case studies for securing a hybrid Azure enterprise and enterprise AI, RAG, and agentic workloads." />
+    <title>Enterprise Cybersecurity Architecture | Interview Preparation</title>
+    <style>
+      :root { --bg:#f4f7fb; --surface:#fff; --text:#202b3c; --muted:#526174; --line:#dce5ef; --blue:#0b57d0; --navy:#123b70; --blue-soft:#eaf2ff; --green-soft:#edf7f1; --amber-soft:#fff7e6; --red-soft:#fff1f0; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; padding:24px; background:var(--bg); color:var(--text); font-family:Arial,Helvetica,sans-serif; line-height:1.65; }
+      .page { max-width:1180px; margin:16px auto; padding:32px; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:0 10px 28px rgba(15,23,42,.06); }
+      header { padding:32px; color:#fff; background:linear-gradient(135deg,var(--navy),var(--blue)); border-radius:10px; }
+      header h1 { max-width:930px; margin:0 0 12px; font-size:clamp(1.9rem,4vw,2.7rem); line-height:1.2; }
+      header p { max-width:930px; margin:0; color:#edf4ff; }
+      .eyebrow { margin-bottom:8px; color:#d7e7ff; font-size:.82rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+      nav { display:flex; flex-wrap:wrap; gap:10px 18px; padding:18px 0; border-bottom:1px solid var(--line); }
+      nav a,a { color:var(--blue); }
+      nav a { font-weight:600; text-decoration:none; }
+      a:hover,a:focus-visible { text-decoration:underline; }
+      section { margin-top:34px; scroll-margin-top:16px; }
+      h2 { margin:0 0 10px; color:#111827; font-size:1.7rem; line-height:1.3; }
+      h3 { margin:0 0 8px; color:var(--navy); font-size:1.2rem; }
+      h4 { margin:20px 0 7px; color:#173b70; font-size:1rem; }
+      p { margin:0 0 12px; }
+      ul,ol { margin:8px 0 14px; padding-left:22px; }
+      li { margin-bottom:6px; }
+      .intro { max-width:960px; color:var(--muted); }
+      .notice,.callout,.warning { margin-top:16px; padding:16px 18px; border-radius:7px; }
+      .notice { background:var(--amber-soft); border-left:5px solid #d99a19; }
+      .callout { background:var(--green-soft); border-left:4px solid #18794e; }
+      .warning { background:var(--red-soft); border-left:4px solid #cf5959; }
+      .principles,.grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:18px; }
+      .principle,.panel { min-width:0; padding:18px; background:#f8fafc; border:1px solid var(--line); border-radius:8px; }
+      .principle strong { display:block; margin-bottom:5px; color:var(--navy); }
+      .case { margin-top:24px; padding:24px; border:1px solid var(--line); border-top:5px solid var(--blue); border-radius:10px; scroll-margin-top:16px; }
+      .case-header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:10px; }
+      .case-number { display:inline-block; margin-bottom:8px; padding:3px 10px; color:var(--navy); background:var(--blue-soft); border-radius:20px; font-size:.8rem; font-weight:700; }
+      .sector { flex:0 0 auto; padding:5px 10px; color:#405168; background:#f0f3f7; border-radius:5px; font-size:.82rem; font-weight:700; }
+      .case-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:16px; }
+      .panel h3 { font-size:1.08rem; }
+      .flow { display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:16px 0; }
+      .flow span { flex:1 1 145px; padding:13px; color:#173b70; background:var(--blue-soft); border:1px solid #cddcf2; border-radius:7px; text-align:center; font-weight:600; }
+      .flow .arrow { flex:0 0 auto; align-self:center; padding:0 2px; background:transparent; border:0; font-size:1.3rem; }
+      figure { margin:20px 0; padding:16px; background:#fbfcfe; border:1px solid var(--line); border-radius:8px; }
+      figure img { display:block; width:100%; max-height:540px; object-fit:contain; background:#fff; }
+      figcaption { margin-top:10px; color:var(--muted); font-size:.91rem; }
+      .table-wrap { overflow-x:auto; margin:14px 0; }
+      table { width:100%; border-collapse:collapse; font-size:.94rem; }
+      th,td { padding:11px 12px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+      th { color:var(--navy); background:#f1f5fa; }
+      .references { display:flex; flex-wrap:wrap; gap:7px 16px; margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-size:.91rem; }
+      .references a { overflow-wrap:anywhere; }
+      footer { margin-top:36px; padding-top:18px; color:var(--muted); border-top:1px solid var(--line); font-size:.92rem; }
+      @media(max-width:760px) {
+        body { padding:12px; }
+        .page { margin:4px auto; padding:20px; }
+        header { padding:22px; }
+        .principles,.grid-3,.case-grid { grid-template-columns:1fr; }
+        .case { padding:18px; }
+        .case-header { display:block; }
+        .sector { display:inline-block; }
+        .flow .arrow { display:none; }
+      }
+      @media print {
+        body { padding:0; background:#fff; }
+        .page { max-width:none; margin:0; padding:0; border:0; box-shadow:none; }
+        nav { display:none; }
+        .case,.panel,.notice,figure { break-inside:avoid; }
+        a { color:inherit; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="eyebrow">Interview preparation · Principal architecture</p>
+        <h1>Enterprise Cybersecurity Architecture</h1>
+        <p>Two practical case studies for Principal Cloud Security Architects, Enterprise Solution Architects, and Strategic FDE leaders: securing a hybrid enterprise and establishing security boundaries for AI, retrieval-augmented generation (RAG), and agentic workloads.</p>
+      </header>
+      <nav aria-label="Cybersecurity case study sections">
+        <a href="#approach">Approach</a><a href="#hybrid-enterprise">Hybrid enterprise security</a><a href="#ai-security">AI and agentic security</a><a href="#roadmap">Implementation roadmap</a><a href="#principal-deliverables">Principal deliverables</a>
+      </nav>
+
+      <section id="approach">
+        <h2>Scope and architecture principles</h2>
+        <p class="intro">These are hypothetical, representative enterprise designs. Use them to structure an answer around business risk, trust boundaries, integration constraints, and operational evidence—not to prescribe a single vendor stack or claim that a real organization uses these exact systems.</p>
+        <div class="notice"><strong>Company-neutral scenarios:</strong> use descriptions such as “a global energy and manufacturing enterprise,” “a regulated financial institution,” or “a healthcare organization.” Mention a past client only when the experience is accurate, authorized for disclosure, and relevant.</div>
+        <div class="principles">
+          <div class="principle"><strong>Zero Trust</strong>Verify identity and context explicitly, apply least privilege, and assume a workload or credential can be compromised.</div>
+          <div class="principle"><strong>Containment over assumed prevention</strong>Layer identity, network, workload, data, and monitoring controls so one control failure does not provide unrestricted access.</div>
+          <div class="principle"><strong>Evidence and ownership</strong>Map each important control to an accountable owner, enforcement point, test, alert, and durable evidence source.</div>
+        </div>
+        <p>Keep the design compatible with the installed enterprise estate: Microsoft Entra ID and Active Directory can coexist with external identity providers; Azure networking can integrate with an existing multi-cloud transit platform; Microsoft security tools can coexist with an established SIEM and enterprise secrets manager.</p>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/security/zero-trust/" target="_blank" rel="noopener noreferrer">Microsoft Zero Trust guidance</a>
+          <a href="https://learn.microsoft.com/en-us/azure/well-architected/security/" target="_blank" rel="noopener noreferrer">Azure Well-Architected security</a>
+          <a href="https://learn.microsoft.com/en-us/security/benchmark/azure/introduction" target="_blank" rel="noopener noreferrer">Microsoft Cloud Security Benchmark</a>
+          <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">NIST Cybersecurity Framework 2.0</a>
+        </div>
+      </section>
+
+      <section id="hybrid-enterprise" class="case">
+        <div class="case-header"><div><span class="case-number">Case 1 · Hybrid enterprise</span><h2>Securing a hybrid energy and manufacturing enterprise</h2></div><span class="sector">Azure · Data center · OT</span></div>
+        <p><strong>Business scenario:</strong> A global energy and manufacturing enterprise operates legacy ERP, SQL Server, Active Directory, industrial control systems, and remote gateways alongside Azure landing zones, AKS workloads, APIs, and cloud analytics. Its technology estate includes external identity, networking, secrets, and security operations products.</p>
+        <p><strong>Security problem:</strong> The organization has broad network paths, overprivileged service identities, exposed cloud endpoints, uneven logging, and manual infrastructure changes. After compromising an internet-facing application, an attacker attempts lateral movement into cloud workloads, privileged identity, enterprise databases, and industrial operations.</p>
+        <p><strong>Principal objective:</strong> Reduce blast radius, protect business-critical services, preserve safe plant operation, and improve governance without requiring an immediate replacement of every legacy system.</p>
+        <h3>Target architecture and trust boundaries</h3>
+        <div class="flow" aria-label="Hybrid enterprise security architecture flow">
+          <span>Users, administrators, partners<br />MFA · Conditional Access</span><span class="arrow" aria-hidden="true">→</span>
+          <span>WAF · API gateway<br />controlled ingress</span><span class="arrow" aria-hidden="true">→</span>
+          <span>Segmented Azure spokes<br />AKS · APIs · data · private PaaS</span><span class="arrow" aria-hidden="true">↔</span>
+          <span>Hybrid boundary<br />ERP · AD · SQL · industrial DMZ · OT</span>
+        </div>
+        <div class="flow" aria-label="Central governance and monitoring"><span>Governance: management groups · policy · IaC checks</span><span class="arrow" aria-hidden="true">→</span><span>Monitoring: Defender · Sentinel or existing SIEM · protected recovery</span></div>
+        <figure>
+          <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/media/azure-landing-zone-conceptual-architecture.svg" target="_blank" rel="noopener noreferrer">
+            <img src="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/media/azure-landing-zone-conceptual-architecture.svg" alt="Azure landing-zone conceptual architecture diagram showing platform and workload areas" loading="lazy" />
+          </a>
+          <figcaption>Azure landing-zone conceptual diagram. Use it as a governance and subscription-design reference; it does not prescribe a single network route or replace the workload-specific trust-boundary diagram above. <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/">Open architecture documentation</a>.</figcaption>
+        </figure>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Governance and landing zones</h3>
+            <ul>
+              <li>Establish management-group and subscription boundaries for platform, production, non-production, sandbox, and regulated workloads based on operational ownership.</li>
+              <li>Use Azure Policy initiatives for approved regions, diagnostics, encryption, resource types, and network exposure. Test changes and stage Audit before Deny when blocking legacy deployment paths could interrupt operations.</li>
+              <li>Define policy exceptions with a business owner, accepted risk, compensating control, expiry, and review date.</li>
+              <li>Protect Terraform state, plan output, CI credentials, provider versions, and reusable modules as security-sensitive components.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Identity and privileged access</h3>
+            <ul>
+              <li>Use Microsoft Entra ID for Azure identities and federate the existing workforce identity provider using supported SAML/OIDC patterns where appropriate.</li>
+              <li>Require MFA and Conditional Access; use Privileged Identity Management (PIM), time-limited elevation, separate administrative accounts, access reviews, and just-in-time controls.</li>
+              <li>Prefer managed identities or workload federation over embedded credentials. Use the enterprise vault where that is the operating standard; do not make Key Vault a forced replacement.</li>
+              <li>Federation establishes authentication trust, not resource authorization. Scope Entra roles, Azure RBAC, application roles, and Kubernetes RBAC independently.</li>
+              <li>Protect AD synchronization, domain controllers, service accounts, and recovery paths so on-premises identity compromise cannot become cloud control-plane access.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Network and hybrid connectivity</h3>
+            <ul>
+              <li>Segment production, non-production, shared services, and sensitive workloads into separately governed spokes; explicitly document permitted east-west and egress flows.</li>
+              <li>Combine Azure Firewall, UDRs, and NSGs where they fit the traffic path. Verify effective routes, failover, DNS, and private endpoint resolution.</li>
+              <li>Use Private Link for supported services when the threat model requires it. Private endpoints still need correct DNS, route, access, and public-network configuration.</li>
+              <li>Integrate a multi-cloud transit product only when needed. Assign one routing authority; test for asymmetric routes and overlapping address space.</li>
+              <li>Separate enterprise IT, industrial DMZ, and OT networks. Allow only documented gateway flows; never expose controllers or safety systems directly to the internet.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Workloads, APIs, data, and OT</h3>
+            <ul>
+              <li>For AKS where justified: private API access when feasible, Entra integration, Kubernetes RBAC, workload identity, network policy, approved images, vulnerability scanning, and Kubernetes audit logs.</li>
+              <li>Secure APIs with authentication, authorization, schema validation, rate limits, and explicit service-to-service policy. Network location alone is not authorization.</li>
+              <li>Classify data; minimize, encrypt, and restrict it according to purpose and jurisdiction. Use customer-managed keys when required, with key recovery and rotation planned.</li>
+              <li>Onboard devices with unique identities, certificate lifecycle, approved firmware, and telemetry provenance. Send data through controlled edge gateways, not direct internet exposure.</li>
+              <li>Map legal and contractual obligations to the actual workload. A cloud-provider certification does not certify the customer's end-to-end system.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout"><strong>Security operations and recovery:</strong> Correlate Entra sign-ins and role changes, Azure Activity Logs, firewall decisions, Key Vault access, AKS audit events, Defender alerts, on-premises identity telemetry, and OT gateway events in Sentinel, Splunk, or the enterprise SIEM. Assign detection ownership and test response playbooks; log collection alone does not create protection.</div>
+        <h3>Attack simulation: compromised microservice identity</h3>
+        <ol>
+          <li>An internet-facing API is compromised and the attacker executes code in its container.</li>
+          <li>The attacker attempts token discovery and access to unrelated storage, databases, secrets, the Kubernetes API, or on-premises services.</li>
+          <li>Workload identity scope, network segmentation, destination authorization, and denied-flow telemetry constrain and expose the attempted movement.</li>
+          <li>Responders isolate the affected service where safe, revoke or narrow access, preserve evidence, and coordinate OT containment with safety owners.</li>
+          <li>The team redeploys a verified image, validates data integrity and persistence, restores from protected backups if needed, and retests the original attack path.</li>
+        </ol>
+        <div class="warning"><strong>Containment can itself create risk.</strong> Any action that could interrupt a plant, safety system, or critical business process needs a pre-agreed decision path with operations and incident command.</div>
+        <p><strong>Acceptance criteria:</strong> A compromised workload cannot read unrelated data or obtain control-plane privileges; unauthorized network paths are blocked; the activity creates actionable detections; and recovery succeeds without bypassing OT safety controls.</p>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/">Azure landing zones</a>
+          <a href="https://learn.microsoft.com/en-us/azure/governance/policy/overview">Azure Policy</a>
+          <a href="https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure">Microsoft Entra PIM</a>
+          <a href="https://learn.microsoft.com/en-us/azure/private-link/private-link-overview">Azure Private Link</a>
+          <a href="https://learn.microsoft.com/en-us/azure/aks/best-practices">AKS best practices</a>
+          <a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction">Defender for Containers</a>
+          <a href="https://learn.microsoft.com/en-us/azure/sentinel/overview">Microsoft Sentinel</a>
+          <a href="https://www.nist.gov/cyberframework">NIST Cybersecurity Framework 2.0</a>
+        </div>
+      </section>
+
+      <section id="ai-security" class="case">
+        <div class="case-header"><div><span class="case-number">Case 2 · AI and agentic workloads</span><h2>Securing enterprise RAG and agentic workflows</h2></div><span class="sector">AI · Data · APIs · Human approval</span></div>
+        <p><strong>Business scenario:</strong> A regulated enterprise wants an assistant that searches SharePoint, a data lake, SQL, and legacy systems; summarizes material; opens tickets; generates reports; and may initiate selected business workflows. Model inference may be hosted in Azure or another approved environment.</p>
+        <p><strong>Security problem:</strong> A retrieved document contains malicious instructions. The agent treats untrusted content as instructions, attempts to access restricted records, and proposes an external data transfer using an overly broad service identity.</p>
+        <p><strong>Principal objective:</strong> Let models reason over authorized information without allowing model output, retrieved content, or tool descriptions to override application authorization, data boundaries, transaction rules, or required human approval.</p>
+        <h3>Separate model, retrieval, and execution boundaries</h3>
+        <div class="flow" aria-label="Secure enterprise AI architecture flow"><span>User context<br />Entra ID · application authorization</span><span class="arrow" aria-hidden="true">→</span><span>AI access layer<br />API gateway · quotas · validation</span><span class="arrow" aria-hidden="true">→</span><span>Orchestrator and model<br />RAG · constrained agent</span></div>
+        <div class="flow" aria-label="AI retrieval and action enforcement flow"><span>Authorized retrieval<br />Search · vector index · source entitlements</span><span class="arrow" aria-hidden="true">→</span><span>Policy-enforcing tool API<br />schema · authorization · business rules</span><span class="arrow" aria-hidden="true">→</span><span>System of record<br />approval · execution · audit</span></div>
+        <p>The model proposes content or an action; a trusted application service authorizes and executes it. Input, output, tool-call, identity, and data controls surround the model.</p>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Protect the complete data path</h3>
+            <ol>
+              <li><strong>Ingest:</strong> authenticate sources, validate file type and provenance, scan untrusted content, and quarantine suspicious documents.</li>
+              <li><strong>Transform:</strong> classify, minimize, and redact sensitive data before indexing where appropriate.</li>
+              <li><strong>Embed and index:</strong> admit approved data, restrict index access, and preserve tenant, document, sensitivity, and source identity metadata.</li>
+              <li><strong>Retrieve:</strong> enforce authorization with trusted identity and entitlement data on the server. A semantic match is not proof of permission.</li>
+              <li><strong>Generate and return:</strong> provide minimum necessary context, separate untrusted text from instructions, validate output, and apply redaction and destination checks.</li>
+              <li><strong>Retain and delete:</strong> account for source deletion, index refresh, derived artifacts, logs, backups, and separately governed training data.</li>
+            </ol>
+          </div>
+          <div class="panel">
+            <h3>Bound agent identity and actions</h3>
+            <ul>
+              <li>Give each agent or workload a distinct, scoped identity where supported. Keep the user's identity separate from the service identity.</li>
+              <li>Allowlist tools and operations. Restrict resource scope, environment, call rate, step count, token budget, timeout, and destination.</li>
+              <li>Validate tool arguments against strict schemas; independently enforce authorization and business rules at the destination API and system of record.</li>
+              <li>Make write operations idempotent and record request, policy decision, approval, execution, and outcome in an auditable workflow.</li>
+              <li>Require transaction-specific, time-limited human approval for high-impact operations when warranted. Bind approval to the exact operation and parameters.</li>
+              <li>Treat model output as untrusted input. Sanitize and validate before rendering or passing output to another system.</li>
+            </ul>
+          </div>
+        </div>
+        <h3>Threats and architectural mitigations</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Threat</th><th scope="col">Primary mitigations</th><th scope="col">Evidence to test</th></tr></thead>
+            <tbody>
+              <tr><td>Direct or indirect prompt injection</td><td>Separate untrusted content, input screening where supported, tool allowlists, constrained workflows, adversarial tests.</td><td>Retrieved instructions cannot change policy or grant privileges.</td></tr>
+              <tr><td>Unauthorized retrieval or cross-tenant exposure</td><td>Server-side identity-aware filters, tenant-bound context, source entitlements, negative authorization tests, permission-change handling.</td><td>Denied requests retrieve no protected content across users, tenants, or document-permission changes.</td></tr>
+              <tr><td>Excessive autonomy or unsafe tool execution</td><td>Scoped identities, strict schemas, parameter validation, transaction limits, approvals, independent backend authorization.</td><td>Unauthorized, replayed, modified, and unapproved actions are rejected by the destination service.</td></tr>
+              <tr><td>Data leakage through prompts, responses, or telemetry</td><td>Data minimization, redaction, output checks, DLP, restricted logs, approved endpoints, explicit retention.</td><td>Sensitive content is not returned to unauthorized users or copied into broadly accessible logs.</td></tr>
+              <tr><td>Cost abuse, loops, or denial of service</td><td>Rate limits, token and concurrency budgets, timeouts, quotas, spend alerts, bounded agent steps.</td><td>Load and abuse tests stay within service and spending guardrails.</td></tr>
+              <tr><td>Supply-chain or configuration compromise</td><td>Pin dependencies, verify artifacts, version prompts and tools, track model provenance, review changes, test rollback and revocation.</td><td>Releases are traceable and a model, tool, or index can be disabled or rolled back.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Example: an agent prepares a payment</h3>
+        <ol>
+          <li>The user asks the assistant to prepare a payment.</li>
+          <li>The model proposes a structured transaction but cannot call the payment rail directly.</li>
+          <li>A trusted payment service checks beneficiary, amount, account authority, limits, fraud rules, and idempotency independently.</li>
+          <li>If policy requires it, a designated approver reviews the exact transaction and evidence.</li>
+          <li>The payment service revalidates the action and authorization before execution; durable audit evidence records the complete outcome.</li>
+        </ol>
+        <div class="warning"><strong>Human approval is not backend authorization.</strong> The destination service must reject unauthorized actions even if an agent, prompt, or approval workflow attempts to bypass policy.</div>
+        <h3>Privacy, private networking, and AI operations</h3>
+        <ul>
+          <li>Prefer private endpoints and restricted public access for supported AI, search, storage, and data services when the deployment model supports it; validate DNS, routing, firewall rules, and outbound dependencies.</li>
+          <li>Use Entra-based authentication where supported. Put remaining secrets in the approved enterprise vault and define rotation, recovery, and separation of duties.</li>
+          <li>Version prompts, model configuration, agent definitions, tool contracts, retrieval indexes, and evaluation sets as controlled production artifacts.</li>
+          <li>Monitor prompt-injection signals, authorization denials, sensitive tool arguments, token use, agent loops, model changes, approval decisions, and unusual exports.</li>
+          <li>Minimize sensitive prompt and response logging. Restrict access to AI telemetry and define retention for prompts, retrieved content, tool calls, and model traces.</li>
+          <li>For HIPAA/HITECH, PCI DSS, GDPR, or other obligations, document data flows, subprocessors, processing regions, retention, access, incident obligations, and workload scope.</li>
+        </ul>
+        <h3>Attack simulation: indirect prompt injection</h3>
+        <ol>
+          <li>An attacker uploads a document containing instructions targeting an AI assistant.</li>
+          <li>An authorized employee asks the assistant to summarize that document.</li>
+          <li>The retrieved content asks the agent to fetch unrelated records and transmit them externally.</li>
+          <li>Retrieval entitlements prevent access to unrelated records; the policy-enforcing tool API blocks an unauthorized export; telemetry flags the suspicious sequence.</li>
+          <li>Responders quarantine the source, restrict affected agent capabilities if necessary, investigate access and egress evidence, and verify that no unauthorized transfer occurred.</li>
+        </ol>
+        <p><strong>Acceptance criteria:</strong> Malicious retrieved text cannot grant itself permissions; the agent cannot bypass backend authorization; unauthorized data is not exposed; and responders can reconstruct the request, retrieval, tool decision, and outcome.</p>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/">Microsoft Foundry documentation</a>
+          <a href="https://learn.microsoft.com/en-us/azure/search/search-security-built-in">Azure AI Search security</a>
+          <a href="https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy">Azure model data, privacy, and security</a>
+          <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM applications</a>
+          <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications/">OWASP Top 10 for agentic applications</a>
+          <a href="https://atlas.mitre.org/">MITRE ATLAS AI threat knowledge base</a>
+          <a href="https://learn.microsoft.com/en-us/azure/key-vault/general/secure-key-vault">Azure Key Vault security</a>
+          <a href="https://learn.microsoft.com/en-us/azure/monitor/overview">Azure Monitor</a>
+        </div>
+      </section>
+
+      <section id="roadmap">
+        <h2>Risk-driven implementation roadmap</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Phase</th><th scope="col">Primary activities</th><th scope="col">Exit evidence</th></tr></thead>
+            <tbody>
+              <tr><td>1. Discover</td><td>Inventory assets, identities, data flows, integrations, ownership, and threat paths.</td><td>Prioritized risks, dependency map, and approved scope.</td></tr>
+              <tr><td>2. Establish foundations</td><td>Apply landing-zone governance, identity controls, segmentation, private connectivity, and centralized logging.</td><td>Guardrails and denied-path tests pass; legacy exceptions have owners and dates.</td></tr>
+              <tr><td>3. Secure workloads</td><td>Harden APIs, containers, secrets, IaC, pipelines, data boundaries, and recovery.</td><td>Security checks, least-privilege tests, and restore exercises pass.</td></tr>
+              <tr><td>4. Secure AI workflows</td><td>Enforce RAG authorization, tool policy, bounded actions, sensitive-data controls, adversarial evaluation, and approvals.</td><td>Prompt-injection, cross-tenant, unsafe-action, and data-leakage tests pass.</td></tr>
+              <tr><td>5. Operationalize</td><td>Establish detection ownership, playbooks, evidence retention, incident exercises, and change controls.</td><td>Response and recovery exercises complete with actions tracked.</td></tr>
+              <tr><td>6. Improve continuously</td><td>Review drift, access, threat intelligence, red-team results, architecture changes, and exceptions.</td><td>Measurable residual-risk reduction with accepted trade-offs documented.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Phases can overlap. Do not grant high-impact agent permissions before authorization boundaries, monitoring, revocation, and rollback have been validated.</p>
+      </section>
+
+      <section id="principal-deliverables">
+        <h2>What distinguishes a Principal-level security architect?</h2>
+        <p class="intro">A Principal architect explains why a control is in the design, which threat it addresses, what assumptions it introduces, how it fits the existing estate, and how the organization will prove it works.</p>
+        <div class="grid-3">
+          <div class="panel"><h3>Architecture artifacts</h3><ul><li>Current-state inventory and data-flow diagrams</li><li>Target architecture with explicit trust boundaries</li><li>Threat models and prioritized attack paths</li><li>Security control matrix with owners and evidence</li></ul></div>
+          <div class="panel"><h3>Delivery and governance</h3><ul><li>Risk-driven migration plan and exception register</li><li>Reusable IaC patterns and security tests</li><li>Approved legacy compensating controls</li><li>Regulatory mapping validated with compliance owners</li></ul></div>
+          <div class="panel"><h3>Operate and recover</h3><ul><li>Detection rules and incident-response playbooks</li><li>Tested containment and recovery procedures</li><li>Adversarial and negative-authorization testing</li><li>Named operational owners and measurable outcomes</li></ul></div>
+        </div>
+        <div class="callout"><strong>Interview response structure:</strong> Establish business impact and constraints; state assumptions and trust boundaries; explain a phased design and trade-offs; walk through a failure or attack; close with measurable acceptance criteria, ownership, and residual risk.</div>
+        <p><a href="case-study.html">Open the industry case studies</a> · <a href="interview.html">Open the interview preparation guide</a> · <a href="career.html">Return to career strategy</a></p>
+      </section>
+      <footer>These materials are interview-preparation scenarios, not a security assessment or legal interpretation. Validate product capabilities, service availability, regulatory applicability, and organizational policies against the actual workload and environment.</footer>
+    </main>
+  </body>
+</html>

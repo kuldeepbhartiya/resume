@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Principal-level interview preparation across enterprise consulting, SaaS and AI platforms, and strategic field engineering."
+    />
+    <title>Principal Architect Interview Guide</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --surface: #ffffff;
+        --text: #1f2937;
+        --muted: #4b5563;
+        --line: #dfe7f1;
+        --accent: #0b57d0;
+        --accent-dark: #123b70;
+        --accent-soft: #eaf2ff;
+        --note: #fff8e8;
+        --note-line: #e0a800;
+        --success-soft: #eef7f2;
+        --success-line: #198754;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        padding: 24px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.65;
+      }
+
+      .container {
+        max-width: 1120px;
+        margin: 16px auto;
+        padding: 32px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+      }
+
+      header {
+        padding: 30px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+        border-radius: 10px;
+      }
+
+      header h1 {
+        margin: 0 0 10px;
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        line-height: 1.2;
+      }
+
+      header p {
+        max-width: 850px;
+        margin: 0;
+        color: #eef4ff;
+      }
+
+      .eyebrow {
+        margin-bottom: 8px;
+        color: #d7e7ff;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      nav a,
+      a {
+        color: var(--accent);
+      }
+
+      nav a {
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      nav a:hover,
+      nav a:focus-visible,
+      a:hover,
+      a:focus-visible {
+        text-decoration: underline;
+      }
+
+      section {
+        margin-top: 34px;
+        scroll-margin-top: 16px;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        color: #111827;
+        font-size: 1.6rem;
+        line-height: 1.3;
+      }
+
+      h3 {
+        margin: 0 0 8px;
+        color: var(--accent-dark);
+        font-size: 1.2rem;
+      }
+
+      h4 {
+        margin: 20px 0 6px;
+        color: #173b70;
+        font-size: 1rem;
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      ul,
+      ol {
+        margin: 8px 0 14px;
+        padding-left: 22px;
+      }
+
+      li {
+        margin-bottom: 6px;
+      }
+
+      .intro {
+        max-width: 900px;
+        color: var(--muted);
+      }
+
+      .callout {
+        margin-top: 16px;
+        padding: 16px 18px;
+        background: var(--note);
+        border-left: 4px solid var(--note-line);
+        border-radius: 6px;
+      }
+
+      .framework {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .framework-card {
+        padding: 16px;
+        background: var(--accent-soft);
+        border-radius: 8px;
+      }
+
+      .framework-card strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--accent-dark);
+      }
+
+      .track {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-top: 5px solid var(--accent);
+        border-radius: 10px;
+      }
+
+      .track + .track {
+        margin-top: 24px;
+      }
+
+      .track-label {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 3px 10px;
+        color: var(--accent-dark);
+        background: var(--accent-soft);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .question {
+        margin: 14px 0;
+        padding: 14px 16px;
+        background: #f3f6fa;
+        border-left: 3px solid #7b9ac4;
+        border-radius: 5px;
+      }
+
+      .question strong {
+        color: var(--accent-dark);
+      }
+
+      .columns {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 14px;
+      }
+
+      .subsection {
+        min-width: 0;
+      }
+
+      .caution {
+        padding: 14px 16px;
+        background: var(--note);
+        border-left: 3px solid var(--note-line);
+        border-radius: 5px;
+      }
+
+      .metric-note {
+        padding: 14px 16px;
+        background: var(--success-soft);
+        border-left: 3px solid var(--success-line);
+        border-radius: 5px;
+      }
+
+      .references {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        margin: 14px 0 0;
+        padding: 14px 0 0;
+        border-top: 1px solid var(--line);
+        font-size: 0.92rem;
+      }
+
+      .references a {
+        overflow-wrap: anywhere;
+      }
+
+      .template {
+        counter-reset: step;
+        list-style: none;
+        padding: 0;
+      }
+
+      .template li {
+        position: relative;
+        margin: 0;
+        padding: 12px 12px 12px 48px;
+        border-bottom: 1px solid var(--line);
+        counter-increment: step;
+      }
+
+      .template li::before {
+        position: absolute;
+        top: 10px;
+        left: 4px;
+        display: grid;
+        width: 30px;
+        height: 30px;
+        color: #fff;
+        background: var(--accent);
+        border-radius: 50%;
+        content: counter(step);
+        font-weight: 700;
+        place-items: center;
+      }
+
+      .story-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 14px;
+      }
+
+      .story-table th,
+      .story-table td {
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .story-table th {
+        color: #fff;
+        background: var(--accent-dark);
+      }
+
+      .stack-table {
+        width: 100%;
+        min-width: 760px;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+      }
+
+      .stack-table th,
+      .stack-table td {
+        padding: 12px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .stack-table th {
+        color: #fff;
+        background: var(--accent-dark);
+      }
+
+      .checklist {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 24px;
+      }
+
+      .checklist li {
+        padding-left: 2px;
+      }
+
+      footer {
+        margin-top: 36px;
+        padding-top: 18px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding: 12px;
+        }
+
+        .container {
+          margin: 4px auto;
+          padding: 20px;
+        }
+
+        header {
+          padding: 22px;
+        }
+
+        .framework,
+        .columns,
+        .checklist {
+          grid-template-columns: 1fr;
+        }
+
+        .track {
+          padding: 18px;
+        }
+
+        .story-table {
+          font-size: 0.9rem;
+        }
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: #fff;
+        }
+
+        .container {
+          max-width: none;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          box-shadow: none;
+        }
+
+        nav {
+          display: none;
+        }
+
+        .track,
+        .callout,
+        .question {
+          break-inside: avoid;
+        }
+
+        a {
+          color: inherit;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <p class="eyebrow">Interview preparation</p>
+        <h1>Principal Architect &amp; Strategic Engineering Guide</h1>
+        <p>
+          A practical guide for Azure- and .NET-heavy enterprise environments
+          that also rely on hybrid infrastructure, established platforms, and
+          multi-vendor integrations. Prepare to explain judgment, production
+          evidence, trade-offs, and business outcomes—not definitions alone.
+        </p>
+      </header>
+
+      <nav aria-label="Interview guide sections">
+        <a href="#principal-standard">Principal-level standard</a>
+        <a href="#enterprise-stack">Microsoft enterprise stack</a>
+        <a href="#track-consulting">Consulting</a>
+        <a href="#track-product">Product &amp; SaaS</a>
+        <a href="#track-fde">Strategic FDE</a>
+        <a href="#answer-framework">Answer framework</a>
+        <a href="#story-bank">Story bank</a>
+        <a href="#readiness">Readiness checklist</a>
+      </nav>
+
+      <section id="principal-standard">
+        <h2>What Principal-level interviews test</h2>
+        <p class="intro">
+          At 15+ years, interviewers expect architectural judgment, production
+          ownership, business alignment, and calm decision-making under
+          uncertainty. For every design, be ready to say what can fail, how you
+          will detect it, how you will recover, and what the trade-off costs.
+        </p>
+        <div class="framework">
+          <div class="framework-card">
+            <strong>Business context</strong>
+            Who needs the system, what matters, and what failure costs.
+          </div>
+          <div class="framework-card">
+            <strong>Constraints</strong>
+            Scale, latency, recovery, security, compliance, budget, and time.
+          </div>
+          <div class="framework-card">
+            <strong>Decisions</strong>
+            Architecture, alternatives, assumptions, and explicit trade-offs.
+          </div>
+          <div class="framework-card">
+            <strong>Operations</strong>
+            Failure modes, observability, recovery, ownership, and evidence.
+          </div>
+        </div>
+      </section>
+
+      <section id="enterprise-stack">
+        <h2>Start with the enterprise's actual Microsoft ecosystem</h2>
+        <p class="intro">
+          Azure and .NET are important in many large enterprises, but real
+          estates are rarely Microsoft-only or greenfield. Interview answers
+          should start with the client's existing platforms, operating model,
+          constraints, and skills—not a vendor's preferred reference design.
+          Use Microsoft-native services where they solve the requirement; keep
+          integration standards and exit paths clear.
+        </p>
+        <div class="table-scroll">
+          <table class="stack-table">
+            <thead>
+              <tr>
+                <th scope="col">Layer</th>
+                <th scope="col">Common enterprise reality</th>
+                <th scope="col">Principal-level design question</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Applications</strong></td>
+                <td>
+                  .NET Framework applications on Windows / IIS, WCF and older
+                  service integrations alongside ASP.NET Core, Java, and
+                  containerized services. Some workloads remain on VMs or
+                  App Service; not every system belongs on Kubernetes.
+                </td>
+                <td>
+                  Can the workload be rehosted or replatformed safely before
+                  refactoring? What are its runtime, licensing, support, and
+                  dependency constraints?
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Identity &amp; access</strong></td>
+                <td>
+                  On-premises Active Directory and Entra ID coexist with
+                  federation, service identities, and sometimes third-party
+                  identity platforms. Privileged access and conditional access
+                  are governed centrally, often alongside Microsoft 365 and
+                  established enterprise SaaS applications.
+                </td>
+                <td>
+                  How are identities federated, workloads authenticated, and
+                  privileges reviewed across cloud and data-center boundaries?
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Data &amp; integration</strong></td>
+                <td>
+                  SQL Server and Oracle estates, managed SQL, PostgreSQL, and
+                  enterprise platforms such as SAP, Salesforce, and ServiceNow
+                  commonly coexist with queues, APIs, and streaming systems.
+                  Kafka / Confluent, Azure Service Bus, and Event Hubs solve
+                  different integration needs.
+                </td>
+                <td>
+                  Which systems are authoritative? What are the required
+                  ordering, replay, consistency, ownership, and support
+                  boundaries?
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Delivery &amp; operations</strong></td>
+                <td>
+                  Azure DevOps and GitHub coexist with Terraform, existing
+                  pipelines, and platform-specific controls. Observability may
+                  use Azure Monitor / Application Insights, Splunk, Datadog,
+                  Dynatrace, or OpenTelemetry-based pipelines.
+                </td>
+                <td>
+                  Can the design fit existing incident, change, security,
+                  logging, and on-call processes without creating a second
+                  control plane?
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Cloud &amp; network</strong></td>
+                <td>
+                  Azure is often integrated with data centers, other cloud
+                  providers, enterprise DNS, firewalls, load balancers, and
+                  network vendors such as Cisco, Palo Alto, F5, or Aviatrix.
+                </td>
+                <td>
+                  How are routing, DNS, inspection, segmentation, ownership,
+                  and failure isolation handled end to end?
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <strong>Interview rule:</strong> Name Azure and .NET technologies
+          precisely when relevant, but explain the integration boundary and
+          alternative. “Use the existing Kafka platform” or “retain SQL Server
+          for this migration wave” can be the better architecture than
+          replacing a functioning enterprise platform with an Azure-native
+          equivalent.
+        </div>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/" target="_blank" rel="noopener noreferrer">Azure Architecture Center</a>
+          <a href="https://learn.microsoft.com/en-us/dotnet/architecture/" target="_blank" rel="noopener noreferrer">.NET architecture guides</a>
+          <a href="https://learn.microsoft.com/en-us/entra/identity/" target="_blank" rel="noopener noreferrer">Microsoft Entra identity documentation</a>
+          <a href="https://developer.hashicorp.com/terraform/tutorials/azure-get-started" target="_blank" rel="noopener noreferrer">Terraform on Azure</a>
+          <a href="https://opentelemetry.io/docs/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a>
+          <a href="https://docs.confluent.io/" target="_blank" rel="noopener noreferrer">Confluent platform documentation</a>
+          <a href="https://docs.databricks.com/en/lakehouse/index.html" target="_blank" rel="noopener noreferrer">Databricks lakehouse</a>
+        </div>
+      </section>
+
+      <section id="track-consulting" class="track">
+        <span class="track-label">Track 1</span>
+        <h2>Enterprise consulting &amp; practice leadership</h2>
+        <p>
+          <strong>Target roles:</strong> Principal Enterprise Solution
+          Architect, Enterprise AI Architect, Director of Cloud / AI Practice.
+        </p>
+        <p>
+          Prepare to connect multi-cloud architecture, migration risk,
+          governance, and executive decision-making to business continuity and
+          delivery outcomes.
+        </p>
+
+        <h3>Cloud networking, identity, and security</h3>
+        <ul>
+          <li>
+            In Azure environments, review hub-and-spoke or Virtual WAN,
+            ExpressRoute, VPN and private connectivity, BGP route propagation,
+            DNS forwarding, and how these connect to on-premises networks and
+            other clouds. Compare with AWS Transit Gateway / Direct Connect
+            where the estate is hybrid or multi-cloud.
+          </li>
+          <li>
+            Explain segmentation and traffic inspection across Azure Firewall,
+            NSGs, UDRs, private endpoints, and existing enterprise firewalls,
+            proxies, and load balancers.
+          </li>
+          <li>
+            Cover Active Directory and Entra ID integration, workload identity,
+            least privilege, PIM, cross-tenant access, and Zero Trust
+            administrative access.
+          </li>
+        </ul>
+        <div class="question">
+          <strong>Practice question:</strong> Design multi-region connectivity
+          for a global financial institution with stringent recovery needs and
+          multiple on-premises data centers. Clarify workload dependencies,
+          failure domains, routing, capacity, identity boundaries, monitoring,
+          and disaster-recovery testing.
+        </div>
+        <p class="caution">
+          <strong>Recovery nuance:</strong> RPO=0 and RTO=0 are not guarantees
+          delivered by a network topology. Define the failure scenario,
+          transaction durability model, replication or consensus approach, and
+          availability trade-offs. Explain measured recovery behavior rather
+          than promising universal zero-time recovery.
+        </p>
+
+        <h3>Legacy migration and modernization</h3>
+        <p>
+          In Microsoft-heavy estates, be prepared to discuss .NET Framework
+          applications on Windows / IIS, WCF or older APIs, SQL Server, and
+          integrations to enterprise platforms such as SAP, ServiceNow, or
+          message brokers. Identify dependencies and support constraints before
+          proposing an ASP.NET Core rewrite or container migration.
+        </p>
+        <div class="columns">
+          <div class="subsection">
+            <h4>Choose a strategy deliberately</h4>
+            <ul>
+              <li>
+                <strong>Rehost:</strong> move quickly, accepting that legacy
+                operational costs may remain.
+              </li>
+              <li>
+                <strong>Replatform:</strong> adopt managed services or runtime
+                improvements without a broad redesign.
+              </li>
+              <li>
+                <strong>Refactor / rearchitect:</strong> change the application
+                where the expected business benefit justifies regression,
+                scope, and delivery risk.
+              </li>
+              <li>
+                Consider retain, retire, relocate, or repurchase where useful;
+                state which migration framework you are using.
+              </li>
+            </ul>
+          </div>
+          <div class="subsection">
+            <h4>Explain a controlled migration</h4>
+            <ol>
+              <li>Discover application, data, identity, and operational dependencies.</li>
+              <li>Baseline performance, availability, security, licensing, and cost.</li>
+              <li>Select a strategy and document the decision and constraints.</li>
+              <li>Build the target foundation and rehearse using representative workloads.</li>
+              <li>Validate data, workflows, performance, and reconciliation.</li>
+              <li>Gate cutover and define rollback safety before production writes move.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="question">
+          <strong>Practice question:</strong> How would you migrate a stateful,
+          regulated trading platform across clouds? Address CDC lag, ordering,
+          schema compatibility, dual-write risk, endpoint switching, audit
+          approval, and what recovery option remains after rollback is no longer
+          safe.
+        </div>
+
+        <h3>Compliance and practice leadership</h3>
+        <ul>
+          <li>
+            Explain preventive, detective, and corrective controls using Azure
+            Policy, AWS Organizations SCPs, OPA, or Terraform policy tooling;
+            include drift detection and governed exceptions.
+          </li>
+          <li>
+            Discuss data classification, encryption, customer-managed keys,
+            tokenization, retention, centralized audit logs, SIEM, incident
+            response, and automated evidence.
+          </li>
+          <li>
+            Map applicable obligations to technical and organizational
+            controls, named owners, monitoring, and remediation timelines.
+          </li>
+          <li>
+            Prepare examples of architecture review boards, reusable landing
+            zones, vendor risk, resolving stakeholder disagreement, and
+            balancing quality, capability, utilization, and profitability.
+          </li>
+        </ul>
+        <p class="caution">
+          Policy as code is one part of compliance, not proof of compliance by
+          itself. Include organizational process, data handling, access
+          governance, control ownership, and audit evidence.
+        </p>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/networking/" target="_blank" rel="noopener noreferrer">Azure networking architectures</a>
+          <a href="https://docs.aws.amazon.com/whitepapers/latest/hybrid-connectivity/hybrid-connectivity.html" target="_blank" rel="noopener noreferrer">AWS hybrid connectivity</a>
+          <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/" target="_blank" rel="noopener noreferrer">Azure landing-zone architecture</a>
+          <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/media/azure-landing-zone-conceptual-architecture.svg" target="_blank" rel="noopener noreferrer">Azure landing-zone diagram (SVG)</a>
+          <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/migrate/plan-migration" target="_blank" rel="noopener noreferrer">Azure migration planning</a>
+          <a href="https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html" target="_blank" rel="noopener noreferrer">AWS migration strategies</a>
+          <a href="https://learn.microsoft.com/en-us/azure/dms/" target="_blank" rel="noopener noreferrer">Azure Database Migration Service</a>
+          <a href="https://learn.microsoft.com/en-us/data-migration/sql-server/overview" target="_blank" rel="noopener noreferrer">SQL Server migration guidance</a>
+          <a href="https://learn.microsoft.com/en-us/azure/governance/policy/" target="_blank" rel="noopener noreferrer">Azure Policy</a>
+          <a href="https://www.openpolicyagent.org/docs/latest/" target="_blank" rel="noopener noreferrer">Open Policy Agent</a>
+          <a href="https://www.finops.org/framework/" target="_blank" rel="noopener noreferrer">FinOps Framework</a>
+        </div>
+      </section>
+
+      <section id="track-product" class="track">
+        <span class="track-label">Track 2</span>
+        <h2>Product company, SaaS &amp; AI platform architecture</h2>
+        <p>
+          <strong>Target roles:</strong> Principal Platform Architect,
+          Principal AI Cloud Architect, Principal Engineer.
+        </p>
+        <p>
+          Show how you build a secure, operable platform that scales for
+          customers while meeting service objectives and keeping unit economics
+          visible.
+        </p>
+
+        <h3>Kubernetes and internal developer platforms</h3>
+        <p>
+          For .NET services, compare the operational fit of Azure App Service,
+          Windows or Linux VMs, containers, and AKS. AKS is justified when the
+          workload needs Kubernetes capabilities and the organization can
+          operate them; it is not a mandatory landing zone for every ASP.NET
+          Core API or legacy service.
+        </p>
+        <ul>
+          <li>
+            Cover scheduling, resource requests and limits, affinity, taints,
+            StatefulSets, CRDs, operators, persistent storage, CNI, ingress,
+            workload identity, and network policy.
+          </li>
+          <li>
+            Explain HPA/VPA, cluster autoscaling, Pod Disruption Budgets,
+            topology spread, surge capacity, readiness checks, and safe
+            upgrades.
+          </li>
+          <li>
+            Discuss GitOps, policy enforcement, self-service provisioning,
+            golden paths, platform SLOs, tenant quotas, and cost allocation.
+            Fit these into the organization’s existing Azure DevOps or GitHub
+            workflows where practical.
+          </li>
+          <li>
+            Choose the tenant boundary through threat modeling: namespaces
+            alone may not be sufficient; dedicated nodes, clusters, accounts,
+            or subscriptions may be appropriate for higher-risk workloads.
+          </li>
+        </ul>
+        <div class="question">
+          <strong>Practice question:</strong> Design a multi-tenant AKS/EKS
+          platform for low-latency telemetry and safe upgrades. Explain noisy
+          neighbor isolation, capacity headroom, disruption budgets, regional
+          failure, traffic shifting, and the latency percentile and workload
+          behind any target.
+        </div>
+
+        <h3>Enterprise .NET services, data, and integration</h3>
+        <ul>
+          <li>
+            For ASP.NET Core, discuss API versioning, authentication and
+            authorization, health checks, configuration and secrets, connection
+            pooling, resilient outbound calls, and OpenTelemetry-compatible
+            tracing.
+          </li>
+          <li>
+            Choose among SQL Server on VMs, Azure SQL Database, Azure SQL
+            Managed Instance, PostgreSQL, or an existing Oracle platform by
+            compatibility, operational needs, licensing, availability, and
+            migration risk—not by cloud preference alone.
+          </li>
+          <li>
+            Distinguish asynchronous work and commands (for example, Service
+            Bus or an existing enterprise broker) from high-throughput
+            partitioned event streams (for example, Kafka / Confluent or Event
+            Hubs). Preserve the platform already supported by the enterprise
+            unless there is a measured reason to change it.
+          </li>
+          <li>
+            Integrate with existing API gateways (for example Azure API
+            Management, Kong, or Apigee), SAP / Salesforce / ServiceNow,
+            enterprise identity, DNS, firewalls, and observability standards.
+            Avoid duplicating gateways, secrets stores, or monitoring platforms
+            without a clear requirement.
+          </li>
+        </ul>
+
+        <h3>LLMOps, RAG, and agent systems</h3>
+        <p>
+          Select models and retrieval services according to data residency,
+          private connectivity, contractual terms, capability, latency, and
+          cost. A design may use Azure-hosted models, direct provider APIs, or
+          an approved self-hosted model; avoid coupling application logic to a
+          single model API where portability is a requirement.
+        </p>
+        <p>
+          Be ready to sketch the request path: authenticated gateway →
+          tenant-aware authorization and limits → classification / model
+          routing and cache → access-controlled retrieval and reranking →
+          permitted tools and approval gates → inference and output validation
+          → tracing, evaluation, and cost telemetry.
+        </p>
+        <div class="columns">
+          <div class="subsection">
+            <h4>Performance, quality, and cost</h4>
+            <ul>
+              <li>
+                Estimate request rate, burst rate, input/output tokens, model
+                throughput, retrieval latency, and p50/p95/p99 end-to-end
+                latency.
+              </li>
+              <li>
+                Evaluate semantic cache quality and freshness, routing
+                thresholds, batching, token budgets, and cost per successful
+                grounded response.
+              </li>
+              <li>
+                Measure retrieval relevance, answer correctness, groundedness,
+                refusal quality, and unauthorized-data exposure on
+                representative evaluation sets.
+              </li>
+            </ul>
+          </div>
+          <div class="subsection">
+            <h4>Safety and durable agents</h4>
+            <ul>
+              <li>
+                Address prompt injection, sensitive-data leakage, tool
+                permissions, ACL propagation, output checks, and model/version
+                regression.
+              </li>
+              <li>
+                Explain checkpoints, retries, idempotency keys, compensation,
+                transactional boundaries, and human approval for consequential
+                operations.
+              </li>
+              <li>
+                Combine vector and graph retrieval where relationship traversal
+                helps; account for provenance, data freshness, and evaluation.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="question">
+          <strong>Practice question:</strong> Serve thousands of concurrent RAG
+          requests with bounded latency and cost. State the workload, describe
+          the retrieval and routing design, explain quality measurements, and
+          show how the system abstains or contains unsafe results.
+        </div>
+        <p class="caution">
+          No architecture can guarantee hallucination-free answers. Grounding,
+          authorization-aware retrieval, validation, abstention, and continuous
+          evaluation reduce risk but do not eliminate it. Durable orchestration
+          also does not make external side effects exactly-once; design
+          idempotency and recovery explicitly.
+        </p>
+
+        <h3>Real-time event processing and economics</h3>
+        <ul>
+          <li>
+            For Kafka, Event Hubs, or Kinesis, reason about partition keys,
+            ordering scope, hot partitions, consumer parallelism, acknowledgments,
+            replication, retention, replay, and backpressure.
+          </li>
+          <li>
+            Include at-least-once delivery, deduplication, idempotency, schema
+            evolution, poison messages, dead-letter queues, checkpoints, event
+            time, late data, and consumer lag.
+          </li>
+          <li>
+            Explain Bronze / Silver / Gold lakehouse layers, transactional
+            storage, lineage, quality checks, replay, and retention.
+          </li>
+          <li>
+            Discuss cost per tenant, transaction, event, or successful AI
+            response—not just total cloud spend. Include utilization, idle
+            capacity, retention, replication, and data transfer.
+          </li>
+        </ul>
+        <div class="question">
+          <strong>Practice question:</strong> Design an event platform for
+          20,000 events per second with strict durability and bounded processing
+          latency. Show partitioning, consumer scaling, replay, poison-message
+          handling, and how recovery is proven.
+        </div>
+        <p class="metric-note">
+          <strong>Capacity example:</strong> At an assumed average event size
+          of 2 KB, 20,000 events/s is about 40 MB/s or 3.46 TB/day before
+          replication, indexes, protocol overhead, and storage overhead. State
+          assumptions and include bursts, retention, and recovery capacity.
+          Define whether “zero data loss” means durable ingestion, completed
+          processing, or persistence of the final business transaction.
+        </p>
+        <div class="references">
+          <a href="https://kubernetes.io/docs/" target="_blank" rel="noopener noreferrer">Kubernetes documentation</a>
+          <a href="https://learn.microsoft.com/en-us/azure/aks/best-practices" target="_blank" rel="noopener noreferrer">AKS best practices</a>
+          <a href="https://learn.microsoft.com/en-us/azure/app-service/overview" target="_blank" rel="noopener noreferrer">Azure App Service overview</a>
+          <a href="https://learn.microsoft.com/en-us/dotnet/architecture/" target="_blank" rel="noopener noreferrer">.NET architecture guides</a>
+          <a href="https://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-10.0" target="_blank" rel="noopener noreferrer">ASP.NET Core documentation</a>
+          <a href="https://learn.microsoft.com/en-us/azure/azure-sql/migration-guides/" target="_blank" rel="noopener noreferrer">Azure SQL migration guides</a>
+          <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts" target="_blank" rel="noopener noreferrer">Azure API Management concepts</a>
+          <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview" target="_blank" rel="noopener noreferrer">Azure Service Bus overview</a>
+          <a href="https://docs.aws.amazon.com/eks/latest/best-practices/introduction.html" target="_blank" rel="noopener noreferrer">EKS best practices</a>
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/" target="_blank" rel="noopener noreferrer">Azure AI architecture</a>
+          <a href="https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure" target="_blank" rel="noopener noreferrer">Azure-hosted model options</a>
+          <a href="https://platform.openai.com/docs/" target="_blank" rel="noopener noreferrer">OpenAI API documentation</a>
+          <a href="https://docs.anthropic.com/" target="_blank" rel="noopener noreferrer">Anthropic API documentation</a>
+          <a href="https://docs.temporal.io/" target="_blank" rel="noopener noreferrer">Temporal</a>
+          <a href="https://kafka.apache.org/documentation/" target="_blank" rel="noopener noreferrer">Apache Kafka</a>
+          <a href="https://docs.confluent.io/" target="_blank" rel="noopener noreferrer">Confluent</a>
+          <a href="https://learn.microsoft.com/en-us/azure/event-hubs/" target="_blank" rel="noopener noreferrer">Azure Event Hubs</a>
+          <a href="https://docs.delta.io/" target="_blank" rel="noopener noreferrer">Delta Lake</a>
+          <a href="https://docs.databricks.com/en/lakehouse/index.html" target="_blank" rel="noopener noreferrer">Databricks lakehouse overview and diagram</a>
+          <a href="https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops" target="_blank" rel="noopener noreferrer">Azure DevOps</a>
+          <a href="https://docs.github.com/en/enterprise-cloud@latest" target="_blank" rel="noopener noreferrer">GitHub Enterprise documentation</a>
+          <a href="https://developer.hashicorp.com/terraform/tutorials/azure-get-started" target="_blank" rel="noopener noreferrer">Terraform on Azure</a>
+        </div>
+      </section>
+
+      <section id="track-fde" class="track">
+        <span class="track-label">Track 3</span>
+        <h2>Strategic &amp; Forward-Deployed Engineering</h2>
+        <p>
+          <strong>Target roles:</strong> Principal FDE, Principal Strategic
+          Field Architect, Strategic Solutions Engineer.
+        </p>
+        <p>
+          Demonstrate that you can stabilize complex customer environments,
+          communicate clearly under pressure, and turn one customer's problem
+          into a safe, reusable product capability.
+        </p>
+
+        <h3>Incident response during a critical integration</h3>
+        <div class="framework">
+          <div class="framework-card">
+            <strong>1. Stabilize</strong>
+            Bound impact, protect data, and pause risky changes if needed.
+          </div>
+          <div class="framework-card">
+            <strong>2. Establish facts</strong>
+            Correlate IDs, traces, timestamps, logs, metrics, and deployments.
+          </div>
+          <div class="framework-card">
+            <strong>3. Isolate &amp; mitigate</strong>
+            Test dependencies; make the smallest reversible change.
+          </div>
+          <div class="framework-card">
+            <strong>4. Validate &amp; learn</strong>
+            Check consistency, regressions, root cause, and prevention.
+          </div>
+        </div>
+        <p>
+          Communicate confirmed impact, hypotheses, actions, risks, owners, and
+          the next update time. Keep engineering detail, architectural cause,
+          and executive impact clear for each audience.
+        </p>
+        <p>
+          In Microsoft estates, include the relevant evidence sources: ASP.NET
+          Core and IIS logs, Windows Event Logs, SQL Server wait or connection
+          data, API gateway traces, identity sign-in records, and distributed
+          traces. Correlate them with request IDs and timestamps; do not assume
+          the Azure service itself is the fault domain.
+        </p>
+        <div class="question">
+          <strong>Practice question:</strong> A client's legacy API fails
+          intermittently during migration cutover and the business needs
+          recovery within 24 hours. How do you protect the data, isolate the
+          fault, select a reversible mitigation, validate recovery, and brief
+          executives?
+        </div>
+        <p class="caution">
+          Do not add retries blindly: a timeout does not prove a remote write
+          failed, and unbounded retries can worsen an outage. Use bounded
+          backoff with jitter, retry budgets, and idempotency where appropriate.
+        </p>
+
+        <h3>Productization and executive communication</h3>
+        <ul>
+          <li>
+            Clarify the customer's underlying outcome before responding to a
+            bespoke feature request.
+          </li>
+          <li>
+            Assess whether configuration or an extension point solves it, and
+            consider cross-customer value, security, upgrade risk, and ongoing
+            support cost.
+          </li>
+          <li>
+            Preserve the business outcome without creating an unmaintainable
+            product fork. If an exception is unavoidable, document its owner,
+            expiry, operational impact, and removal plan.
+          </li>
+          <li>
+            Lead discovery and architecture reviews; present deployment,
+            network, trust-boundary, decision, risk, and rollback artifacts at
+            the right level for technical and executive audiences.
+          </li>
+        </ul>
+        <div class="question">
+          <strong>Practice question:</strong> A strategic customer demands a
+          feature that conflicts with the product architecture. How do you
+          decline the requested implementation while still addressing the
+          underlying business need?
+        </div>
+
+        <h3>Restricted AI deployments and auditability</h3>
+        <ul>
+          <li>
+            For Azure/.NET deployments, plan for signed container or package
+            artifacts, SBOMs, vulnerability scans, approved NuGet and container
+            feeds, private endpoints, workload identity, secrets, and
+            restricted egress. In restricted environments, confirm how
+            patches, dependencies, and model artifacts are imported and
+            verified.
+          </li>
+          <li>
+            Use least-privilege tool access, versioned prompts and policies,
+            traceable change logs, human approval for sensitive actions, and
+            an emergency stop and rollback path.
+          </li>
+          <li>
+            Treat air-gapped deployment as a constraint, not proof of security:
+            model supply chain, local credentials, privileged tools, and audit
+            records still need controls.
+          </li>
+        </ul>
+        <div class="references">
+          <a href="https://learn.microsoft.com/en-us/azure/architecture/networking/networking-get-started" target="_blank" rel="noopener noreferrer">Azure networking architecture guidance</a>
+          <a href="https://opentelemetry.io/docs/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a>
+          <a href="https://sre.google/sre-book/table-of-contents/" target="_blank" rel="noopener noreferrer">Site Reliability Engineering reference book</a>
+          <a href="https://csrc.nist.gov/Projects/ssdf" target="_blank" rel="noopener noreferrer">NIST Secure Software Development Framework</a>
+          <a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">OWASP Top 10 for LLM Applications</a>
+          <a href="https://slsa.dev/" target="_blank" rel="noopener noreferrer">SLSA supply-chain security</a>
+          <a href="https://docs.sigstore.dev/" target="_blank" rel="noopener noreferrer">Sigstore</a>
+        </div>
+      </section>
+
+      <section id="answer-framework">
+        <h2>A repeatable Principal-level answer</h2>
+        <p class="intro">
+          Start by clarifying the problem. Then make the architecture and its
+          limits explicit. This works for system-design prompts and STAR-L
+          production stories.
+        </p>
+        <ol class="template">
+          <li>
+            <strong>Clarify the objective:</strong> users, critical workflows,
+            business impact, scale, availability, security, compliance, budget,
+            and delivery deadline.
+          </li>
+          <li>
+            <strong>State assumptions:</strong> identify unknowns and call out
+            which would change your design.
+          </li>
+          <li>
+            <strong>Describe the architecture:</strong> components, data flows,
+            trust boundaries, deployment, and failure domains.
+          </li>
+          <li>
+            <strong>Defend decisions:</strong> chosen approach, strongest
+            alternative, rationale, and operational or cost trade-offs.
+          </li>
+          <li>
+            <strong>Walk through failures:</strong> overload, dependency loss,
+            inconsistency, regional outage, security incident, rollback, and
+            recovery.
+          </li>
+          <li>
+            <strong>Define evidence:</strong> SLIs/SLOs, alerts, dashboards,
+            capacity thresholds, recovery tests, and compliance artifacts.
+          </li>
+          <li>
+            <strong>Quantify outcomes:</strong> use verified latency,
+            throughput, availability, cost, delivery, or risk measures.
+          </li>
+          <li>
+            <strong>Share the lesson:</strong> say what you would change at a
+            different scale, budget, or set of constraints.
+          </li>
+        </ol>
+        <div class="callout">
+          <strong>For experience stories, use STAR-L:</strong> Situation, Task,
+          Action, Result, Lessons / Scale. Be explicit about your contribution
+          versus the team's, distinguish facts from hypotheses, and only use
+          examples and metrics you can verify and are permitted to discuss.
+        </div>
+      </section>
+
+      <section id="story-bank">
+        <h2>Prepare an authentic story bank</h2>
+        <p class="intro">
+          Prepare six to eight short stories. For each, record your role, the
+          constraints, decision and alternative, outcome, and lesson. Use
+          capital-markets, healthcare, or .NET modernization work only where
+          the example is accurate and disclosure is permitted. Keep client
+          names generalized unless disclosure is explicitly authorized.
+        </p>
+        <table class="story-table">
+          <thead>
+            <tr>
+              <th scope="col">Story type</th>
+              <th scope="col">Evidence to prepare</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enterprise migration</td>
+              <td>Workload scope, dependencies, cutover window, validation, rollback criteria.</td>
+            </tr>
+            <tr>
+              <td>High-severity incident</td>
+              <td>Detection and mitigation timeline, confirmed root cause, prevention.</td>
+            </tr>
+            <tr>
+              <td>Security improvement</td>
+              <td>Control automated, findings addressed, audit evidence and ownership.</td>
+            </tr>
+            <tr>
+              <td>AI or platform delivery</td>
+              <td>Evaluation results, latency, throughput, cost per successful task, guardrails.</td>
+            </tr>
+            <tr>
+              <td>Cost optimization</td>
+              <td>Baseline, verified savings, and impact on reliability or performance.</td>
+            </tr>
+            <tr>
+              <td>Executive disagreement</td>
+              <td>Competing interests, decision rationale, communication, business outcome.</td>
+            </tr>
+            <tr>
+              <td>Reversed decision</td>
+              <td>Early warning, containment or rollback, lesson, improved design.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="readiness">
+        <h2>Final readiness checklist</h2>
+        <ul class="checklist">
+          <li>Draw the architecture from memory and explain the key alternative.</li>
+          <li>Name likely failure modes and how you detect and recover from them.</li>
+          <li>Estimate capacity and cost using explicit assumptions.</li>
+          <li>Explain security boundaries and who owns operations.</li>
+          <li>Describe a real incident, mitigation, recovery, and lesson.</li>
+          <li>Defend metrics and separate personal contribution from team work.</li>
+          <li>Translate the technical outcome into business impact.</li>
+          <li>Distinguish production experience from a prototype or learning goal.</li>
+        </ul>
+        <p class="metric-note">
+          <strong>Standard to aim for:</strong> Technically defensible,
+          production-operable, economically measurable, secure by design, and
+          understandable to business stakeholders.
+        </p>
+      </section>
+
+      <footer>
+        Use this guide to prepare and structure your own evidence; it is not a
+        substitute for validating claims, metrics, or disclosure permissions
+        before an interview.
+      </footer>
+    </main>
+  </body>
+</html>
