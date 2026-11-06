@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AI safety, large language model security, system design, and production deployment guidance with Azure case studies for AKS, App Service, and Azure Container Apps."
+    />
+    <title>AI Safety, Security &amp; Production Architecture</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --surface: #fff;
+        --text: #202b3c;
+        --muted: #526174;
+        --line: #dce5ef;
+        --blue: #0b57d0;
+        --navy: #123b70;
+        --blue-soft: #eaf2ff;
+        --green-soft: #edf7f1;
+        --amber-soft: #fff7e6;
+        --red-soft: #fff1f0;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        padding: 24px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.65;
+      }
+      a { color: var(--blue); }
+      a:hover, a:focus-visible { text-decoration-thickness: 2px; }
+      .page {
+        max-width: 1180px;
+        margin: 16px auto;
+        padding: 32px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, .06);
+      }
+      header {
+        padding: 32px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--navy), var(--blue));
+        border-radius: 10px;
+      }
+      header h1 {
+        max-width: 950px;
+        margin: 0 0 12px;
+        font-size: clamp(1.9rem, 4vw, 2.7rem);
+        line-height: 1.2;
+      }
+      header p { max-width: 950px; margin: 0; color: #edf4ff; }
+      .eyebrow {
+        margin: 0 0 8px;
+        color: #d7e7ff;
+        font-size: .82rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      nav a { font-weight: 600; text-decoration: none; }
+      section { margin-top: 34px; scroll-margin-top: 16px; }
+      h2 { margin: 0 0 10px; color: #111827; font-size: 1.7rem; line-height: 1.3; }
+      h3 { margin: 0 0 8px; color: var(--navy); font-size: 1.2rem; }
+      h4 { margin: 20px 0 7px; color: #173b70; font-size: 1rem; }
+      p { margin: 0 0 12px; }
+      ul, ol { margin: 8px 0 14px; padding-left: 22px; }
+      li { margin-bottom: 6px; }
+      .intro { max-width: 980px; color: var(--muted); }
+      .notice, .callout, .warning {
+        margin-top: 16px;
+        padding: 16px 18px;
+        border-radius: 7px;
+      }
+      .notice { background: var(--amber-soft); border-left: 5px solid #d99a19; }
+      .callout { background: var(--green-soft); border-left: 4px solid #18794e; }
+      .warning { background: var(--red-soft); border-left: 4px solid #cf5959; }
+      .grid-3, .case-grid, .principles {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+      .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .principle, .panel {
+        min-width: 0;
+        padding: 18px;
+        background: #f8fafc;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .principle strong { display: block; margin-bottom: 5px; color: var(--navy); }
+      .case {
+        margin-top: 24px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-top: 5px solid var(--blue);
+        border-radius: 10px;
+        scroll-margin-top: 16px;
+      }
+      .case-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 10px;
+      }
+      .case-number {
+        display: inline-block;
+        margin-bottom: 8px;
+        padding: 3px 10px;
+        color: var(--navy);
+        background: var(--blue-soft);
+        border-radius: 20px;
+        font-size: .8rem;
+        font-weight: 700;
+      }
+      .sector {
+        flex: 0 0 auto;
+        padding: 5px 10px;
+        color: #405168;
+        background: #f0f3f7;
+        border-radius: 5px;
+        font-size: .82rem;
+        font-weight: 700;
+      }
+      .flow {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        gap: 8px;
+        margin: 16px 0;
+      }
+      .flow span {
+        flex: 1 1 150px;
+        padding: 13px;
+        color: #173b70;
+        background: var(--blue-soft);
+        border: 1px solid #cddcf2;
+        border-radius: 7px;
+        text-align: center;
+        font-weight: 600;
+      }
+      .flow .arrow {
+        flex: 0 0 auto;
+        align-self: center;
+        padding: 0 2px;
+        background: transparent;
+        border: 0;
+        font-size: 1.3rem;
+      }
+      .implementation {
+        margin: 18px 0;
+        padding: 18px;
+        background: #fbfcfe;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .implementation h4 { margin-top: 0; }
+      .project-tree {
+        overflow-x: auto;
+        margin: 0;
+        padding: 14px;
+        color: #24364d;
+        background: #f1f5fa;
+        border-radius: 6px;
+        font: .88rem/1.55 Consolas, "Courier New", monospace;
+        white-space: pre;
+      }
+      .hld svg text { font-family: Arial, Helvetica, sans-serif; }
+      .interview-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .interview-item {
+        padding: 16px;
+        background: #f8fafc;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        break-inside: avoid;
+      }
+      .interview-item h3 { font-size: 1rem; }
+      .interview-item p { margin: 0; }
+      figure {
+        margin: 20px 0;
+        padding: 16px;
+        background: #fbfcfe;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      figure svg { display: block; width: 100%; height: auto; }
+      figcaption { margin-top: 10px; color: var(--muted); font-size: .91rem; }
+      .table-wrap { overflow-x: auto; margin: 14px 0; }
+      table { width: 100%; border-collapse: collapse; font-size: .94rem; }
+      th, td {
+        padding: 11px 12px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      th { color: var(--navy); background: #f1f5fa; }
+      .references {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px 16px;
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        font-size: .91rem;
+      }
+      .references a { overflow-wrap: anywhere; }
+      footer {
+        margin-top: 36px;
+        padding-top: 18px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        font-size: .92rem;
+      }
+      @media (max-width: 760px) {
+        body { padding: 12px; }
+        .page { margin: 4px auto; padding: 20px; }
+        header { padding: 22px; }
+        .principles, .grid-3, .case-grid, .interview-list { grid-template-columns: 1fr; }
+        .case { padding: 18px; }
+        .case-header { display: block; }
+        .sector { display: inline-block; }
+        .flow .arrow { display: none; }
+      }
+      @media print {
+        body { padding: 0; background: #fff; }
+        .page { max-width: none; margin: 0; padding: 0; border: 0; box-shadow: none; }
+        nav { display: none; }
+        .case, .panel, .notice, figure { break-inside: avoid; }
+        a { color: inherit; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <p class="eyebrow">Practical reference · AI architecture and security</p>
+        <h1>AI Safety, LLM Security &amp; Production Deployment</h1>
+        <p>
+          A plain-language guide to trustworthy Artificial Intelligence (AI)
+          design, security controls, network and data protection, and three
+          hypothetical Azure production case studies across Azure Kubernetes
+          Service (AKS), Azure App Service, and Azure Container Apps (ACA).
+        </p>
+      </header>
+      <nav aria-label="Page sections">
+        <a href="#meaning">What the topics mean</a>
+        <a href="#standards">Standards and guidance</a>
+        <a href="#architecture">Reference architecture</a>
+        <a href="#networking">OSI and traffic security</a>
+        <a href="#case-studies">Case studies</a>
+        <a href="#glossary">Glossary</a>
+        <a href="#interview-questions">Interview questions</a>
+      </nav>
+
+      <section id="meaning">
+        <h2>What these topics mean</h2>
+        <p class="intro">
+          These four topics overlap but are not interchangeable. AI safety asks
+          whether the system's behavior is acceptably safe; security asks
+          whether people or systems can misuse, manipulate, or compromise it.
+          Both must be designed, tested, and operated throughout the lifecycle.
+        </p>
+        <div class="grid-3">
+          <article class="principle">
+            <strong>AI Safety</strong>
+            <p>
+              Prevent or reduce foreseeable harm from intended and unintended
+              AI behavior. Define the allowed use, affected people, prohibited
+              outcomes, human oversight, escalation path, and a way to contest
+              consequential decisions. Safety controls include scoped use,
+              representative evaluations, refusal and escalation behavior,
+              monitoring, and rollback.
+            </p>
+          </article>
+          <article class="principle">
+            <strong>Large Language Model (LLM) Security</strong>
+            <p>
+              Protect the model, prompts, tools, data, and surrounding
+              application from abuse. Risks include prompt injection (malicious
+              instructions in user input or retrieved content), disclosure of
+              sensitive data, unsafe output handling, poisoned knowledge
+              sources, excessive tool permissions, and denial-of-wallet attacks
+              (usage that drives unexpected model costs).
+            </p>
+          </article>
+          <article class="principle">
+            <strong>AI System Design</strong>
+            <p>
+              Design the whole system—not just the model—including user
+              identity, data access, retrieval, model selection, tools, policy
+              checks, user experience, observability, and fallback behavior.
+              Prefer the least complex approach that meets the need; use
+              retrieval-augmented generation (RAG) when answers must be
+              grounded in controlled, current enterprise information.
+            </p>
+          </article>
+          <article class="principle">
+            <strong>Production Deployment</strong>
+            <p>
+              Operate a versioned, monitored, recoverable service with an
+              approved data flow, access controls, release gates, capacity
+              limits, incident response, and ownership. Evaluate models and
+              prompts before release, canary changes, track quality and safety
+              signals, and retain a tested rollback path.
+            </p>
+          </article>
+          <article class="principle">
+            <strong>AI Governance</strong>
+            <p>
+              Assign owners for intended use, risk acceptance, model and data
+              provenance, evaluation, privacy, and ongoing review. Record
+              limitations and changes so that users and operators know what the
+              system can and cannot reliably do.
+            </p>
+          </article>
+          <article class="principle">
+            <strong>Shared responsibility</strong>
+            <p>
+              The cloud platform secures its managed service; the customer
+              remains responsible for application code, identity, data
+              permissions, model configuration, prompts, integrations, and
+              business decisions. The exact boundary varies by service and
+              configuration.
+            </p>
+          </article>
+        </div>
+        <div class="notice">
+          <strong>Important:</strong> A system prompt, a content filter, or a
+          model refusal is not an authorization boundary. Enforce access,
+          validation, and policy in ordinary application and platform controls
+          outside the model.
+        </div>
+      </section>
+
+      <section id="standards">
+        <h2>Standards and industry guidance</h2>
+        <p class="intro">
+          Use standards as a risk-based baseline, then map controls to
+          applicable law, contracts, data classification, and the threat model.
+          A framework or checklist is not itself proof of compliance or a
+          guarantee of safety. Confirm the current edition and scope during
+          implementation.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Reference</th><th>What it is useful for</th><th>Practical application</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="https://genai.owasp.org/llm-top-10/">Open Worldwide Application Security Project (OWASP) Top 10 for Large Language Model (LLM) Applications</a></td>
+                <td>Common LLM application risks, including prompt injection, sensitive information disclosure, supply-chain risk, improper output handling, excessive agency, and unbounded consumption. The project evolves; use its current published list.</td>
+                <td>Threat-model each risk against the actual data, model, tools, users, and deployment. Convert relevant risks into test cases and owners.</td>
+              </tr>
+              <tr>
+                <td><a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP Application Security Verification Standard (ASVS)</a></td>
+                <td>Verifiable application-security requirements for the surrounding web/API application.</td>
+                <td>Apply appropriate requirements for authentication, authorization, input/output handling, API security, configuration, and logging.</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.nist.gov/itl/ai-risk-management-framework">National Institute of Standards and Technology (NIST) AI Risk Management Framework (AI RMF)</a> and <a href="https://doi.org/10.6028/NIST.AI.600-1">Generative AI Profile</a></td>
+                <td>Risk-management guidance for governing, mapping, measuring, and managing AI risks; the profile addresses generative AI risks.</td>
+                <td>Maintain an AI system inventory, intended-use and impact assessment, evaluation plan, risk register, owners, and monitoring/response process.</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.nist.gov/cyberframework">NIST Cybersecurity Framework (CSF) 2.0</a></td>
+                <td>Organization-wide cybersecurity outcomes across Govern, Identify, Protect, Detect, Respond, and Recover.</td>
+                <td>Integrate AI workloads into the enterprise security program, incident response, recovery, and supplier risk processes.</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.iso.org/standard/81230.html">ISO/IEC 42001</a></td>
+                <td>Requirements for an Artificial Intelligence Management System (AIMS).</td>
+                <td>Use when an organization needs a management-system approach to AI governance; certification is separate and scope-specific.</td>
+              </tr>
+              <tr>
+                <td><a href="https://learn.microsoft.com/en-us/security/benchmark/azure/">Microsoft Cloud Security Benchmark (MCSB)</a> and <a href="https://learn.microsoft.com/en-us/azure/well-architected/">Azure Well-Architected Framework</a></td>
+                <td>Azure-oriented security controls and design/reliability guidance.</td>
+                <td>Map the chosen Azure services and configuration to the relevant benchmark controls and Well-Architected pillars.</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.iso.org/standard/20269.html">OSI reference model (ISO/IEC 7498-1)</a></td>
+                <td>A seven-layer conceptual model for discussing network communications; it is not a security checklist or deployment architecture.</td>
+                <td>Use it to locate where a control operates. Pair network controls with identity, application, data, and AI-specific controls.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="architecture">
+        <h2>Recommended AI application design patterns</h2>
+        <div class="principles">
+          <div class="principle">
+            <strong>Identity-aware retrieval</strong>
+            Propagate authenticated user identity and enforce document-level
+            authorization during retrieval. Filter before content reaches the
+            model; do not rely on the model to hide unauthorized records.
+          </div>
+          <div class="principle">
+            <strong>Least-privilege tools</strong>
+            Give each tool a narrow, explicit purpose and permission scope.
+            Require confirmation for consequential or irreversible actions.
+            Validate tool arguments and results in application code.
+          </div>
+          <div class="principle">
+            <strong>Grounded, bounded responses</strong>
+            Retrieve only necessary, approved content; label source material as
+            untrusted instructions; ask for citations; check output schema and
+            safety policy; offer escalation or abstention when evidence is weak.
+          </div>
+          <div class="principle">
+            <strong>Defense in depth</strong>
+            Layer authentication, authorization, network isolation, content
+            controls, input/output validation, secrets management, encryption,
+            monitoring, rate limits, and incident response. No single layer is
+            sufficient.
+          </div>
+          <div class="principle">
+            <strong>Model and prompt lifecycle</strong>
+            Track approved model/version, prompt/template, retrieval index,
+            and evaluation set. Review changes, test for regressions, deploy
+            progressively, and keep a known-good rollback option.
+          </div>
+          <div class="principle">
+            <strong>Operational resilience</strong>
+            Use timeouts, retries with limits, quotas, concurrency controls,
+            circuit breakers (stop repeated calls to a failing dependency),
+            graceful degradation, and a non-AI fallback for critical workflows.
+          </div>
+        </div>
+        <figure>
+          <svg viewBox="0 0 1100 250" role="img" aria-labelledby="trust-title trust-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="trust-title">AI application trust boundaries and data flow</title>
+            <desc id="trust-desc">User traffic passes through an edge and identity layer to a private AI application. The application separately authorizes data retrieval and calls an AI model and approved tools. Logs and monitoring receive minimized telemetry.</desc>
+            <defs>
+              <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#42658e"/>
+              </marker>
+            </defs>
+            <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+              <g fill="#eaf2ff" stroke="#9bb7dc">
+                <rect x="15" y="62" width="145" height="74" rx="8"/>
+                <rect x="210" y="62" width="175" height="74" rx="8"/>
+                <rect x="440" y="62" width="195" height="74" rx="8"/>
+                <rect x="700" y="22" width="170" height="72" rx="8"/>
+                <rect x="700" y="128" width="170" height="72" rx="8"/>
+                <rect x="930" y="62" width="150" height="74" rx="8"/>
+              </g>
+              <g fill="#173b70" font-size="16" font-weight="700">
+                <text x="87" y="92">User / client</text><text x="87" y="116">TLS</text>
+                <text x="297" y="91">Edge protection</text><text x="297" y="115">WAF + identity</text>
+                <text x="537" y="91">Private AI app</text><text x="537" y="115">policy + orchestration</text>
+                <text x="785" y="52">Authorized data</text><text x="785" y="76">RAG / search</text>
+                <text x="785" y="158">Model / tools</text><text x="785" y="182">private, allowlisted</text>
+                <text x="1005" y="91">Audit + monitor</text><text x="1005" y="115">minimized logs</text>
+              </g>
+              <g fill="none" stroke="#42658e" stroke-width="2.5" marker-end="url(#arrow)">
+                <path d="M160 99 H205"/><path d="M385 99 H435"/>
+                <path d="M635 79 C660 79 670 58 695 58"/>
+                <path d="M635 119 C660 119 670 164 695 164"/>
+                <path d="M635 99 H925"/>
+              </g>
+              <text x="550" y="232" fill="#526174" font-size="14">Authorize every request; treat user input, retrieved documents, and model output as untrusted data.</text>
+            </g>
+          </svg>
+          <figcaption>
+            Embedded reference diagram: inline SVG, so it displays without an
+            external image host. A firewall or web application firewall (WAF)
+            complements—not replaces—application authorization.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="networking">
+        <h2>OSI model, inbound/outbound traffic, and data protection</h2>
+        <p class="intro">
+          The Open Systems Interconnection (OSI) model is a vocabulary for
+          locating communication functions. It does not prescribe a secure
+          cloud configuration. Apply controls at multiple layers and validate
+          actual service behavior, routes, and endpoints.
+        </p>
+        <figure>
+          <svg viewBox="0 0 820 390" role="img" aria-labelledby="osi-title osi-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="osi-title">Seven layers of the OSI reference model</title>
+            <desc id="osi-desc">From top to bottom: Application, Presentation, Session, Transport, Network, Data Link, and Physical. Example controls are shown beside each layer.</desc>
+            <g font-family="Arial, Helvetica, sans-serif">
+              <g fill="#eaf2ff" stroke="#b8cce8">
+                <rect x="15" y="15" width="365" height="46" rx="5"/>
+                <rect x="15" y="67" width="365" height="46" rx="5"/>
+                <rect x="15" y="119" width="365" height="46" rx="5"/>
+                <rect x="15" y="171" width="365" height="46" rx="5"/>
+                <rect x="15" y="223" width="365" height="46" rx="5"/>
+                <rect x="15" y="275" width="365" height="46" rx="5"/>
+                <rect x="15" y="327" width="365" height="46" rx="5"/>
+              </g>
+              <g fill="#173b70" font-size="16" font-weight="700">
+                <text x="30" y="44">7 · Application</text><text x="30" y="96">6 · Presentation</text>
+                <text x="30" y="148">5 · Session</text><text x="30" y="200">4 · Transport</text>
+                <text x="30" y="252">3 · Network</text><text x="30" y="304">2 · Data Link</text>
+                <text x="30" y="356">1 · Physical</text>
+              </g>
+              <g fill="#34445a" font-size="14">
+                <text x="410" y="44">HTTP/API, authentication, authorization, input validation</text>
+                <text x="410" y="96">Data representation; encryption protocols commonly operate here</text>
+                <text x="410" y="148">Connection/session management; timeouts and session controls</text>
+                <text x="410" y="200">TCP/UDP; TLS protection is commonly associated with transport</text>
+                <text x="410" y="252">IP routing, subnets, network security groups, firewall rules</text>
+                <text x="410" y="304">Local link / virtual network segmentation and access</text>
+                <text x="410" y="356">Physical facilities and hardware responsibility boundary</text>
+              </g>
+            </g>
+          </svg>
+          <figcaption>
+            Simplified OSI teaching diagram. TLS (Transport Layer Security) is
+            often described as sitting between application protocols and the
+            transport layer; modern stacks do not map perfectly to a single OSI
+            layer. Use <a href="https://www.iso.org/standard/20269.html">ISO/IEC 7498-1</a>
+            for the official reference model.
+          </figcaption>
+        </figure>
+        <h3>Threats by OSI layer and defensive controls</h3>
+        <p class="intro">
+          The examples below describe threat patterns at a high level, not
+          attack instructions. Cloud providers operate some lower-layer
+          infrastructure; customers still configure workload boundaries,
+          identities, and application controls. Real incidents often cross
+          multiple layers.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>OSI layer</th>
+                <th>Common threat pattern (conceptual)</th>
+                <th>Azure workload safeguards</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>7 · Application</td>
+                <td>API authorization flaws, injection, malicious uploads, SSRF, unsafe output rendering, credential abuse, and application-layer denial of service.</td>
+                <td>Use Microsoft Entra ID (or an approved identity provider), validate tokens and authorization on every operation, validate inputs/outputs, apply WAF rules and rate limits, and use managed identity for dependencies. Add AI-specific safeguards described below.</td>
+              </tr>
+              <tr>
+                <td>6 · Presentation</td>
+                <td>Weak or inconsistent encryption configuration, certificate-validation failures, unsafe parsing, or sensitive information exposed through serialization and logs.</td>
+                <td>Require supported TLS versions, validate certificates, protect key material in Key Vault, use safe parsers and schemas, and redact sensitive fields from telemetry. Prefer platform-managed TLS termination where appropriate and secure each following hop too.</td>
+              </tr>
+              <tr>
+                <td>5 · Session</td>
+                <td>Stolen or replayed tokens, overly long sessions, weak session invalidation, and cross-site request forgery (CSRF) against browser-based authenticated actions.</td>
+                <td>Use short-lived tokens with correct issuer, audience, and scope; protect cookies with Secure, HttpOnly, and appropriate SameSite settings; rotate or revoke sessions when needed; add CSRF protection for cookie-authenticated state changes.</td>
+              </tr>
+              <tr>
+                <td>4 · Transport</td>
+                <td>Unexpected listening ports, exposed administrative protocols, connection exhaustion, or unencrypted service-to-service traffic.</td>
+                <td>Expose only required ports; restrict traffic with network security groups and platform ingress controls; use TLS between services; set connection, request, and concurrency limits. Use Azure Distributed Denial of Service (DDoS) Protection for applicable public virtual network architectures, alongside edge and application rate controls.</td>
+              </tr>
+              <tr>
+                <td>3 · Network</td>
+                <td>Unintended public routes, overly broad ingress/egress, route or DNS mistakes, and network-level denial-of-service.</td>
+                <td>Segment subnets and environments; default-deny where practical; restrict outbound destinations through supported routing/firewall controls; use private endpoints and private DNS for supported services; monitor effective routes and DNS. Do not treat a private IP as identity.</td>
+              </tr>
+              <tr>
+                <td>2 · Data Link</td>
+                <td>In conventional networks, local-link spoofing or unauthorized attachment. In Azure's managed cloud, customers generally do not administer physical switching or raw Ethernet between tenants.</td>
+                <td>Rely on Azure's managed isolation for provider-operated infrastructure, and secure the customer-controlled virtual network: restrict peering, subnets, network interfaces, and administrative permissions. Review the shared-responsibility model rather than attempting unsupported Layer 2 controls.</td>
+              </tr>
+              <tr>
+                <td>1 · Physical</td>
+                <td>Physical access, hardware tampering, or facility disruption. Azure operates the underlying facilities and physical infrastructure for managed cloud services.</td>
+                <td>Review the cloud provider's assurance and compliance documentation; protect customer-managed devices, build agents, and any on-premises connectivity. The workload team should focus on identity, data, configuration, and recovery controls within its responsibility boundary.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <strong>Detection principle:</strong> collect platform, identity,
+          application, and AI safety signals with a shared correlation ID. Alert
+          on unexpected ingress/egress, authentication anomalies, authorization
+          denials, resource spikes, unusual tool use, and sensitive-data
+          incidents. Avoid storing raw prompts or protected data unless there is
+          a documented need and strict access/retention controls.
+        </div>
+
+        <h3>Common AI-prone attacks and mitigations</h3>
+        <p class="intro">
+          Generative AI introduces untrusted natural-language inputs and
+          probabilistic outputs into applications. Existing security controls
+          remain essential, but model filters alone cannot reliably enforce
+          authorization or prevent every attack.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Attack / risk</th>
+                <th>How it occurs (high level)</th>
+                <th>Safeguards and implementation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Direct and indirect prompt injection</td>
+                <td>A user message or retrieved page/document contains instructions that try to redirect the model, expose context, or influence a connected tool.</td>
+                <td>Separate instructions from quoted/untrusted content; minimize retrieved context; screen and label sources; constrain output and tools; require server-side authorization and human approval for consequential actions; test direct and retrieved-content cases.</td>
+              </tr>
+              <tr>
+                <td>Retrieval poisoning and stale knowledge</td>
+                <td>Unreviewed, altered, or outdated material enters a search index and influences generated answers.</td>
+                <td>Ingest only approved sources; record provenance, owner, version, and effective date; validate and scan content; apply document ACLs during retrieval; support rapid removal/re-indexing; evaluate citations and freshness.</td>
+              </tr>
+              <tr>
+                <td>Sensitive information disclosure</td>
+                <td>Over-broad retrieval, unsafe prompts, verbose traces, or a misconfigured API returns confidential data to an unauthorized user or destination.</td>
+                <td>Enforce authorization before retrieval and before response; minimize/ redact context; isolate tenants; restrict model destinations; protect logs; use data loss prevention where suitable; test for cross-user leakage and prompt/response retention.</td>
+              </tr>
+              <tr>
+                <td>Excessive agency and tool misuse</td>
+                <td>A model-connected tool has broad permissions or accepts an unsafe request, causing an unintended external action.</td>
+                <td>Use narrow typed tools and dedicated least-privilege identities; allowlist destinations and operations; validate arguments and business rules in code; make read-only the default; require explicit human approval for high-impact actions; log approvals.</td>
+              </tr>
+              <tr>
+                <td>Unsafe output handling</td>
+                <td>Generated text is treated as trusted HTML, SQL, shell input, code, or a business decision without validation.</td>
+                <td>Encode output for its display context; validate structured responses against a schema; use parameterized database operations; never execute generated code or commands directly; apply domain policy and human review before consequential use.</td>
+              </tr>
+              <tr>
+                <td>Denial of service and denial of wallet</td>
+                <td>High-volume, oversized, repetitive, or deliberately expensive requests consume model capacity or incur excessive charges.</td>
+                <td>Set per-user and global quotas, input/token limits, concurrency ceilings, deadlines, bounded retries, and spending alerts; use queue limits and safe degradation; protect public ingress with appropriate rate and abuse controls.</td>
+              </tr>
+              <tr>
+                <td>Model or dependency supply-chain compromise</td>
+                <td>A vulnerable library, untrusted model artifact, compromised image, or unreviewed provider/configuration change enters the system.</td>
+                <td>Use approved registries and model sources; scan dependencies and images; pin and verify versions/provenance; protect build/release identities; review provider terms and changes; evaluate updates and retain rollback options.</td>
+              </tr>
+              <tr>
+                <td>Model extraction and sensitive inference</td>
+                <td>Repeated queries or responses reveal more about model behavior, training data, or sensitive inputs than intended.</td>
+                <td>Minimize exposed endpoints and response detail; authenticate and rate-limit access; do not train on sensitive data without approval; review provider data handling; monitor unusual query patterns and protect evaluation/training sets.</td>
+              </tr>
+              <tr>
+                <td>Training or fine-tuning data poisoning</td>
+                <td>Low-quality or malicious examples contaminate a training/fine-tuning corpus and bias model behavior.</td>
+                <td>Use curated, traceable datasets; validate provenance and quality; separate training from production; review data changes; evaluate for targeted regressions and keep reproducible dataset/model versions. If using a hosted foundation model without custom training, focus on retrieval/index integrity instead.</td>
+              </tr>
+              <tr>
+                <td>Unsafe third-party tools and SSRF</td>
+                <td>A model-directed integration fetches an untrusted URL or reaches a resource outside its intended boundary.</td>
+                <td>Avoid arbitrary URL-fetch tools; allowlist destinations; validate resolved addresses and redirects; block access to metadata and internal networks unless explicitly required; use controlled egress and test DNS/rebinding edge cases with authorized security testing.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Azure deployment controls by platform</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Platform</th><th>Ingress and identity</th><th>Segmentation and egress</th><th>Workload and operations</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Azure Kubernetes Service (AKS)</td>
+                <td>Prefer a private cluster where required; restrict API-server administration; use Entra ID integration, Kubernetes RBAC, and managed workload identity. Put public entry behind a protected gateway/ingress.</td>
+                <td>Use network policies, subnet/network security controls, private endpoints, private DNS, and controlled egress. Validate the selected Container Network Interface (CNI) and routing design; policies do not replace application authorization.</td>
+                <td>Use least-privilege service accounts, pod security controls, signed/scanned images, admission policies, resource quotas, patching, monitoring, and tested cluster recovery.</td>
+              </tr>
+              <tr>
+                <td>Azure App Service (Web App)</td>
+                <td>Use Entra ID authentication and application-level authorization. Choose private endpoint ingress or a protected public edge with access restrictions, according to the use case.</td>
+                <td>Use supported virtual network integration, private endpoints, private DNS, and route/egress controls for the chosen plan. Verify the exact plan capabilities and test direct-to-app paths.</td>
+                <td>Use managed identity and Key Vault references; keep runtimes patched; secure deployment credentials and slots; apply request limits, health checks, diagnostics, and rollback.</td>
+              </tr>
+              <tr>
+                <td>Azure Container Apps (ACA)</td>
+                <td>Choose internal or external ingress deliberately; use an authenticated gateway where appropriate and enforce identity/authorization in the app.</td>
+                <td>Use a virtual-network-integrated environment when private routing or controlled egress is needed. Confirm environment type supports required user-defined routes (UDRs), Network Address Translation (NAT), and firewall features; restrict dependency access.</td>
+                <td>Use managed identities, scoped secrets, trusted images, revision controls, maximum replica/concurrency settings, health probes, monitoring, and rapid revision rollback.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice">
+          <strong>Validate service-specific capabilities:</strong> Azure
+          networking features, ingress behavior, egress routing, and private
+          connectivity vary by plan, environment type, region, and configuration.
+          Confirm the current product documentation before treating a control as
+          available or enabled.
+        </div>
+        <div class="case-grid">
+          <article class="panel">
+            <h3>Inbound traffic (into the workload)</h3>
+            <ul>
+              <li>Expose only the intended entry point. Prefer private ingress for internal applications; for public apps, use a managed edge with WAF, denial-of-service protection, and rate controls.</li>
+              <li>Require strong authentication, short-lived tokens, audience/issuer checks, authorization at each API/action, and request-size and content-type limits.</li>
+              <li>Use TLS 1.2 or newer where supported by the service and client policy; prefer TLS 1.3 where compatible. Disable obsolete protocol versions and weak cipher suites.</li>
+              <li>Validate uploads, sanitize rendered output, prevent server-side request forgery (SSRF), and do not accept model-generated tool commands without schema and policy checks.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>Outbound traffic (from the workload)</h3>
+            <ul>
+              <li>Inventory required dependencies and allow only necessary destinations; route through a controlled egress point when the platform supports it.</li>
+              <li>Use private endpoints for supported model, search, storage, and secrets services where appropriate. Disable public network access where feasible and test DNS/private routing.</li>
+              <li>Prevent arbitrary URLs, open proxies, and unrestricted model tools. Validate destination hostnames and block metadata-service and internal address targets unless explicitly needed.</li>
+              <li>Use quotas, timeouts, retries with caps, and egress monitoring. A private endpoint is not itself authentication or authorization.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>Data at rest (stored data)</h3>
+            <ul>
+              <li>Encrypt databases, object storage, disks, backups, logs, indexes, caches, and model artifacts using service encryption; consider customer-managed keys (CMK) where policy or threat model calls for control over key lifecycle.</li>
+              <li>Keep keys and secrets in a managed vault with managed identity, least privilege, rotation, access auditing, and recovery protections. Never place secrets in source code, prompts, images, or logs.</li>
+              <li>Classify and minimize data; set retention, deletion, backup, residency, and legal-hold policies. Treat embeddings and indexes as sensitive: they can reveal information about source data.</li>
+              <li>Separate tenant data and access boundaries; test deletion and restore workflows.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>Data in transit (moving data)</h3>
+            <ul>
+              <li>Use TLS for clients, APIs, service-to-service calls, and model endpoints. Validate certificates; use mutual TLS (mTLS) when workload identity and threat model justify it.</li>
+              <li>Encrypt traffic over private networks too. Private routing limits exposure but does not make data confidential or authenticate a caller.</li>
+              <li>Protect data copied into prompts, retrieval results, traces, queues, and telemetry. Avoid recording raw prompts/responses by default; redact or tokenize sensitive fields.</li>
+              <li>Use managed identity or short-lived credentials for service access rather than embedded keys. Document every external model/API destination and its data terms.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="callout">
+          <strong>Encryption is not access control:</strong> encryption at rest
+          and in transit reduces exposure if storage or a network path is
+          accessed improperly, but it does not prevent an authorized yet
+          over-privileged app, user, or model workflow from reading or disclosing
+          data. Combine it with authorization, minimization, auditing, and
+          lifecycle controls.
+        </div>
+      </section>
+
+      <section id="case-studies">
+        <h2>Three hypothetical production case studies</h2>
+        <p class="intro">
+          These are reference designs, not claims about real deployments or
+          prescriptions for every Azure tier. Confirm regional/service
+          availability, network features, compliance obligations, data
+          residency, and contractual model-provider terms before implementation.
+        </p>
+
+        <article class="case" id="aks-health">
+          <div class="case-header">
+            <div>
+              <span class="case-number">Case study 1 · Azure Kubernetes Service (AKS)</span>
+              <h3>Healthcare and insurance: claims evidence assistant</h3>
+            </div>
+            <span class="sector">Healthcare / Insurance</span>
+          </div>
+          <p>
+            A health insurer wants a staff-facing assistant that summarizes
+            claims evidence and policy clauses with source citations. It may
+            help a qualified adjuster prepare a review, but it must not
+            independently deny a claim, diagnose a patient, or replace a
+            licensed professional's judgment.
+          </p>
+          <div class="flow" aria-label="AKS case-study request flow">
+            <span>Staff user<br />Entra ID + multi-factor authentication (MFA)</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Private API ingress<br />WAF / policy</span><span class="arrow" aria-hidden="true">→</span>
+            <span>AKS app + retrieval<br />user-scoped access</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Private model, search<br />and approved sources</span>
+          </div>
+          <div class="implementation">
+            <h4>Implementation structure and sample high-level design (HLD)</h4>
+            <p>
+              Separate deployable services, infrastructure, and evaluation
+              assets. Keep clinical/claims authorization in the API and data
+              layer, not in model instructions.
+            </p>
+            <div class="case-grid">
+              <div>
+                <h4>Illustrative repository layout</h4>
+                <pre class="project-tree">claims-assistant/
+|-- src/
+|   |-- api/                 # auth, claims endpoints, rate limits
+|   |-- orchestration/       # prompt, retrieval, model adapter
+|   |-- authorization/       # claim and document access policies
+|   |-- safety/              # output checks, escalation, citations
+|   `-- workers/             # approved ingestion and indexing
+|-- deploy/
+|   |-- bicep/               # Azure resources and private networking
+|   `-- helm/                # AKS workloads and network policies
+|-- evals/                   # safety, grounding, access-control tests
+|-- tests/                   # unit, API, integration, adversarial
+`-- pipelines/               # build, scan, sign, deploy, promote</pre>
+              </div>
+              <div>
+                <h4>Sample HLD diagram</h4>
+                <figure class="hld">
+                  <svg viewBox="0 0 1000 190" role="img" aria-labelledby="aks-hld-title aks-hld-desc" xmlns="http://www.w3.org/2000/svg">
+                    <title id="aks-hld-title">Healthcare claims assistant AKS high-level design</title>
+                    <desc id="aks-hld-desc">Staff access passes through private identity-aware ingress to an AKS API and orchestration service, which queries permission-filtered claims search and a private model endpoint. A human adjuster reviews the cited draft; minimized audit signals go to monitoring.</desc>
+                    <defs><marker id="aks-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#42658e"/></marker></defs>
+                    <g fill="#eaf2ff" stroke="#9bb7dc" stroke-width="2">
+                      <rect x="10" y="52" width="145" height="72" rx="8"/><rect x="195" y="52" width="165" height="72" rx="8"/>
+                      <rect x="400" y="52" width="175" height="72" rx="8"/><rect x="615" y="15" width="175" height="65" rx="8"/>
+                      <rect x="615" y="105" width="175" height="65" rx="8"/><rect x="830" y="52" width="155" height="72" rx="8"/>
+                    </g>
+                    <g fill="#173b70" font-size="15" font-weight="700" text-anchor="middle">
+                      <text x="82" y="82">Adjuster</text><text x="82" y="104">MFA / identity</text>
+                      <text x="277" y="82">Private ingress</text><text x="277" y="104">gateway / WAF</text>
+                      <text x="487" y="82">AKS API + RAG</text><text x="487" y="104">policy / citations</text>
+                      <text x="702" y="42">Claims search</text><text x="702" y="63">ACL-filtered data</text>
+                      <text x="702" y="132">Private model</text><text x="702" y="153">no decision authority</text>
+                      <text x="907" y="82">Human review</text><text x="907" y="104">audit / monitor</text>
+                    </g>
+                    <g fill="none" stroke="#42658e" stroke-width="2.5" marker-end="url(#aks-arrow)">
+                      <path d="M155 88 H190"/><path d="M360 88 H395"/><path d="M575 72 C595 72 595 48 610 48"/>
+                      <path d="M575 104 C595 104 595 137 610 137"/><path d="M790 48 C810 48 810 75 825 75"/>
+                      <path d="M790 137 C810 137 810 102 825 102"/>
+                    </g>
+                  </svg>
+                  <figcaption>Private workload and data paths; the adjuster remains accountable for claim decisions.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="case-grid">
+            <div class="panel">
+              <h3>Security and network design</h3>
+              <ul>
+                <li>Use a private AKS cluster when required by the threat model, with controlled administrative access, Microsoft Entra ID integration, role-based access control (RBAC), namespace separation, and least-privilege Kubernetes service accounts/workload identity.</li>
+                <li>Terminate inbound TLS at an approved gateway/ingress; restrict cluster and pod ingress with network policy and Azure networking controls. Keep the Kubernetes API private and tightly administered.</li>
+                <li>Constrain outbound connections to approved dependencies through firewall/route controls; use private endpoints for supported storage, search, vault, and model services. Alert on unexpected egress.</li>
+                <li>Use managed identities, Key Vault integration, protected container registries, signed/scanned images, approved base images, admission policy, and patch/upgrade ownership.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>AI safety and data boundaries</h3>
+              <ul>
+                <li>Enforce role-, claim-, and document-level permissions before retrieval; filter results in the data service and test for cross-member and cross-tenant leakage.</li>
+                <li>Retrieve only the minimum necessary claim and policy data. Treat documents as untrusted content: detect malicious instruction patterns, do not allow documents to grant tool permissions, and cite the source passages.</li>
+                <li>Require adjuster review for decisions or communications affecting eligibility, payment, coverage, or care. Show uncertainty, sources, limitations, and an escalation/appeal path.</li>
+                <li>Encrypt persistent claim data, indexes, backups, and logs; keep sensitive health information out of telemetry and prompts unless approved and necessary. Define retention and deletion across source, index, cache, and logs.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Production controls and measures</h3>
+              <ul>
+                <li>Use a documented evaluation set with privacy-approved cases; test groundedness, citation correctness, unsafe advice, subgroup performance, prompt injection, and unauthorized retrieval before release.</li>
+                <li>Pin model and prompt versions, stage rollout, set concurrency and token budgets, monitor latency, errors, drift and safety escalations, and retain a deterministic manual-review fallback.</li>
+                <li>Audit access and material actions. Store correlation IDs and decision evidence while minimizing or redacting raw prompts/responses.</li>
+                <li>Success measures: lower review preparation time without increasing unsupported summaries, privacy incidents, inappropriate recommendations, or inequitable outcomes.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Threats addressed</h3>
+              <p>
+                Cross-tenant data exposure, poisoned or malicious claim
+                documents, prompt injection, compromised container images,
+                excessive service permissions, exposed Kubernetes management,
+                and model output presented as authoritative medical or coverage
+                advice.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="case" id="appservice-finance">
+          <div class="case-header">
+            <div>
+              <span class="case-number">Case study 2 · Azure App Service (Web App)</span>
+              <h3>Banking: employee policy and procedure copilot</h3>
+            </div>
+            <span class="sector">Banking / Financial services</span>
+          </div>
+          <p>
+            A bank provides authenticated employees with a copilot for finding
+            current, approved procedures and summarizing internal policy. The
+            assistant cannot initiate payments, change customer accounts, or
+            provide investment recommendations.
+          </p>
+          <div class="flow" aria-label="Azure App Service case-study request flow">
+            <span>Employee<br />Entra ID + multi-factor authentication (MFA)</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Managed edge / WAF<br />private app access</span><span class="arrow" aria-hidden="true">→</span>
+            <span>App Service API<br />managed identity</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Private search + model<br />approved content only</span>
+          </div>
+          <div class="implementation">
+            <h4>Implementation structure and sample high-level design (HLD)</h4>
+            <p>
+              Keep the web/API tier stateless, put policy and retrieval in
+              testable application modules, and deploy network and identity
+              settings through infrastructure as code.
+            </p>
+            <div class="case-grid">
+              <div>
+                <h4>Illustrative repository layout</h4>
+                <pre class="project-tree">bank-policy-copilot/
+|-- src/
+|   |-- web/                 # employee UI and API routes
+|   |-- identity/            # token validation and role mapping
+|   |-- policy/              # document ACL and version filters
+|   |-- retrieval/           # search, ranking, citations
+|   |-- model/               # private endpoint client, budgets
+|   `-- telemetry/           # redaction and audit events
+|-- infra/                   # app, private endpoint, DNS, edge
+|-- content-pipeline/        # approved policy ingestion/indexing
+|-- evals/                   # citation, safety, and ACL tests
+|-- tests/                   # unit, API, security integration
+`-- pipelines/               # scan, deploy, slot and rollback</pre>
+              </div>
+              <div>
+                <h4>Sample HLD diagram</h4>
+                <figure class="hld">
+                  <svg viewBox="0 0 1000 190" role="img" aria-labelledby="web-hld-title web-hld-desc" xmlns="http://www.w3.org/2000/svg">
+                    <title id="web-hld-title">Bank employee policy copilot App Service high-level design</title>
+                    <desc id="web-hld-desc">Employees authenticate through Entra ID and a protected edge to an App Service web/API. Managed identity accesses permission-filtered policy search and a private model endpoint. Approved source ingestion is separately controlled and audit telemetry is redacted.</desc>
+                    <defs><marker id="web-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#42658e"/></marker></defs>
+                    <g fill="#eaf2ff" stroke="#9bb7dc" stroke-width="2">
+                      <rect x="10" y="52" width="145" height="72" rx="8"/><rect x="195" y="52" width="165" height="72" rx="8"/>
+                      <rect x="400" y="52" width="175" height="72" rx="8"/><rect x="615" y="15" width="175" height="65" rx="8"/>
+                      <rect x="615" y="105" width="175" height="65" rx="8"/><rect x="830" y="52" width="155" height="72" rx="8"/>
+                    </g>
+                    <g fill="#173b70" font-size="15" font-weight="700" text-anchor="middle">
+                      <text x="82" y="82">Employee</text><text x="82" y="104">Entra ID / MFA</text>
+                      <text x="277" y="82">Edge / WAF</text><text x="277" y="104">private ingress</text>
+                      <text x="487" y="82">App Service API</text><text x="487" y="104">managed identity</text>
+                      <text x="702" y="42">Policy search</text><text x="702" y="63">version + ACL filter</text>
+                      <text x="702" y="132">Private model</text><text x="702" y="153">bounded responses</text>
+                      <text x="907" y="82">Cited answer</text><text x="907" y="104">redacted audit</text>
+                    </g>
+                    <g fill="none" stroke="#42658e" stroke-width="2.5" marker-end="url(#web-arrow)">
+                      <path d="M155 88 H190"/><path d="M360 88 H395"/><path d="M575 72 C595 72 595 48 610 48"/>
+                      <path d="M575 104 C595 104 595 137 610 137"/><path d="M790 48 C810 48 810 75 825 75"/>
+                      <path d="M790 137 C810 137 810 102 825 102"/>
+                    </g>
+                  </svg>
+                  <figcaption>Employees receive cited answers from authorized, current policy; a source link remains authoritative.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="case-grid">
+            <div class="panel">
+              <h3>Security and network design</h3>
+              <ul>
+                <li>Use App Service authentication with Microsoft Entra ID or a trusted identity layer; enforce authorization in the app, including employee role and document entitlement checks.</li>
+                <li>For internal-only access, use private endpoint ingress and controlled private DNS. If public access is a business requirement, put an approved WAF-enabled edge in front and restrict direct app access where supported.</li>
+                <li>Configure virtual network integration and route-all/egress controls as supported by the selected App Service plan. Permit only required destinations; verify that DNS, logs, deployment, and health probes still work after restricting egress.</li>
+                <li>Use managed identity for Key Vault, search, model, and storage access. Disable unused deployment endpoints/protocols, secure the deployment pipeline, and keep runtime/framework versions patched.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>AI safety and data boundaries</h3>
+              <ul>
+                <li>Index only approved policy versions and record source owner, effective date, and revision. Remove superseded content and propagate revocation/deletion to indexes and caches.</li>
+                <li>Apply document-level access filters during retrieval. Never use a single shared index result set for users with different permissions unless filtering is enforced server-side.</li>
+                <li>Instruct the model to answer only from cited policy sources; validate citations and label unsupported answers as unavailable. Provide a link to the authoritative policy and a human escalation route.</li>
+                <li>Do not send account numbers, payment details, authentication secrets, or customer data to the model unless explicitly approved, necessary, and covered by the provider's data-processing terms.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Production controls and measures</h3>
+              <ul>
+                <li>Use application security testing, dependency and secret scanning, API tests, and adversarial evaluations in the release pipeline. Require approval for model, prompt, or index changes.</li>
+                <li>Set per-user and global rate limits, request/token caps, timeouts, and cost alerts. Use safe fallback to search links or the existing help desk when the model or dependencies are unavailable.</li>
+                <li>Monitor answer citation rate, stale-source errors, access denials, latency, cost, and user feedback. Log identity and source identifiers with sensitive text redacted.</li>
+                <li>Success measures: faster policy discovery while preserving access-control correctness, source freshness, auditability, and clear separation from regulated financial advice.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Threats addressed</h3>
+              <p>
+                Account takeover, exposed public app endpoints, over-broad
+                outbound access, outdated policy answers, indirect prompt
+                injection in documents, sensitive data leakage, and unmetered
+                use of paid model endpoints.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="case" id="aca-energy">
+          <div class="case-header">
+            <div>
+              <span class="case-number">Case study 3 · Azure Container Apps (ACA)</span>
+              <h3>Oil and gas: maintenance knowledge and work-order assistant</h3>
+            </div>
+            <span class="sector">Oil and Gas</span>
+          </div>
+          <p>
+            Field and maintenance engineers ask questions over approved
+            equipment manuals and maintenance records. A separate work-order
+            API may create a draft work order, but a qualified operator must
+            review and submit it. The assistant does not directly control
+            operational technology (OT) or safety systems.
+          </p>
+          <div class="flow" aria-label="Azure Container Apps case-study request flow">
+            <span>Engineer<br />managed device + identity</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Private ACA ingress<br />API gateway / policy</span><span class="arrow" aria-hidden="true">→</span>
+            <span>ACA app + worker<br />bounded tasks</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Private knowledge + model<br />no direct OT route</span>
+          </div>
+          <div class="implementation">
+            <h4>Implementation structure and sample high-level design (HLD)</h4>
+            <p>
+              Split user-facing queries, asynchronous ingestion, and the
+              human-approved work-order integration into separate container
+              apps with distinct identities and network permissions.
+            </p>
+            <div class="case-grid">
+              <div>
+                <h4>Illustrative repository layout</h4>
+                <pre class="project-tree">field-maintenance-assistant/
+|-- apps/
+|   |-- query-api/           # ACA ingress, auth, request limits
+|   |-- retrieval-worker/    # manuals and record indexing
+|   `-- workorder-draft/     # scoped draft-only integration
+|-- packages/
+|   |-- identity/            # user and site authorization
+|   |-- rag/                 # retrieval, citations, prompt policy
+|   `-- safety/              # approval gates and output checks
+|-- infra/                   # ACA env, VNet, private DNS, egress
+|-- evals/                   # prompt, retrieval, safety tests
+|-- tests/                   # API, integration, resilience
+`-- pipelines/               # image scan, revision, promotion</pre>
+              </div>
+              <div>
+                <h4>Sample HLD diagram</h4>
+                <figure class="hld">
+                  <svg viewBox="0 0 1000 190" role="img" aria-labelledby="aca-hld-title aca-hld-desc" xmlns="http://www.w3.org/2000/svg">
+                    <title id="aca-hld-title">Oil and gas maintenance assistant Container Apps high-level design</title>
+                    <desc id="aca-hld-desc">An engineer uses private ingress to a query container app, which retrieves approved site-filtered manuals and invokes a private model. A separate isolated draft-work-order app connects to the business work-order API only after explicit human approval. There is no route to operational technology.</desc>
+                    <defs><marker id="aca-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#42658e"/></marker></defs>
+                    <g fill="#eaf2ff" stroke="#9bb7dc" stroke-width="2">
+                      <rect x="10" y="52" width="145" height="72" rx="8"/><rect x="195" y="52" width="165" height="72" rx="8"/>
+                      <rect x="400" y="52" width="175" height="72" rx="8"/><rect x="615" y="15" width="175" height="65" rx="8"/>
+                      <rect x="615" y="105" width="175" height="65" rx="8"/><rect x="830" y="52" width="155" height="72" rx="8"/>
+                    </g>
+                    <g fill="#173b70" font-size="15" font-weight="700" text-anchor="middle">
+                      <text x="82" y="82">Engineer</text><text x="82" y="104">site identity</text>
+                      <text x="277" y="82">Private ingress</text><text x="277" y="104">ACA environment</text>
+                      <text x="487" y="82">Query app</text><text x="487" y="104">bounded RAG</text>
+                      <text x="702" y="42">Site knowledge</text><text x="702" y="63">filtered retrieval</text>
+                      <text x="702" y="132">Private model</text><text x="702" y="153">no OT connectivity</text>
+                      <text x="907" y="82">Human approval</text><text x="907" y="104">draft API only</text>
+                    </g>
+                    <g fill="none" stroke="#42658e" stroke-width="2.5" marker-end="url(#aca-arrow)">
+                      <path d="M155 88 H190"/><path d="M360 88 H395"/><path d="M575 72 C595 72 595 48 610 48"/>
+                      <path d="M575 104 C595 104 595 137 610 137"/><path d="M790 48 C810 48 810 75 825 75"/>
+                      <path d="M790 137 C810 137 810 102 825 102"/>
+                    </g>
+                    <text x="500" y="184" fill="#9b3434" font-size="13" text-anchor="middle">Separate approval-gated business API; no connection from AI apps to operational technology (OT).</text>
+                  </svg>
+                  <figcaption>The model can prepare a draft only; it has no direct route or credentials for operational control.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="case-grid">
+            <div class="panel">
+              <h3>Security and network design</h3>
+              <ul>
+                <li>Use a workload-profiles ACA environment integrated with a controlled virtual network where private connectivity, user-defined routes, or custom egress are required. Make ingress internal for private users; expose only a protected gateway if external access is needed.</li>
+                <li>Apply environment-level network restrictions and an egress allowlist for approved model, registry, secrets, telemetry, and business API dependencies. Keep the AI environment segmented from OT networks.</li>
+                <li>Use managed identities for secrets and service access; use private endpoints and private DNS for supported dependencies. Do not hard-code credentials in images or application configuration; use platform-managed secret references where needed.</li>
+                <li>Use immutable, scanned images, trusted registries, least-privilege container settings, resource limits, revision-based rollout, and controlled secrets/configuration updates.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>AI safety and action boundaries</h3>
+              <ul>
+                <li>Separate read-only retrieval from the draft-work-order capability. The draft tool accepts typed fields from an allowlist; it cannot change equipment state, safety interlocks, or control systems.</li>
+                <li>Require engineer confirmation and existing work-management authorization before submission. Record the human approver and retain the original sources and generated draft for audit.</li>
+                <li>Label maintenance records and manuals as untrusted context. Exclude commands embedded in retrieved content from tool instructions; require citations and show uncertainty for conflicting or stale procedures.</li>
+                <li>Maintain a safety-reviewed, version-controlled corpus and site/equipment access filters. Do not retrieve sensitive site details for users lacking the required authorization.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Production controls and measures</h3>
+              <ul>
+                <li>Use ACA scaling based on measured queue/concurrency needs with hard maximum replicas, model concurrency limits, token budgets, and spend alerts to prevent runaway consumption.</li>
+                <li>Use separate revisions or environments for test and production; validate prompt injection, hallucinated procedures, access filtering, and fail-safe behavior before promoting changes.</li>
+                <li>Monitor request traces, dependency health, retrieval freshness, safety reports, and unusual egress. Avoid logging sensitive operational content unless retention and access are approved.</li>
+                <li>Success measures: faster manual lookup and better-documented draft work orders without bypassing work permits, human approval, operational safety procedures, or OT boundaries.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Threats addressed</h3>
+              <p>
+                Untrusted field notes steering the assistant, unauthorized
+                disclosure of site information, a model-triggered unsafe
+                action, compromised container revisions, and unbounded model
+                traffic or spend.
+              </p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="delivery">
+        <h2>Production release and operations checklist</h2>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Before release</h3>
+            <ul>
+              <li>Document intended use, prohibited use, users, data types, model/provider, dependencies, trust boundaries, and accountable risk owner.</li>
+              <li>Threat-model OWASP LLM risks and ordinary application/cloud threats. Perform privacy, safety, and regulatory reviews appropriate to the domain.</li>
+              <li>Test authorization bypass, cross-tenant retrieval, prompt injection, sensitive-data leakage, unsafe output rendering, tool misuse, rate-limit bypass, and denial-of-service/cost abuse.</li>
+              <li>Run quality and safety evaluations on representative and adversarial cases; define measurable go/no-go thresholds and known limitations.</li>
+              <li>Verify encryption, private routing, key/secret rotation, backup restore, monitoring, incident response, and rollback.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>After release</h3>
+            <ul>
+              <li>Monitor model quality, access decisions, errors, latency, token usage, costs, and safety incidents; route incidents to named owners.</li>
+              <li>Re-evaluate after changes to models, prompts, tools, indexes, data sources, dependencies, and deployment configuration.</li>
+              <li>Review alerts and audit events for misuse while minimizing access to sensitive prompt and response content.</li>
+              <li>Provide user reporting, human escalation, service disablement, and a tested lower-risk fallback.</li>
+              <li>Periodically reassess whether the system remains necessary, proportionate, accurate enough, and within its approved scope.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="glossary">
+        <h2>Glossary</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>AI / Artificial Intelligence</td><td>Computer systems that perform tasks typically associated with human intelligence, such as language understanding or prediction.</td></tr>
+              <tr><td>OWASP / Open Worldwide Application Security Project</td><td>A nonprofit foundation and community that publishes application-security guidance, including the LLM Top 10.</td></tr>
+              <tr><td>NIST / National Institute of Standards and Technology</td><td>A United States government agency that publishes technical standards and risk-management guidance.</td></tr>
+              <tr><td>ISO/IEC / International Organization for Standardization and International Electrotechnical Commission</td><td>Organizations that publish international standards; the OSI model is specified in ISO/IEC 7498-1.</td></tr>
+              <tr><td>LLM / Large Language Model</td><td>A model trained on large amounts of text to process and generate language.</td></tr>
+              <tr><td>RAG / Retrieval-Augmented Generation</td><td>A design that retrieves relevant source material and supplies it to a generative model to ground an answer.</td></tr>
+              <tr><td>OSI / Open Systems Interconnection</td><td>A seven-layer reference model used to describe network communication functions.</td></tr>
+              <tr><td>TLS / Transport Layer Security</td><td>A protocol that encrypts and authenticates a communication channel.</td></tr>
+              <tr><td>WAF / Web Application Firewall</td><td>A service that filters and monitors HTTP(S) web requests for configured attack patterns and policies.</td></tr>
+              <tr><td>RBAC / Role-Based Access Control</td><td>Authorization that assigns permissions through roles.</td></tr>
+              <tr><td>MFA / Multi-Factor Authentication</td><td>Authentication requiring multiple independent proof factors.</td></tr>
+              <tr><td>API / Application Programming Interface</td><td>A defined interface through which software components communicate.</td></tr>
+              <tr><td>HTTP(S) / Hypertext Transfer Protocol (Secure)</td><td>The web communication protocol, with HTTPS protecting HTTP traffic using TLS.</td></tr>
+              <tr><td>TCP / Transmission Control Protocol</td><td>A transport protocol that provides reliable, ordered byte streams.</td></tr>
+              <tr><td>UDP / User Datagram Protocol</td><td>A connectionless transport protocol with low overhead and no delivery guarantee.</td></tr>
+              <tr><td>IP / Internet Protocol</td><td>The network-layer protocol used to address and route packets.</td></tr>
+              <tr><td>mTLS / Mutual Transport Layer Security</td><td>TLS in which both communicating parties authenticate with certificates.</td></tr>
+              <tr><td>DNS / Domain Name System</td><td>The naming system that maps domain names to network addresses.</td></tr>
+              <tr><td>OT / Operational Technology</td><td>Hardware and software that monitors or controls physical equipment and industrial processes.</td></tr>
+              <tr><td>SSRF / Server-Side Request Forgery</td><td>An attack that tricks a server into making requests to unintended destinations.</td></tr>
+              <tr><td>CMK / Customer-Managed Key</td><td>An encryption key whose lifecycle and access are managed by the customer through a supported key-management service.</td></tr>
+              <tr><td>Entra ID</td><td>Microsoft Entra ID, Microsoft's cloud identity and access management service.</td></tr>
+              <tr><td>AKS / Azure Kubernetes Service</td><td>Azure's managed Kubernetes container-orchestration service.</td></tr>
+              <tr><td>ACA / Azure Container Apps</td><td>Azure's managed platform for deploying containerized applications and jobs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="references">
+        <h2>Links and further reading</h2>
+        <div class="references">
+          <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>
+          <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>
+          <a href="https://www.iso.org/standard/20269.html">ISO/IEC 7498-1: OSI Basic Reference Model</a>
+          <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI RMF</a>
+          <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>
+          <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-security">AKS security concepts</a>
+          <a href="https://learn.microsoft.com/en-us/azure/app-service/overview-security">Secure Azure App Service</a>
+          <a href="https://learn.microsoft.com/en-us/azure/container-apps/networking">Azure Container Apps networking</a>
+          <a href="https://learn.microsoft.com/en-us/azure/security/fundamentals/encryption-overview">Azure encryption overview</a>
+        </div>
+      </section>
+
+      <section id="interview-questions">
+        <h2>25 interview questions with sample answers</h2>
+        <p class="intro">
+          Use these as concise starting points and adapt them to the actual
+          system, constraints, and experience. Each sample answer is three
+          short lines; add measurable evidence where you have it.
+        </p>
+        <div class="interview-list">
+          <article class="interview-item">
+            <h3>1. How do you distinguish AI safety from AI security?</h3>
+            <p>Safety reduces harmful or unreliable behavior in intended use.<br />Security resists unauthorized access, manipulation, and abuse.<br />I design and test both, with named owners and escalation paths.</p>
+          </article>
+          <article class="interview-item">
+            <h3>2. How do you threat-model a retrieval-augmented generation system?</h3>
+            <p>Map users, data sources, retrieval, model, tools, and trust boundaries.<br />Assess prompt injection, data leakage, poisoning, access bypass, and cost abuse.<br />Turn risks into mitigations, tests, monitoring, and accountable owners.</p>
+          </article>
+          <article class="interview-item">
+            <h3>3. What is prompt injection, and how do you mitigate it?</h3>
+            <p>It is untrusted content attempting to override intended model instructions.<br />Treat user and retrieved text as data, not authorization or executable commands.<br />Constrain tools, enforce permissions in code, and test indirect injection cases.</p>
+          </article>
+          <article class="interview-item">
+            <h3>4. Why is a system prompt not an authorization control?</h3>
+            <p>Models can misinterpret or ignore instructions, especially with adversarial input.<br />The prompt does not reliably establish user identity or resource permissions.<br />Enforce access in APIs and data services before returning context or taking action.</p>
+          </article>
+          <article class="interview-item">
+            <h3>5. How do you prevent cross-tenant data leakage in RAG?</h3>
+            <p>Derive tenant identity from a validated user token and trusted server context.<br />Apply tenant and document permissions in the retrieval query itself.<br />Test isolation, cache keys, logs, indexes, and deletion paths across tenants.</p>
+          </article>
+          <article class="interview-item">
+            <h3>6. How would you secure LLM tool or agent access?</h3>
+            <p>Expose only narrowly scoped tools with typed, validated inputs.<br />Use separate least-privilege identities and allowlisted destinations per tool.<br />Require human confirmation for high-impact or irreversible actions and audit them.</p>
+          </article>
+          <article class="interview-item">
+            <h3>7. How do you reduce hallucinations in a high-stakes workflow?</h3>
+            <p>Ground answers in current, approved sources and require citations.<br />Evaluate factual accuracy and abstention behavior on representative cases.<br />Escalate uncertain or consequential outcomes to a qualified human reviewer.</p>
+          </article>
+          <article class="interview-item">
+            <h3>8. What does human-in-the-loop mean in practice?</h3>
+            <p>A qualified person reviews a clearly presented recommendation before consequential action.<br />The reviewer sees evidence, uncertainty, limitations, and the ability to reject or correct.<br />The decision and approval are auditable; automation cannot silently bypass the gate.</p>
+          </article>
+          <article class="interview-item">
+            <h3>9. How do you handle sensitive data in prompts and responses?</h3>
+            <p>Minimize data before retrieval and classify what may reach the model.<br />Use approved endpoints and contractual data terms; redact telemetry by default.<br />Set retention, access, deletion, and incident procedures for prompts and outputs.</p>
+          </article>
+          <article class="interview-item">
+            <h3>10. What is your approach to data at rest and in transit?</h3>
+            <p>Encrypt persistent stores, indexes, backups, logs, and artifacts with managed keys.<br />Protect service calls with TLS and use private routing where appropriate.<br />Pair encryption with identity, authorization, key governance, and data minimization.</p>
+          </article>
+          <article class="interview-item">
+            <h3>11. How would you design inbound and outbound network security?</h3>
+            <p>Expose a single intended ingress protected by identity and an appropriate edge policy.<br />Allow outbound traffic only to inventoried, required dependencies, preferably through controlled egress.<br />Test DNS, private endpoints, routes, and deny behavior instead of assuming isolation.</p>
+          </article>
+          <article class="interview-item">
+            <h3>12. How do you use the OSI model in a security review?</h3>
+            <p>Use its seven layers to locate protocol and network control responsibilities.<br />Map routing and filtering at network layers and authentication/input controls at application layers.<br />Treat it as a discussion aid, not a complete cloud or AI security framework.</p>
+          </article>
+          <article class="interview-item">
+            <h3>13. What OWASP guidance is relevant to LLM applications?</h3>
+            <p>Start with the current OWASP Top 10 for LLM Applications and ASVS.<br />Map applicable risks such as injection, disclosure, unsafe output, and excessive agency.<br />Turn each relevant item into design controls and repeatable verification tests.</p>
+          </article>
+          <article class="interview-item">
+            <h3>14. How do you evaluate an AI system before production?</h3>
+            <p>Define intended use, risk-based success criteria, and a representative evaluation set.<br />Test quality, safety, privacy, access control, adversarial behavior, latency, and cost.<br />Set release thresholds, document limitations, and require sign-off from accountable owners.</p>
+          </article>
+          <article class="interview-item">
+            <h3>15. What should be monitored after deployment?</h3>
+            <p>Track availability, latency, errors, token use, spend, and dependency health.<br />Monitor citation quality, refusal/escalation rates, access denials, and safety reports.<br />Minimize sensitive log content and route actionable alerts to operational owners.</p>
+          </article>
+          <article class="interview-item">
+            <h3>16. How do you protect an AI supply chain?</h3>
+            <p>Inventory models, datasets, packages, base images, prompts, and external services.<br />Scan dependencies and containers; verify provenance and restrict production publishing.<br />Pin versions, review changes, and keep a tested rollback path for compromised artifacts.</p>
+          </article>
+          <article class="interview-item">
+            <h3>17. How would you secure an AI workload on AKS?</h3>
+            <p>Use managed identity, least-privilege Kubernetes RBAC, and namespace boundaries.<br />Harden the cluster, restrict ingress/egress, scan and sign images, and enforce policies.<br />Monitor workloads and nodes, patch regularly, and protect the Kubernetes control plane.</p>
+          </article>
+          <article class="interview-item">
+            <h3>18. When would you choose Azure App Service for an AI application?</h3>
+            <p>Choose it for a web/API workload that benefits from managed application hosting.<br />Use supported private networking, identity, managed secrets, and controlled deployment practices.<br />Validate plan-specific ingress and egress capabilities against the threat model.</p>
+          </article>
+          <article class="interview-item">
+            <h3>19. When is Azure Container Apps a suitable choice?</h3>
+            <p>It suits containerized APIs, workers, and event-driven services with managed operations.<br />Use environment networking, ingress modes, identity, and scaling limits deliberately.<br />Confirm required routing and egress controls are supported by the selected environment type.</p>
+          </article>
+          <article class="interview-item">
+            <h3>20. How do you control model cost and denial-of-wallet risk?</h3>
+            <p>Set per-user and global request, token, concurrency, and time limits.<br />Use quotas, anomaly alerts, bounded retries, caching where safe, and budget owners.<br />Load-test peak behavior and fail gracefully when limits or provider capacity are reached.</p>
+          </article>
+          <article class="interview-item">
+            <h3>21. How do you respond to an AI safety incident?</h3>
+            <p>Contain the feature or tool path and preserve appropriate audit evidence.<br />Triage affected users/data, notify accountable security, privacy, and domain owners.<br />Correct the cause, re-evaluate, communicate as required, and document lessons learned.</p>
+          </article>
+          <article class="interview-item">
+            <h3>22. How do you safely update a model or prompt?</h3>
+            <p>Version the model, prompt, retrieval configuration, and evaluation results together.<br />Run regression and adversarial tests, then release gradually with monitoring.<br />Keep a known-good version and an operational rollback or disable mechanism.</p>
+          </article>
+          <article class="interview-item">
+            <h3>23. What is a safe fallback when an AI dependency fails?</h3>
+            <p>Use timeouts, bounded retries, and circuit breakers to avoid cascading failures.<br />Offer a human workflow, approved search, or clear unavailable response.<br />Never substitute an unreviewed model or bypass essential authorization for availability.</p>
+          </article>
+          <article class="interview-item">
+            <h3>24. How do you address fairness and explainability concerns?</h3>
+            <p>Define affected populations and meaningful outcome measures with domain experts.<br />Evaluate representative subgroups and explain outputs using traceable evidence and limitations.<br />Provide human review and contest mechanisms; do not claim perfect neutrality.</p>
+          </article>
+          <article class="interview-item">
+            <h3>25. How do you decide whether an AI solution is ready for production?</h3>
+            <p>Confirm business value, permitted use, data rights, owners, and support readiness.<br />Verify security controls, evaluations, capacity, observability, recovery, and user escalation.<br />Launch only when risks are accepted, thresholds pass, and rollback is operationally tested.</p>
+          </article>
+        </div>
+      </section>
+
+      <footer>
+        This educational reference is not legal, regulatory, medical, financial,
+        or site-specific security advice. Validate controls against the actual
+        workload, Azure service configuration, current product documentation,
+        organizational policies, and applicable laws and contracts.
+      </footer>
+    </main>
+  </body>
+</html>

@@ -80,7 +80,7 @@
         <p>Two practical case studies for Principal Cloud Security Architects, Enterprise Solution Architects, and Strategic FDE leaders: securing a hybrid enterprise and establishing security boundaries for AI, retrieval-augmented generation (RAG), and agentic workloads.</p>
       </header>
       <nav aria-label="Cybersecurity case study sections">
-        <a href="#approach">Approach</a><a href="#hybrid-enterprise">Hybrid enterprise security</a><a href="#ai-security">AI and agentic security</a><a href="#roadmap">Implementation roadmap</a><a href="#principal-deliverables">Principal deliverables</a>
+        <a href="#approach">Approach</a><a href="#hybrid-enterprise">Hybrid enterprise security</a><a href="#ai-security">AI and agentic security</a><a href="#threats-and-resilience">Attacks and resilience</a><a href="#incident-recovery">Incident recovery</a><a href="#major-incidents">Major incidents</a><a href="#roadmap">Implementation roadmap</a><a href="#principal-deliverables">Principal deliverables</a>
       </nav>
 
       <section id="approach">
@@ -267,6 +267,286 @@
           <a href="https://atlas.mitre.org/">MITRE ATLAS AI threat knowledge base</a>
           <a href="https://learn.microsoft.com/en-us/azure/key-vault/general/secure-key-vault">Azure Key Vault security</a>
           <a href="https://learn.microsoft.com/en-us/azure/monitor/overview">Azure Monitor</a>
+        </div>
+      </section>
+
+      <section id="threats-and-resilience">
+        <h2>Common cyberattacks and Azure workload protection</h2>
+        <p class="intro">
+          Cloud attacks commonly combine identity compromise, exposed or
+          vulnerable services, misconfiguration, stolen secrets, and lateral
+          movement. An attacker may use a valid account or a compromised
+          workload rather than obvious malware. Treat the Azure control plane,
+          workload data plane, identity provider, CI/CD (continuous
+          integration and continuous delivery) pipeline, and any connected
+          on-premises environment as separate but related trust boundaries.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Attack pattern</th><th>What it can mean for an Azure workload</th><th>Protection and detection</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Credential theft and account takeover</td>
+                <td>Phishing, password reuse, token theft, consent abuse, or a compromised administrator can expose cloud resources without exploiting the application.</td>
+                <td>Require phishing-resistant multifactor authentication (MFA) for privileged access; use Conditional Access, Privileged Identity Management (PIM), just-in-time elevation, separate admin accounts, managed identities, short-lived credentials, and alerts for unusual sign-ins, role grants, and consent changes.</td>
+              </tr>
+              <tr>
+                <td>Exploitation of internet-facing services</td>
+                <td>An unpatched web app, API, container image, management interface, or dependency can provide initial access and a foothold inside the workload.</td>
+                <td>Inventory external exposure; patch known exploited vulnerabilities (KEVs) by risk and exposure; remove unused endpoints; use a Web Application Firewall (WAF) where appropriate; scan images and dependencies; and monitor for anomalous processes, file changes, and outbound connections.</td>
+              </tr>
+              <tr>
+                <td>Cloud misconfiguration and exposed secrets</td>
+                <td>Public storage, overly broad role assignments, exposed deployment files, open management endpoints, or secrets in source/configuration can enable access to data and downstream services.</td>
+                <td>Apply Azure Policy and secure configuration baselines; disable public access unless required; scope Azure role-based access control (RBAC); move secrets to a managed vault; use secret scanning; and continuously review effective access, public exposure, and exceptions.</td>
+              </tr>
+              <tr>
+                <td>Data theft and extortion</td>
+                <td>Attackers may collect data through stolen identities, compromised apps, APIs, storage, databases, or third-party integrations, then threaten disclosure even if systems are not encrypted.</td>
+                <td>Classify and minimize data; enforce resource- and row/document-level authorization; separate identities and storage; encrypt data; restrict egress; monitor bulk reads/downloads and unusual destinations; use data-loss controls where suitable; and rehearse privacy, legal, and customer notification decisions.</td>
+              </tr>
+              <tr>
+                <td>Ransomware and destructive activity</td>
+                <td>Compromised credentials or workloads may encrypt or delete accessible data, disable services, or target backup and recovery paths.</td>
+                <td>Separate backup identities and administration; use immutable or protected backups where supported; retain isolated recovery copies; restrict delete/modify permissions; test restoration; monitor destructive operations; and maintain a safe, documented recovery plan.</td>
+              </tr>
+              <tr>
+                <td>Denial of service and operational disruption</td>
+                <td>Traffic floods, resource exhaustion, malicious changes, dependency outages, or attacks on identity/DNS can make customer or critical operations unavailable.</td>
+                <td>Use Azure DDoS Protection for applicable network architectures, edge/WAF and API throttling, quotas, autoscaling limits, dependency isolation, tested failover, and out-of-band operational communications. Agree on safe containment steps with business and operational-technology (OT) owners.</td>
+              </tr>
+              <tr>
+                <td>Supply-chain and CI/CD compromise</td>
+                <td>A malicious dependency, image, build agent, artifact, or release identity can introduce trusted-looking code into production.</td>
+                <td>Protect build identities and pipeline secrets; use trusted registries, dependency/image scanning, artifact provenance/signing and verification, isolated build environments, branch/release approvals, and rapid revocation and rollback procedures.</td>
+              </tr>
+              <tr>
+                <td>AI-specific abuse</td>
+                <td>Prompt injection, poisoned retrieval content, sensitive-data disclosure, unsafe generated output, or excessive agent permissions can turn an AI feature into a data-access or action path.</td>
+                <td>Enforce authorization outside the model; retrieve only permitted data; constrain tools and destinations; validate tool inputs/outputs; require approval for consequential actions; evaluate adversarial cases; and monitor unusual retrieval, tool use, exports, and token/cost spikes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Data theft, availability, and blast-radius controls</h3>
+        <div class="case-grid">
+          <div class="panel">
+            <h3>Reduce data-theft risk</h3>
+            <ul>
+              <li>Identify sensitive data, its owners, approved locations, retention, and legitimate access patterns. Collect and retain only what the workload needs.</li>
+              <li>Use separate identities for users, apps, pipelines, and administrators; grant access at the narrowest resource and data scope. For AI retrieval, enforce document/tenant permissions before content reaches the model.</li>
+              <li>Use private endpoints where appropriate, controlled outbound destinations, and monitored egress. Review public-network settings, firewall rules, storage access, and cross-subscription trust.</li>
+              <li>Alert on unusual bulk reads, snapshots, exports, role changes, key use, and outbound transfers. Preserve relevant audit evidence while limiting access to sensitive logs.</li>
+              <li>Encrypt data at rest and in transit, but do not treat encryption as a substitute for authorization, monitoring, or egress control.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Protect operational continuity</h3>
+            <ul>
+              <li>Classify services by business and safety impact; identify minimum safe operating mode, recovery time objective (RTO), and recovery point objective (RPO).</li>
+              <li>Prepare service-specific failover, manual procedures, capacity limits, and communication channels that do not depend on the affected identity or network service.</li>
+              <li>For OT and other safety-critical systems, coordinate containment with operations and safety owners; indiscriminate isolation can create physical or process hazards.</li>
+              <li>Use independent administrative paths and tested recovery identities, protected from routine workloads and subject to strong approval and auditing.</li>
+              <li>Exercise realistic loss of identity, region, network, model provider, and backup access; record recovery time and correct gaps.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Network segmentation and blast radius</h3>
+            <ul>
+              <li>Separate management, production, non-production, shared services, data, and OT trust zones. Avoid broad flat networks and unrestricted peering.</li>
+              <li>Use subscriptions, virtual networks/subnets, NSGs (network security groups), Azure Firewall or equivalent controls, Kubernetes network policies, and private endpoints as appropriate to the architecture.</li>
+              <li>Default-deny unnecessary inbound and outbound flows; document each permitted path, owner, purpose, and review date. Validate effective routes and DNS behavior.</li>
+              <li>Isolate workloads with distinct managed identities, key scopes, storage accounts, namespaces, and deployment permissions. A compromised web app should not inherit cluster-admin or tenant-wide rights.</li>
+              <li>Use staged containment: restrict a single workload or credential first when safe, then expand isolation based on evidence. Predefine emergency controls and business approval paths.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>AI workload containment</h3>
+            <ul>
+              <li>Separate model inference, retrieval, ingestion, and action-execution identities. Give each component only the data and destinations it needs.</li>
+              <li>Make tools read-only by default; require an explicit policy check and, for high-impact actions, human approval before writes or external communications.</li>
+              <li>Set request, token, concurrency, step, and spend limits; include a kill switch for the AI feature that does not take unrelated business services offline.</li>
+              <li>On suspected compromise, disable affected tools and credentials, preserve prompts/tool-call/audit evidence under controlled access, quarantine suspect corpus content, and assess both data access and downstream actions.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warning">
+          <strong>Blast radius means limiting impact, not just network size.</strong>
+          Identity scopes, data permissions, secrets, backup administration,
+          deployment rights, AI tools, and business approvals all need
+          independent boundaries. Network segmentation alone cannot stop misuse
+          by an over-privileged identity.
+        </div>
+      </section>
+
+      <section id="incident-recovery">
+        <h2>Recovery after compromise: incident-specific playbook</h2>
+        <p class="intro">
+          Follow the organization's incident command and evidence-handling
+          procedures. The sequence below is a defensive checklist; actual
+          containment can affect safety, evidence, and business continuity.
+          Engage qualified incident responders and legal/privacy teams when
+          warranted.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Incident type</th><th>Contain and investigate</th><th>Recover and verify</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Stolen credentials or cloud identity</td>
+                <td>Use a trusted admin path to disable/revoke affected sessions and credentials; remove unauthorized role grants, app consents, federation changes, and persistence. Preserve sign-in, audit, and token-related evidence; check linked identities and subscriptions.</td>
+                <td>Restore known-good identity configuration; rotate affected secrets, certificates, and credentials; reissue workload identities as needed; require phishing-resistant MFA for privileged users; review access and verify no unauthorized persistence remains.</td>
+              </tr>
+              <tr>
+                <td>Exploited app, VM, or container</td>
+                <td>Isolate the affected instance or ingress using a safe, evidence-preserving method; capture relevant logs and artifacts; block the vulnerable path; assess managed identities, secrets, peers, storage, and outbound connections accessible to the workload.</td>
+                <td>Patch or remove the vulnerable component; rebuild from a verified clean image/artifact rather than trusting a possibly altered host; rotate exposed credentials; restore only verified data; run security and negative-authorization tests before returning service.</td>
+              </tr>
+              <tr>
+                <td>Suspected data theft</td>
+                <td>Stop or narrow the suspected export path without destroying evidence; preserve access, query, storage, API, and egress logs; identify affected data, identities, time window, and recipients; engage privacy, legal, and contractual stakeholders.</td>
+                <td>Revoke compromised access, correct the authorization/exposure path, and validate data integrity. Make required notifications through the organization's process; monitor for follow-on abuse and document scope and residual uncertainty.</td>
+              </tr>
+              <tr>
+                <td>Ransomware or destructive changes</td>
+                <td>Invoke incident command; isolate affected segments and disable compromised accounts/automation while protecting safety-critical processes. Preserve evidence and determine whether backups or recovery identities were accessed. Do not reconnect unverified systems.</td>
+                <td>Rebuild clean systems from trusted images; restore from offline/immutable or otherwise protected backups after validating restore points; rotate credentials and keys; patch the initial access path; validate data integrity and dependencies; restore services in priority order with enhanced monitoring.</td>
+              </tr>
+              <tr>
+                <td>DDoS or service disruption</td>
+                <td>Use provider and edge mitigation; engage Azure support/operations; apply approved rate limits, traffic shaping, or temporary access restrictions. Preserve telemetry and distinguish hostile traffic from a capacity/configuration failure.</td>
+                <td>Fail over or degrade gracefully to approved alternate paths; restore normal limits progressively; capacity-test and tune autoscaling, quotas, caching, and upstream protections; verify customer and operational workflows.</td>
+              </tr>
+              <tr>
+                <td>Supply-chain or pipeline compromise</td>
+                <td>Pause releases; revoke pipeline identities and signing/deployment credentials; identify affected artifacts, environments, and downstream deployments. Preserve build logs and artifact provenance.</td>
+                <td>Rebuild from trusted source and clean build infrastructure; verify artifacts/signatures and dependencies; rotate secrets; redeploy known-good releases; add provenance checks and review every environment that consumed the suspect artifact.</td>
+              </tr>
+              <tr>
+                <td>AI prompt, retrieval, or tool abuse</td>
+                <td>Disable the affected tool or AI feature if necessary; revoke its identity; preserve minimized, access-controlled conversation, retrieval, and tool audit evidence; quarantine suspect documents and assess unauthorized data reads and external actions.</td>
+                <td>Fix the backend authorization or tool boundary; purge/rebuild poisoned indexes and caches; rotate exposed credentials; re-evaluate adversarial cases and access filters; re-enable gradually with a human fallback and targeted monitoring.</td>
+              </tr>
+              <tr>
+                <td>OT or critical operational compromise</td>
+                <td>Coordinate with the incident commander, site operations, safety engineers, and OT specialists before isolating or rebooting systems. Follow site-specific safe-state and manual-operation procedures.</td>
+                <td>Restore from validated configurations and backups in an approved sequence; verify process safety and instrumentation before reconnecting; maintain heightened monitoring and document operational authorization for each recovery step.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <strong>Backup design:</strong> separate backup administration from
+          production identities; protect deletion and retention settings; keep
+          recovery credentials securely escrowed; maintain multiple recovery
+          points, including isolated or immutable copies where supported; and
+          regularly test restoration in a clean environment. A backup that has
+          never been restored is an assumption, not a recovery capability.
+        </div>
+      </section>
+
+      <section id="major-incidents">
+        <h2>10 major incidents and the lessons that remain relevant</h2>
+        <p class="intro">
+          These documented incidents illustrate recurring attack patterns;
+          they do not mean every Azure workload shares the historical
+          vulnerability. The original software flaws may be patched, while the
+          underlying patterns—stolen credentials, exposed services, weak
+          segmentation, supply-chain trust, destructive extortion, and
+          AI-assisted deception—remain risks. The AI-related entries are
+          explicitly identified and are not represented as conventional
+          cloud-platform intrusions.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Incident and year</th><th>What happened / enduring lesson</th><th>Azure and AI workload takeaway</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a">SolarWinds Orion supply-chain compromise (2020)</a></td>
+                <td>A trusted software update path was abused for a stealthy intrusion. Trust in a vendor or signed update is not enough if build and release integrity are compromised.</td>
+                <td>Protect CI/CD identities, verify artifact provenance, monitor anomalous service behavior, and plan broad credential/session rotation and clean rebuilds after a trusted-component compromise.</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-062a">Microsoft Exchange Server exploitation / ProxyLogon (2021)</a></td>
+                <td>Actively exploited on-premises Exchange flaws enabled access and persistence. Internet-facing systems can be compromised before patching, so patching alone may not remove an existing foothold.</td>
+                <td>Prioritize exposed known-exploited vulnerabilities; investigate for persistence and identity compromise; isolate and rebuild where needed. The cited advisory concerns on-premises Exchange, not Exchange Online.</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a">MOVEit Transfer / CL0P mass data theft (2023)</a></td>
+                <td>A zero-day vulnerability in internet-facing file-transfer software was used to steal data at scale, demonstrating that extortion may focus on exfiltration without relying on encryption.</td>
+                <td>Inventory internet-facing transfer services, patch urgently, minimize retained data, restrict access and egress, and prepare a data-breach response in addition to ransomware recovery.</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-131a">Black Basta ransomware campaigns (2022–2024)</a></td>
+                <td>Reported campaigns combined common initial access, data theft, and encryption. Double extortion means restored systems do not resolve the data disclosure risk.</td>
+                <td>Use MFA, patching, least privilege, egress monitoring, protected backups, and rehearsed recovery; coordinate privacy/legal response for stolen data.</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-016a">Androxgh0st credential theft and exposed web applications (2024 advisory)</a></td>
+                <td>Advisories describe actors seeking exposed configuration files and credentials and exploiting vulnerable web applications. A small application exposure can become cloud-account compromise when secrets are reused or over-scoped.</td>
+                <td>Never publish environment files or secrets; scan repositories and images; rotate exposed credentials; use managed identities and scoped permissions; patch and remove unused web components.</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-116a">Russian state-sponsored cloud email and identity targeting (2018–2021 advisory)</a></td>
+                <td>CISA described password spraying, account and permission abuse, and targeting of cloud resources. Cloud email and identity can be attacked even when workloads are hosted elsewhere.</td>
+                <td>Protect identity as a control plane: require strong MFA, monitor sign-ins and role/consent changes, review federation and application permissions, and maintain cloud audit evidence.</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-200a">APT40 espionage and intellectual-property theft (documented 2021)</a></td>
+                <td>FBI/CISA described long-running intrusions targeting organizations across sectors to obtain trade secrets and sensitive information. Data confidentiality and stealthy persistence matter even without ransomware.</td>
+                <td>Apply segmentation, least privilege, patching, egress monitoring, durable logs, and incident hunting; assume that restoring availability alone may not address an espionage foothold.</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td><a href="https://www.justice.gov/archives/opa/pr/department-justice-seizes-23-million-cryptocurrency-paid-ransomware-extortionists-darkside">Colonial Pipeline ransomware disruption (2021)</a></td>
+                <td>A ransomware incident at an IT operator led to precautionary pipeline shutdown and significant operational impact. The event illustrates how IT incidents can disrupt operational activity even without direct control-system compromise.</td>
+                <td>Map IT/OT dependencies, preserve safe manual operations, define business-driven isolation decisions, and exercise recovery and communications with operations leadership.</td>
+              </tr>
+              <tr>
+                <td>9 · AI-assisted</td>
+                <td><a href="https://edition.cnn.com/2024/02/04/asia/deepfake-cfo-scam-hong-kong-intl-hnk/index.html">Hong Kong deepfake video-call payment fraud ($25 million, reported 2024)</a></td>
+                <td>Public reporting described an employee being deceived by synthetic representations of familiar colleagues during a video call and authorizing transfers. This was social engineering enabled by generative AI, not an AI model vulnerability.</td>
+                <td>Use out-of-band verification for payment or sensitive changes, dual approval, transaction limits, and known contact channels. Voice/video familiarity is not proof of identity.</td>
+              </tr>
+              <tr>
+                <td>10 · AI vulnerability</td>
+                <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-32711">EchoLeak / CVE-2025-32711 (2025 disclosure)</a> · <a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711">Microsoft security update</a></td>
+                <td>A reported zero-click prompt-injection vulnerability in Microsoft 365 Copilot illustrated how untrusted content and connected context can create an AI data-exposure path. A disclosed vulnerability is not, by itself, evidence of widespread exploitation.</td>
+                <td>Apply vendor updates and review advisories; treat retrieved content as untrusted; minimize model-accessible data; require authorization at data/tool boundaries; and test indirect prompt injection in AI integrations.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice">
+          <strong>AI threat reality check:</strong> AI increases the scale and
+          credibility of phishing, impersonation, content poisoning, and
+          automated abuse; it also creates new prompt, retrieval, model, and
+          agent risks. Keep these categories distinct in incident reporting.
+          The Arup event is an AI-enabled fraud example; EchoLeak is a disclosed
+          AI product vulnerability. Neither should be conflated with a
+          confirmed Azure customer workload breach.
+        </div>
+        <div class="references">
+          <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog">CISA Known Exploited Vulnerabilities Catalog</a>
+          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-245a">CISA incident investigation and remediation guidance</a>
+          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa22-110a">CISA guidance on destructive malware, ransomware, and DDoS risks</a>
+          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a">CISA/FBI advisory on ongoing Andariel activity</a>
+          <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>
+          <a href="https://atlas.mitre.org/">MITRE ATLAS: AI threat knowledge base</a>
         </div>
       </section>
 
