@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="AI safety, large language model security, system design, and production deployment guidance with Azure case studies for AKS, App Service, and Azure Container Apps."
+      content="AI safety, multimodal AI, media operations, metadata-driven systems, MLOps, LLMOps, security, and production architecture guidance with Azure case studies."
     />
     <title>AI Safety, Security &amp; Production Architecture</title>
     <style>
@@ -196,6 +196,12 @@
       }
       .interview-item h3 { font-size: 1rem; }
       .interview-item p { margin: 0; }
+      .interview-item .interview-sources {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: .86rem;
+      }
+      .interview-sources a { overflow-wrap: anywhere; }
       figure {
         margin: 20px 0;
         padding: 16px;
@@ -266,6 +272,7 @@
         <a href="#meaning">What the topics mean</a>
         <a href="#standards">Standards and guidance</a>
         <a href="#architecture">Reference architecture</a>
+        <a href="#multimodal-mlops">Multimodal AI and MLOps</a>
         <a href="#networking">OSI and traffic security</a>
         <a href="#case-studies">Case studies</a>
         <a href="#glossary">Glossary</a>
@@ -489,6 +496,298 @@
             complements—not replaces—application authorization.
           </figcaption>
         </figure>
+      </section>
+
+      <section id="multimodal-mlops">
+        <h2>Multimodal AI, media operations, and MLOps / LLMOps</h2>
+        <p class="intro">
+          Enterprise AI is a system of models, content, metadata, workflows,
+          controls, and people—not a model endpoint alone. Multimodal
+          architecture connects text, images, audio, and video to business
+          context; MLOps and LLMOps make that system testable, governed, and
+          supportable throughout its lifecycle.
+        </p>
+        <div class="grid-3">
+          <article class="principle">
+            <strong>Multimodal AI ecosystem</strong>
+            <p>
+              Models and services process one or more modalities: language
+              models handle text, vision models interpret images or video, and
+              speech models transcribe or generate audio. Systems can use
+              separate specialist models or a model that accepts multiple
+              modalities. Choose based on task quality, latency, cost, data
+              handling, and operational constraints—not novelty.
+            </p>
+            <p><strong>Business value:</strong> Search and understand content that was previously difficult to index, reduce repetitive review, and give staff a unified way to find evidence across formats.</p>
+          </article>
+          <article class="principle">
+            <strong>Media content operations</strong>
+            <p>
+              The repeatable process for receiving, validating, classifying,
+              enriching, storing, publishing, updating, and retiring media
+              assets. Treat the original asset as an immutable source; store
+              derived transcripts, thumbnails, captions, and model-generated
+              labels as versioned outputs linked back to that source.
+            </p>
+            <p><strong>Business value:</strong> Faster content discovery and reuse, clearer rights and retention handling, and fewer manual handoffs or duplicate assets.</p>
+          </article>
+          <article class="principle">
+            <strong>Metadata-driven systems</strong>
+            <p>
+              Store descriptive, technical, business, and governance facts
+              about an asset—such as owner, product, language, capture time,
+              source, permissions, retention, quality, and processing
+              versions—so applications can filter, route, retrieve, and audit
+              content reliably.
+            </p>
+            <p><strong>Business value:</strong> Better search and personalization, enforceable access and retention rules, and measurable content quality and lineage.</p>
+          </article>
+          <article class="principle">
+            <strong>MLOps</strong>
+            <p>
+              The engineering and operational practices for the machine
+              learning lifecycle: data and feature pipelines, training or
+              fine-tuning, experiment tracking, model registry, validation,
+              deployment, monitoring, and retirement.
+            </p>
+            <p><strong>Business value:</strong> Reproducible releases, controlled risk, reliable model quality, and a clear path to revert a model or data change.</p>
+          </article>
+          <article class="principle">
+            <strong>LLMOps</strong>
+            <p>
+              Operational practices for applications built with large
+              language models: prompt and model versioning, retrieval
+              evaluation, safety checks, tool boundaries, inference routing,
+              token and cost management, traceability, and production
+              feedback. LLMOps extends MLOps; it does not replace software,
+              security, or data operations.
+            </p>
+            <p><strong>Business value:</strong> Faster safe iteration, visible quality and spend, and evidence that each release meets its intended use.</p>
+          </article>
+          <article class="principle">
+            <strong>Architectural decision</strong>
+            <p>
+              First define the user task and its risk. Use deterministic
+              processing for predictable extraction, specialist models for
+              narrow perception tasks, and generative models where flexible
+              interpretation or synthesis adds value. Keep critical business
+              rules, permissions, and workflow transitions in governed
+              application services.
+            </p>
+            <p><strong>Business value:</strong> The simplest solution that meets the need is usually easier to control, explain, operate, and fund.</p>
+          </article>
+        </div>
+
+        <h3>How the parts fit together</h3>
+        <p>
+          A practical system separates content ingestion, metadata and
+          permissions, model processing, user-facing retrieval, and the
+          release/operations control plane. Events connect the stages; durable
+          records and version identifiers make each result traceable.
+        </p>
+        <div class="flow" aria-label="Multimodal AI content and model lifecycle">
+          <span>Media sources<br />upload, APIs, devices</span><span class="arrow" aria-hidden="true">→</span>
+          <span>Ingestion and policy<br />scan, rights, identity</span><span class="arrow" aria-hidden="true">→</span>
+          <span>Metadata and derivatives<br />transcript, labels, embeddings</span><span class="arrow" aria-hidden="true">→</span>
+          <span>Catalog and retrieval<br />filter by ACL and context</span><span class="arrow" aria-hidden="true">→</span>
+          <span>AI application<br />grounded result, review</span>
+        </div>
+        <div class="case-grid">
+          <article class="panel">
+            <h3>Content and metadata contract</h3>
+            <ul>
+              <li>Give every asset a stable ID and record source, owner, tenant, business domain, timestamps, language, modality, classification, rights, retention, and lifecycle status.</li>
+              <li>Keep provenance for each derived item: source asset/version, transformation, model and prompt versions, processing time, confidence where available, and human corrections.</li>
+              <li>Define a governed schema and controlled vocabularies with data owners. Validate required fields, allowed values, duplicate handling, and schema evolution at ingestion.</li>
+              <li>Apply access and retention rules to originals, derivatives, indexes, caches, exports, and backups; deleting an asset must trigger a verifiable downstream removal workflow.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>Implementation and integration approach</h3>
+            <ol>
+              <li>Start with a bounded business workflow, baseline its current cycle time, error rate, cost, and user effort, then agree success and safety thresholds.</li>
+              <li>Ingest through authenticated APIs or managed upload; validate format and size, scan files, verify rights and consent where applicable, and store the original in controlled object storage.</li>
+              <li>Publish an asset event to a queue. Idempotent workers extract metadata, transcribe or sample media as appropriate, call approved models, validate outputs, and persist versioned derivatives and lineage.</li>
+              <li>Index text and selected multimodal representations with metadata filters. Enforce user and asset permissions before returning any content to an AI model or user.</li>
+              <li>Expose capabilities through business APIs and existing workflow tools. Require review for consequential labels or actions and provide a non-AI path when dependencies fail.</li>
+              <li>Deploy infrastructure and services through version-controlled pipelines. Promote model, prompt, schema, and application changes only after automated checks and accountable review.</li>
+            </ol>
+          </article>
+        </div>
+
+        <h3>Lifecycle controls: build, release, and operate</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Lifecycle stage</th><th>Implementation practices</th><th>Operational evidence</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Data and content</td>
+                <td>Version datasets and schemas; validate provenance, rights, consent, quality, representativeness, and permitted use. Separate training data from evaluation data where feasible.</td>
+                <td>Data inventory, lineage, access and retention records, quality reports, deletion verification, and named data owners.</td>
+              </tr>
+              <tr>
+                <td>Experiment and evaluation</td>
+                <td>Track code, configuration, model, prompt, dataset, and evaluation-set versions. Compare candidate changes with a representative baseline and relevant adversarial cases.</td>
+                <td>Reproducible runs and go/no-go results for task quality, retrieval relevance, safety, privacy, fairness where relevant, latency, and cost.</td>
+              </tr>
+              <tr>
+                <td>Release and serving</td>
+                <td>Use an approved model registry/catalog, signed or trusted artifacts, staged rollout, bounded concurrency and quotas, and documented rollback. Use a model gateway where it adds centralized policy or routing value.</td>
+                <td>Approved release record, deployment health, version attribution, rollback test, capacity plan, and service ownership.</td>
+              </tr>
+              <tr>
+                <td>Production operations</td>
+                <td>Monitor service health and task outcomes; sample quality with privacy safeguards; detect data, retrieval, model, and usage changes. Route user corrections through review rather than silently treating feedback as truth.</td>
+                <td>Alerts and runbooks for availability, latency, error rate, queue lag, quality, safety events, token use, spend, and dependency health.</td>
+              </tr>
+              <tr>
+                <td>Change and retirement</td>
+                <td>Reassess after model-provider, model-version, prompt, index, schema, data-source, or policy changes. Deprecate unused models and remove associated data and credentials in a controlled manner.</td>
+                <td>Change approvals, impact assessment, regression results, retirement record, and verified data/artifact disposition.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <strong>Leadership view:</strong> A Solution Architect defines
+          integration patterns, trust boundaries, and technology fit. An
+          Enterprise Architect aligns data, capability, standards, reuse, and
+          portfolio dependencies. A Director of Engineering establishes
+          accountable teams, delivery gates, SLOs, staffing, incident
+          ownership, and measurable value. These are complementary
+          responsibilities; the model team cannot own all of them.
+        </div>
+
+        <h3>Three illustrative case studies</h3>
+        <p class="intro">
+          These are hypothetical patterns, not claims of measured results.
+          Establish a baseline and measure actual outcomes in a pilot before
+          committing to a business case.
+        </p>
+        <article class="case">
+          <div class="case-header">
+            <div>
+              <span class="case-number">Case study 1 · Media and marketing</span>
+              <h3>Search and reuse across a video library</h3>
+            </div>
+            <span class="sector">Media Operations</span>
+          </div>
+          <p>
+            Editors and campaign teams need to find approved clips by topic,
+            speaker, product, language, and usage rights. The system combines
+            speech transcription, scene or image analysis, and business
+            metadata; it returns source-timestamped results rather than
+            inventing or replacing the underlying media.
+          </p>
+          <div class="flow" aria-label="Video library indexing and search flow">
+            <span>Video asset<br />rights and owner</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Async processors<br />transcript and keyframes</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Catalog + search<br />timestamps and ACLs</span><span class="arrow" aria-hidden="true">→</span>
+            <span>Editor workspace<br />preview and approval</span>
+          </div>
+          <div class="case-grid">
+            <div class="panel">
+              <h3>System integration</h3>
+              <p>Connect the media asset management system to an event-driven ingestion service and object store. A queue fans out transcription and visual analysis jobs; outputs are written to a metadata catalog and text/vector search index. The editor interface calls a search API that applies user, campaign, territory, and rights filters before displaying timestamped clips.</p>
+            </div>
+            <div class="panel">
+              <h3>Value, benefits, and operations</h3>
+              <p>Potential value includes less time spent locating footage, more reuse of cleared content, and fewer rights-related mistakes. Measure search-to-preview time, successful discovery rate, human correction rate, reuse, processing cost per asset, and rights-filter failures. Reprocess only affected assets when a model or schema changes; monitor queue lag, stale indexes, transcription quality, and asset deletion completion.</p>
+            </div>
+          </div>
+          <div class="implementation">
+            <h4>Implementation and control points</h4>
+            <p>Start with a small, rights-cleared catalog and agreed metadata vocabulary. Preserve original media; store transcript, sampled-frame descriptions, and embeddings as derived artifacts with source timestamps and model versions. Have content stewards review sensitive labels and low-confidence outputs. Treat embedded instructions and uploaded captions as untrusted input; never use model-generated rights metadata as the source of authorization.</p>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-header">
+            <div>
+              <span class="case-number">Case study 2 · Manufacturing</span>
+              <h3>Multimodal quality inspection with human disposition</h3>
+            </div>
+            <span class="sector">Industrial AI</span>
+          </div>
+          <p>
+            A manufacturer wants to prioritize visual inspection of products
+            using line-camera images and structured production context. A
+            vision model can flag likely defects for review; a governed
+            workflow, not an unconstrained generative model, decides whether
+            product is held, released, or escalated.
+          </p>
+          <div class="case-grid">
+            <div class="panel">
+              <h3>System integration</h3>
+              <p>Capture images with device, line, product, lot, and timestamp identifiers. An edge service validates image quality and buffers work during connectivity loss, then sends approved data to a central inference API or a managed edge model. Predictions, confidence, model version, and reviewer disposition are written to the quality management system through a typed API.</p>
+            </div>
+            <div class="panel">
+              <h3>Value, benefits, and operations</h3>
+              <p>Potential value includes faster triage, consistent inspection support, and better traceability. Measure defect-class recall and precision, false-negative risk, review time, line availability, drift by product or camera, and cost per inspected unit. Monitor image quality, device health, inference latency, class distribution, and human disagreement; define a safe manual inspection fallback.</p>
+            </div>
+          </div>
+          <div class="implementation">
+            <h4>Implementation and control points</h4>
+            <p>Build a representative, approved image set with traceable labels and separate evaluation data by time, line, or product where appropriate. Validate camera calibration and input quality; evaluate critical defect classes and operating conditions before release. Deploy through staged rollout, retain a known-good model, and require qualified human disposition until risk evidence supports a different policy. Keep model outputs advisory and outside direct machinery or safety-interlock control.</p>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-header">
+            <div>
+              <span class="case-number">Case study 3 · Financial services</span>
+              <h3>Document and call evidence for a compliance review</h3>
+            </div>
+            <span class="sector">Regulated Workflow</span>
+          </div>
+          <p>
+            Reviewers need to examine authorized documents and recorded
+            customer interactions, locate relevant evidence, and prepare a
+            case summary. Speech-to-text, document extraction, and an
+            LLM-based summarizer can assist, while the reviewer remains
+            accountable for conclusions and case disposition.
+          </p>
+          <div class="case-grid">
+            <div class="panel">
+              <h3>System integration</h3>
+              <p>Ingest from approved document and call-recording systems with case and customer identifiers. Apply retention, legal hold, consent, and role-based access rules before processing. Store transcripts and extracted fields with timestamps or page references; a retrieval service filters by case permission, and the case-management UI presents cited evidence and an editable draft.</p>
+            </div>
+            <div class="panel">
+              <h3>Value, benefits, and operations</h3>
+              <p>Potential value includes reduced search and drafting effort, more consistent evidence presentation, and improved auditability. Measure review time, citation correctness, completeness, correction rate, escalation rate, and cost per case. Monitor unauthorized retrieval attempts, missing or stale evidence, transcription quality by accent or channel, retention execution, and model/provider changes.</p>
+            </div>
+          </div>
+          <div class="implementation">
+            <h4>Implementation and control points</h4>
+            <p>Define the approved use, prohibited automated decisions, records schedule, and reviewer responsibilities before the pilot. Use tenant and case-level authorization during retrieval; show source quotations and time offsets; make uncertainty visible and allow abstention. Do not treat generated summaries as the official record until reviewed. Minimize sensitive prompt/response logging, restrict audit access, and test deletion and legal-hold behavior across transcripts, indexes, and caches.</p>
+          </div>
+        </article>
+
+        <h3>Interview framing for architecture and engineering leadership</h3>
+        <div class="interview-list">
+          <article class="interview-item">
+            <h3>How do you choose a multimodal architecture?</h3>
+            <p>I start by tracing one user task end to end and identifying which inputs actually need model interpretation. For example, I would compare rules or OCR for stable fields, speech-to-text for audio, a vision model for images, and a multimodal model only where cross-modal reasoning is necessary. I would run the candidates against a rights-cleared evaluation set and compare task-level accuracy, critical error types, latency, unit cost, and data-processing constraints. I would keep identity, authorization, workflow state, and final business decisions in ordinary services, then pilot behind an API with human review and a non-AI fallback.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>; <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>.</p>
+          </article>
+          <article class="interview-item">
+            <h3>How do you make media metadata trustworthy?</h3>
+            <p>I define a stable asset ID and a schema with an owner for each field: source facts such as capture time remain distinct from model-generated suggestions such as topic or speaker. Every derived value carries source version, processing time, model/prompt version, confidence where supported, and review status. Ingestion validates required fields and vocabulary; consumers filter on authoritative rights and access fields, never on a model-generated label. I also make deletion a workflow across object storage, derivatives, search indexes, caches, and backups, with an auditable completion state.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>; <a href="https://learn.microsoft.com/en-us/azure/search/search-security-rbac">Azure AI Search security and role-based access control</a>.</p>
+          </article>
+          <article class="interview-item">
+            <h3>What does production-ready LLMOps mean?</h3>
+            <p>I treat a release as a compatibility set: application build, model/provider version, prompt template, tool schemas, retrieval configuration/index snapshot, and evaluation-set version. CI runs deterministic tests plus task-quality, citation, access-control, injection, and cost/latency evaluations; a named owner reviews threshold failures rather than accepting a single aggregate score. I promote through a staging environment and limited canary, compare live service and quality signals, and retain a tested rollback or kill switch. In production I assign service and model owners, alert on availability, latency, queue depth, quality indicators, safety reports, and spend, and re-evaluate after any material dependency or data change.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>; <a href="https://learn.microsoft.com/en-us/azure/well-architected/">Azure Well-Architected Framework</a>.</p>
+          </article>
+          <article class="interview-item">
+            <h3>How do you lead adoption as a Director of Engineering?</h3>
+            <p>I would put a business owner and an engineering owner on a bounded workflow, document the current process, and agree how we will measure value, quality, and risk before selecting a model. I staff a cross-functional delivery group—product, domain operations, data, platform, security, privacy/legal, and support—with explicit decision rights and an incident path. The team ships a limited pilot with evaluation gates, human override, cost limits, and operational support; we review adoption, correction rates, task outcomes, and total run cost with the business. I scale only when those results are repeatable and the platform, governance, and support model can absorb more users and data sources.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>; <a href="https://learn.microsoft.com/en-us/azure/well-architected/">Azure Well-Architected Framework</a>.</p>
+          </article>
+        </div>
       </section>
 
       <section id="networking">
@@ -1152,6 +1451,12 @@
               <tr><td>NIST / National Institute of Standards and Technology</td><td>A United States government agency that publishes technical standards and risk-management guidance.</td></tr>
               <tr><td>ISO/IEC / International Organization for Standardization and International Electrotechnical Commission</td><td>Organizations that publish international standards; the OSI model is specified in ISO/IEC 7498-1.</td></tr>
               <tr><td>LLM / Large Language Model</td><td>A model trained on large amounts of text to process and generate language.</td></tr>
+              <tr><td>Multimodal AI</td><td>AI systems that process or generate more than one type of input or output, such as text, images, audio, or video.</td></tr>
+              <tr><td>Metadata</td><td>Structured information describing an asset, its context, permissions, provenance, quality, and lifecycle.</td></tr>
+              <tr><td>MLOps / Machine Learning Operations</td><td>Practices and tooling for managing machine-learning data, experiments, models, releases, monitoring, and retirement.</td></tr>
+              <tr><td>LLMOps / Large Language Model Operations</td><td>Practices for operating LLM applications, including prompt and model versioning, evaluation, retrieval, safety, inference, monitoring, and cost control.</td></tr>
+              <tr><td>Model registry</td><td>A governed inventory of model artifacts and their versions, provenance, evaluation results, approvals, and deployment status.</td></tr>
+              <tr><td>Data or model drift</td><td>A change in input data or model behavior over time that may reduce performance or make prior evaluation less representative.</td></tr>
               <tr><td>RAG / Retrieval-Augmented Generation</td><td>A design that retrieves relevant source material and supplies it to a generative model to ground an answer.</td></tr>
               <tr><td>OSI / Open Systems Interconnection</td><td>A seven-layer reference model used to describe network communication functions.</td></tr>
               <tr><td>TLS / Transport Layer Security</td><td>A protocol that encrypts and authenticates a communication channel.</td></tr>
@@ -1194,110 +1499,136 @@
       <section id="interview-questions">
         <h2>25 interview questions with sample answers</h2>
         <p class="intro">
-          Use these as concise starting points and adapt them to the actual
-          system, constraints, and experience. Each sample answer is three
-          short lines; add measurable evidence where you have it.
+          These examples demonstrate how to explain a design, its control
+          points, and how it is operated. Adapt the technologies and detail to
+          the role and to work you have actually delivered; do not present
+          illustrative approaches or metrics as personal accomplishments.
         </p>
         <div class="interview-list">
           <article class="interview-item">
             <h3>1. How do you distinguish AI safety from AI security?</h3>
-            <p>Safety reduces harmful or unreliable behavior in intended use.<br />Security resists unauthorized access, manipulation, and abuse.<br />I design and test both, with named owners and escalation paths.</p>
+            <p>I treat them as related but separate risk tracks. For safety, I define the intended and prohibited uses, affected users, harm scenarios, human review points, and measurable evaluation cases; for security, I map identities, data flows, trust boundaries, tools, and abuse paths. Those tracks meet in the release gate: for example, an answer may be factually useful but still unsafe if it exposes another tenant's record. I assign owners, tests, escalation procedures, and rollback criteria to both rather than relying on a model refusal.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>; <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>.</p>
           </article>
           <article class="interview-item">
             <h3>2. How do you threat-model a retrieval-augmented generation system?</h3>
-            <p>Map users, data sources, retrieval, model, tools, and trust boundaries.<br />Assess prompt injection, data leakage, poisoning, access bypass, and cost abuse.<br />Turn risks into mitigations, tests, monitoring, and accountable owners.</p>
+            <p>I draw the flow from authenticated user through API, authorization, query rewriting, retrieval, prompt assembly, model, tools, response rendering, and telemetry. At each boundary I ask what identity and data are trusted, then test cases such as a user requesting another tenant's document, a poisoned document containing instructions, unsafe rendered output, an overprivileged tool, and a burst of expensive requests. Controls include authorization filters in the retrieval service, untrusted-context handling, typed and scoped tools, output validation, quotas, and minimized logs. I turn each risk into a test with an owner and verify both the expected allow path and the deny path before release.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>; <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>.</p>
           </article>
           <article class="interview-item">
             <h3>3. What is prompt injection, and how do you mitigate it?</h3>
-            <p>It is untrusted content attempting to override intended model instructions.<br />Treat user and retrieved text as data, not authorization or executable commands.<br />Constrain tools, enforce permissions in code, and test indirect injection cases.</p>
+            <p>Prompt injection is untrusted user or retrieved content attempting to steer model behavior, including instructions hidden in documents or media transcripts. I assume prompts alone cannot reliably separate instructions from data: the application authorizes each retrieval independently, labels and bounds context, and never grants a tool broader authority because the model asks for it. Tool calls use allowlisted operations, typed arguments, server-side validation, and confirmation for consequential actions. I add direct and indirect injection examples to regression tests and alert on suspicious tool attempts, while recognizing that these controls reduce risk rather than proving the model immune.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>; <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>.</p>
           </article>
           <article class="interview-item">
             <h3>4. Why is a system prompt not an authorization control?</h3>
-            <p>Models can misinterpret or ignore instructions, especially with adversarial input.<br />The prompt does not reliably establish user identity or resource permissions.<br />Enforce access in APIs and data services before returning context or taking action.</p>
+            <p>A prompt is model input, not a cryptographic identity, policy decision, or database constraint. The caller's verified identity and entitlements must reach the API through a trusted channel; the service checks permission before retrieval and again before any write or tool action. I keep tenant and resource scopes in server-side query predicates and avoid accepting client-supplied tenant IDs as authority. I test with users who should be denied, including cache and export paths, because a polished refusal cannot undo data already returned to the model.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>; <a href="https://learn.microsoft.com/en-us/azure/search/search-security-rbac">Azure AI Search security and role-based access control</a>.</p>
           </article>
           <article class="interview-item">
             <h3>5. How do you prevent cross-tenant data leakage in RAG?</h3>
-            <p>Derive tenant identity from a validated user token and trusted server context.<br />Apply tenant and document permissions in the retrieval query itself.<br />Test isolation, cache keys, logs, indexes, and deletion paths across tenants.</p>
+            <p>I derive the tenant and user from a validated identity token, then resolve current entitlements in a trusted service rather than trusting request parameters. Retrieval applies tenant and document ACL filters before ranking results or constructing model context; if the search platform cannot enforce that filter, I partition indexes or add a permission-checking layer before content leaves the data boundary. Cache keys include the effective authorization scope and relevant index version, and cached content is invalidated on ACL changes. I test adversarial cross-tenant queries, logs, exports, background jobs, and deletion, not just the happy-path API call.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/search/search-security-rbac">Azure AI Search security and role-based access control</a>; <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>.</p>
           </article>
           <article class="interview-item">
             <h3>6. How would you secure LLM tool or agent access?</h3>
-            <p>Expose only narrowly scoped tools with typed, validated inputs.<br />Use separate least-privilege identities and allowlisted destinations per tool.<br />Require human confirmation for high-impact or irreversible actions and audit them.</p>
+            <p>I start with explicit business operations and expose narrow tools rather than a general shell, arbitrary URL fetch, or unrestricted database interface. Each tool has a schema, input bounds, authorization check, timeout, idempotency behavior, and a workload identity limited to its one downstream capability. The orchestrator treats model output as a proposal; the API independently validates the caller, current state, and business rules before execution. For irreversible or high-impact operations I show the proposed change and evidence to an authorized human, record approval and result, and provide a disable switch.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>; <a href="https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview">Azure managed identities overview</a>.</p>
           </article>
           <article class="interview-item">
             <h3>7. How do you reduce hallucinations in a high-stakes workflow?</h3>
-            <p>Ground answers in current, approved sources and require citations.<br />Evaluate factual accuracy and abstention behavior on representative cases.<br />Escalate uncertain or consequential outcomes to a qualified human reviewer.</p>
+            <p>I first narrow the task and retrieve only current, approved sources the user is allowed to see. The response contract requires source references, and a post-processing step checks that cited IDs were actually retrieved and can be opened by that user; unsupported or conflicting evidence produces an explicit abstention or escalation. I evaluate answer correctness, citation support, omission, and appropriate abstention on representative and difficult cases, then review errors with domain experts. In consequential workflows the output is a draft or recommendation for a qualified reviewer, not an autonomous decision.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>; <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>.</p>
           </article>
           <article class="interview-item">
             <h3>8. What does human-in-the-loop mean in practice?</h3>
-            <p>A qualified person reviews a clearly presented recommendation before consequential action.<br />The reviewer sees evidence, uncertainty, limitations, and the ability to reject or correct.<br />The decision and approval are auditable; automation cannot silently bypass the gate.</p>
+            <p>I make the review step an explicit workflow state, not a note in the prompt. The reviewer sees the original evidence, citations, confidence or known limitations, the proposed action, and controls to edit, reject, or escalate; an API requires an authorized reviewer identity before the state can advance. I record what model/configuration produced the draft, who approved or changed it, and the resulting action under the business record's retention policy. I also test queue aging, reviewer availability, override rates, and the fail-closed behavior so automation cannot silently skip review when the service is busy.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>; <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>.</p>
           </article>
           <article class="interview-item">
             <h3>9. How do you handle sensitive data in prompts and responses?</h3>
-            <p>Minimize data before retrieval and classify what may reach the model.<br />Use approved endpoints and contractual data terms; redact telemetry by default.<br />Set retention, access, deletion, and incident procedures for prompts and outputs.</p>
+            <p>I classify the source data and define which fields and purposes are approved for model processing before integrating a provider. Retrieval returns the smallest authorized context; where possible, the application redacts or tokenizes identifiers before inference and reattaches them only in a controlled service. I verify provider data-use, region, retention, and access terms, and configure telemetry to capture IDs, versions, timings, and outcomes rather than raw prompts by default. Access to any retained content is restricted and audited, with retention, deletion, legal hold, and incident procedures covering traces, caches, indexes, and backups.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy">Azure OpenAI data, privacy, and security</a>; <a href="https://www.nist.gov/privacy-framework">NIST Privacy Framework</a>.</p>
           </article>
           <article class="interview-item">
             <h3>10. What is your approach to data at rest and in transit?</h3>
-            <p>Encrypt persistent stores, indexes, backups, logs, and artifacts with managed keys.<br />Protect service calls with TLS and use private routing where appropriate.<br />Pair encryption with identity, authorization, key governance, and data minimization.</p>
+            <p>I inventory every copy of data—original assets, extracted text, vector indexes, queues, traces, backups, and model artifacts—then select encryption and key controls based on classification and service capability. Service-to-service calls use authenticated TLS, preferably private connectivity where the service and threat model support it; DNS, routes, and outbound destinations are verified in deployment tests. Managed identities avoid embedded credentials, and key access, rotation, recovery, and revocation have named owners. Encryption is one layer: I still enforce authorization, minimize retained content, and test deletion and restore behavior.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/security/fundamentals/encryption-overview">Azure encryption overview</a>; <a href="https://learn.microsoft.com/en-us/azure/well-architected/security/networking">Azure network segmentation guidance</a>.</p>
           </article>
           <article class="interview-item">
             <h3>11. How would you design inbound and outbound network security?</h3>
-            <p>Expose a single intended ingress protected by identity and an appropriate edge policy.<br />Allow outbound traffic only to inventoried, required dependencies, preferably through controlled egress.<br />Test DNS, private endpoints, routes, and deny behavior instead of assuming isolation.</p>
+            <p>I document the required flows first: users to the API, API to model and search, workers to storage/queue, and telemetry to the monitoring service. Inbound access goes through the intended gateway and identity enforcement; internal services are not exposed just because they have an endpoint. Outbound access is limited to required destinations using the controls supported by the selected hosting plan, with private endpoints where applicable and explicit DNS and route design. I validate connectivity and denied flows from the deployed workload, because a subnet diagram alone does not prove effective isolation.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/well-architected/security/networking">Azure network segmentation guidance</a>; <a href="https://learn.microsoft.com/en-us/azure/container-apps/networking">Azure Container Apps networking</a>.</p>
           </article>
           <article class="interview-item">
             <h3>12. How do you use the OSI model in a security review?</h3>
-            <p>Use its seven layers to locate protocol and network control responsibilities.<br />Map routing and filtering at network layers and authentication/input controls at application layers.<br />Treat it as a discussion aid, not a complete cloud or AI security framework.</p>
+            <p>I use OSI as a shared vocabulary to locate controls, not as the architecture itself. For example, I discuss name resolution and routing at network layers, TLS and service identity around the transport/session boundary, and authentication, authorization, request validation, and safe rendering at the application layer. Then I map those controls to actual cloud resources and verify the end-to-end path, including identity and data permissions that OSI does not describe. That keeps the review practical without suggesting that a firewall solves application or AI-specific risks.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.iso.org/standard/20269.html">ISO/IEC 7498-1: OSI Basic Reference Model</a>; <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>.</p>
           </article>
           <article class="interview-item">
             <h3>13. What OWASP guidance is relevant to LLM applications?</h3>
-            <p>Start with the current OWASP Top 10 for LLM Applications and ASVS.<br />Map applicable risks such as injection, disclosure, unsafe output, and excessive agency.<br />Turn each relevant item into design controls and repeatable verification tests.</p>
+            <p>I use the current OWASP Top 10 for LLM Applications as a threat discovery aid and ASVS for conventional application controls, then scope both to the actual workflow. For each relevant risk—such as prompt injection, sensitive information disclosure, unsafe output handling, excessive agency, or unbounded consumption—I identify a control owner and a test at the relevant boundary. For example, cross-tenant retrieval becomes a negative authorization test, while excessive agency becomes a tool-scope and approval test. I track findings through remediation and regression tests rather than claiming a checklist alone establishes security.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>; <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>.</p>
           </article>
           <article class="interview-item">
             <h3>14. How do you evaluate an AI system before production?</h3>
-            <p>Define intended use, risk-based success criteria, and a representative evaluation set.<br />Test quality, safety, privacy, access control, adversarial behavior, latency, and cost.<br />Set release thresholds, document limitations, and require sign-off from accountable owners.</p>
+            <p>I translate the intended use into an evaluation plan before choosing a model: representative tasks, edge cases, prohibited outcomes, risk owners, and measurable acceptance criteria. The test set includes task quality and failure categories, retrieval/citation support, refusal or escalation, privacy and authorization negatives, adversarial inputs, plus latency and cost under expected load. I keep a versioned baseline and run the same suite when the prompt, model, index, tool schema, or provider changes; domain reviewers inspect failures that automated metrics cannot judge. Promotion requires thresholds to pass, limitations and support readiness to be documented, and the accountable business and risk owners to approve.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>; <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>.</p>
           </article>
           <article class="interview-item">
             <h3>15. What should be monitored after deployment?</h3>
-            <p>Track availability, latency, errors, token use, spend, and dependency health.<br />Monitor citation quality, refusal/escalation rates, access denials, and safety reports.<br />Minimize sensitive log content and route actionable alerts to operational owners.</p>
+            <p>I monitor conventional service signals—availability, latency by dependency, error rate, queue lag, saturation, and recovery—alongside model calls, token use, and spend by approved dimensions. Quality signals include sampled citation support, task completion or correction rate, abstention/escalation, and user reports; they need privacy controls and a review process because user feedback can be noisy. I alert on actionable thresholds such as a provider error spike, stale index, unexpected cost growth, or access-control anomaly, and route each to a named runbook owner. I avoid retaining raw prompts by default and verify that logs cannot become a secondary store of sensitive data.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/overview">Azure Monitor overview</a>; <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>.</p>
           </article>
           <article class="interview-item">
             <h3>16. How do you protect an AI supply chain?</h3>
-            <p>Inventory models, datasets, packages, base images, prompts, and external services.<br />Scan dependencies and containers; verify provenance and restrict production publishing.<br />Pin versions, review changes, and keep a tested rollback path for compromised artifacts.</p>
+            <p>I maintain an inventory of model/provider versions, datasets, prompts, evaluation assets, packages, base images, and external services, with provenance and accountable owners. CI scans dependencies and images, applies policy checks, and publishes immutable artifacts to a controlled registry; production identities can deploy approved artifacts but cannot silently replace them. Model and prompt changes go through the same review and evaluation process as code, with pinned versions where supported. I preserve release records and a tested rollback or disable path, and define how to respond if a provider, package, dataset, or model is withdrawn or compromised.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.nist.gov/cyberframework">NIST Cybersecurity Framework 2.0</a>; <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-security">AKS security concepts and supply-chain controls</a>.</p>
           </article>
           <article class="interview-item">
             <h3>17. How would you secure an AI workload on AKS?</h3>
-            <p>Use managed identity, least-privilege Kubernetes RBAC, and namespace boundaries.<br />Harden the cluster, restrict ingress/egress, scan and sign images, and enforce policies.<br />Monitor workloads and nodes, patch regularly, and protect the Kubernetes control plane.</p>
+            <p>I begin with the cluster threat model and decide whether AKS is justified by requirements such as specialized scheduling, portability, or platform control; I avoid Kubernetes if a managed app service meets the need. On AKS I use managed identities and least-privilege Kubernetes/cloud RBAC, separate workloads and secrets by namespace and service account, and restrict ingress and egress with supported network policy and routing controls. The delivery pipeline builds and scans immutable images, enforces admission policy, and separates deploy permissions from runtime permissions. I monitor control-plane and workload health, patch nodes and dependencies, test restore and upgrade procedures, and include model/API quotas so autoscaling cannot create unbounded spend.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-security">AKS security concepts</a>; <a href="https://learn.microsoft.com/en-us/azure/aks/secure-container-access">Secure container access with Microsoft Entra workload ID</a>.</p>
           </article>
           <article class="interview-item">
             <h3>18. When would you choose Azure App Service for an AI application?</h3>
-            <p>Choose it for a web/API workload that benefits from managed application hosting.<br />Use supported private networking, identity, managed secrets, and controlled deployment practices.<br />Validate plan-specific ingress and egress capabilities against the threat model.</p>
+            <p>I would choose App Service for a conventional web/API tier when its deployment model, scaling, runtime support, and networking fit the workload, while keeping model and data services behind explicit service interfaces. I would use managed identity for supported dependencies, store secrets in a managed secret service, and configure inbound access and outbound/private connectivity according to the selected plan's actual capabilities. I verify those plan-specific networking constraints before committing the design, rather than assuming every tier supports the same controls. Deployment slots or staged rollout, health checks, dependency timeouts, and a model-provider fallback can reduce release and availability risk.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/app-service/overview-security">Azure App Service security</a>; <a href="https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration">App Service virtual network integration</a>.</p>
           </article>
           <article class="interview-item">
             <h3>19. When is Azure Container Apps a suitable choice?</h3>
-            <p>It suits containerized APIs, workers, and event-driven services with managed operations.<br />Use environment networking, ingress modes, identity, and scaling limits deliberately.<br />Confirm required routing and egress controls are supported by the selected environment type.</p>
+            <p>I consider Container Apps for containerized APIs, asynchronous media/model workers, and event-driven jobs when I want managed container operations without operating a full Kubernetes platform. I separate public or internal ingress from background workers, give each app a distinct identity, and set scale rules, maximum replicas, concurrency, and queue back-pressure from measured workload behavior. I validate environment type, VNet integration, private endpoints, DNS, and outbound routing against the required threat model and Azure's current service capabilities. Revisions support controlled promotion, but I still test rollback, worker idempotency, and whether scale-out respects provider quotas and budget limits.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/container-apps/networking">Azure Container Apps networking</a>; <a href="https://learn.microsoft.com/en-us/azure/container-apps/scale-app">Azure Container Apps scaling</a>.</p>
           </article>
           <article class="interview-item">
             <h3>20. How do you control model cost and denial-of-wallet risk?</h3>
-            <p>Set per-user and global request, token, concurrency, and time limits.<br />Use quotas, anomaly alerts, bounded retries, caching where safe, and budget owners.<br />Load-test peak behavior and fail gracefully when limits or provider capacity are reached.</p>
+            <p>I model cost per business transaction from expected input/output tokens, modality processing, retrieval, retries, and peak concurrency, then set per-user and global request/token limits. The gateway or application enforces payload limits, timeouts, concurrency, quotas, and bounded retries; retries must not amplify a provider outage. I use caching only where authorization scope, data freshness, and privacy make it safe, and alert on spend rate and unusual usage before a monthly budget is exhausted. Load tests verify both peak cost and graceful behavior at quota or provider-capacity limits, including a lower-cost or human fallback where appropriate.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management">Azure Cost Management overview</a>; <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>.</p>
           </article>
           <article class="interview-item">
             <h3>21. How do you respond to an AI safety incident?</h3>
-            <p>Contain the feature or tool path and preserve appropriate audit evidence.<br />Triage affected users/data, notify accountable security, privacy, and domain owners.<br />Correct the cause, re-evaluate, communicate as required, and document lessons learned.</p>
+            <p>I use the established incident process and first contain the specific risk: disable a tool, pause a model route, restrict a source/index, or take the feature offline while preserving necessary evidence. The incident lead brings in security, privacy, product, legal/compliance, and domain safety owners to determine affected users, data, decisions, and reporting obligations. We trace the release versions and relevant access/audit events, avoid unnecessarily collecting more sensitive content, and communicate through approved channels. Before restoring service, we fix the root cause, add a regression test, rerun the relevant evaluation, obtain risk-owner approval, and document follow-up actions.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>; <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>.</p>
           </article>
           <article class="interview-item">
             <h3>22. How do you safely update a model or prompt?</h3>
-            <p>Version the model, prompt, retrieval configuration, and evaluation results together.<br />Run regression and adversarial tests, then release gradually with monitoring.<br />Keep a known-good version and an operational rollback or disable mechanism.</p>
+            <p>I create an explicit change record covering model/provider version, prompt, tools, retrieval settings, index/data snapshot, application build, and the reason for change. I replay a fixed, access-controlled evaluation suite and compare task quality, safety, citation behavior, latency, and cost with the current baseline; domain reviewers inspect material regressions. After approval I promote to staging and a limited canary, monitoring both service health and sampled outcome signals. The previous known-good configuration remains deployable, and the operator can roll back or disable the affected capability without waiting for a code release.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>; <a href="https://learn.microsoft.com/en-us/azure/well-architected/">Azure Well-Architected Framework</a>.</p>
           </article>
           <article class="interview-item">
             <h3>23. What is a safe fallback when an AI dependency fails?</h3>
-            <p>Use timeouts, bounded retries, and circuit breakers to avoid cascading failures.<br />Offer a human workflow, approved search, or clear unavailable response.<br />Never substitute an unreviewed model or bypass essential authorization for availability.</p>
+            <p>I set a deadline for the end-to-end request, use bounded retries with backoff only for retryable failures, and open a circuit breaker when the dependency is unhealthy. The fallback is designed per task: approved search, a queued request, human handling, or a clear unavailable response—not a silent switch to an untested model. Authorization and safety gates remain in force in every mode, and any cached answer is checked for freshness and current permissions. I exercise the failure path in integration tests and operational game days, including recovery and queue-drain behavior.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/well-architected/reliability/principles">Azure Well-Architected reliability principles</a>; <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>.</p>
           </article>
           <article class="interview-item">
             <h3>24. How do you address fairness and explainability concerns?</h3>
-            <p>Define affected populations and meaningful outcome measures with domain experts.<br />Evaluate representative subgroups and explain outputs using traceable evidence and limitations.<br />Provide human review and contest mechanisms; do not claim perfect neutrality.</p>
+            <p>I first identify who may be affected and whether the model's output could influence access, service, employment, safety, or another consequential outcome. With domain and legal experts, I define appropriate subgroup and error analyses, check whether the evaluation data represents real operating conditions, and investigate differences rather than treating one aggregate score as proof of fairness. For generative answers I provide source evidence, model/configuration traceability, known limitations, and a way to challenge or correct the result; explanation must not imply certainty the model does not have. If the use cannot be adequately evaluated or governed, I narrow or reject the use case.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a>; <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>.</p>
           </article>
           <article class="interview-item">
             <h3>25. How do you decide whether an AI solution is ready for production?</h3>
-            <p>Confirm business value, permitted use, data rights, owners, and support readiness.<br />Verify security controls, evaluations, capacity, observability, recovery, and user escalation.<br />Launch only when risks are accepted, thresholds pass, and rollback is operationally tested.</p>
+            <p>I use a readiness review with evidence, not a demo: a named business owner, approved intended use, data rights, threat model, architecture and support owners, and a measured baseline/business case. The team demonstrates passing quality and safety evaluations, authorization and privacy tests, capacity and cost limits, dependency failure behavior, observability, incident runbooks, and recovery/rollback. We also verify user guidance, human escalation, retention, and who can disable the feature. Launch is a risk-owner decision with staged exposure and explicit stop criteria; unresolved risks are documented and accepted by the appropriate authority, not hidden in a project plan.</p>
+            <p class="interview-sources"><strong>Further reading:</strong> <a href="https://learn.microsoft.com/en-us/azure/well-architected/">Azure Well-Architected Framework</a>; <a href="https://doi.org/10.6028/NIST.AI.600-1">NIST Generative AI Profile</a>.</p>
           </article>
         </div>
       </section>
